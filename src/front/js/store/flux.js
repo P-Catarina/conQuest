@@ -1,6 +1,5 @@
-import React, {useState} from "react";
 import { IMAGES } from "../../img/all_images";
-import { TEXT } from "../../text/all_messages";
+import { TEXT } from "../../content_text/all_messages";
 
 
 const getState = ({ getStore, getActions, setStore }) => {
@@ -103,13 +102,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 				} else if (view === "rewards") {
 					switch(tier){
 						case 1:
-							tierIcon = "far fa-star"
+							tierIcon = "fa-regular fa-star"
+							
 							break;
 						case 2:
-							tierIcon = "fas fa-star-half-alt"
+							tierIcon = "fa-solid fa-star-half-stroke"
 							break;
 						case 3:
-							tierIcon = "fas fa-star"
+							tierIcon = "fa-solid fa-star"
 							break;
 						default:
 							tierIcon = "fa-solid fa-question"
@@ -122,7 +122,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			getActionIcon: (view, done) => {
 				let actionIcon="";
 
-				if (view === "rewards") actionIcon = "fa-solid fa-skull" 
+				if (view === "rewards") actionIcon = "fa-solid fa-crosshairs" 
 				else if(view === "tasks") {
 					switch(done){
 						case true:
@@ -173,19 +173,27 @@ const getState = ({ getStore, getActions, setStore }) => {
 				return abilityImg
 			},
 
-			getBackgroundColor: (page) => {
-				if (page === "home" ) document.querySelector("body").setAttribute("class", "bg-white")
-				if (page === "login" ) document.querySelector("body").setAttribute("class", "bg-green")
-				if (page === "signup" ) document.querySelector("body").setAttribute("class", "bg-yellow")
-				if (page === "role" ) document.querySelector("body").setAttribute("class", "bg-red")
-				if (page === "forgot" ) document.querySelector("body").setAttribute("class", "bg-purple")
-				if (page === "quests" ) document.querySelector("body").setAttribute("class", "bg-yellow")
-				if (page === "rewards" ) document.querySelector("body").setAttribute("class", "bg-yellow")
-				if (page === "profile" ) document.querySelector("body").setAttribute("class", "bg-purple")
-				if (page === "bestiary" ) document.querySelector("body").setAttribute("class", "bg-green")
-				if (page === "encounter" ) document.querySelector("body").setAttribute("class", "bg-purple")
-				if (page === "battle" ) document.querySelector("body").setAttribute("class", "bg-red")
-				if (page === "scoreboard" ) document.querySelector("body").setAttribute("class", "bg-purple")
+			getBackgroundColor: (color) => {
+				switch(color){
+					case "none":
+						document.querySelector("body").setAttribute("class", "")
+						break;
+					case "yellow":
+						document.querySelector("body").setAttribute("class", "bg-yellow")
+						break;
+					case "red":
+						document.querySelector("body").setAttribute("class", "bg-red")
+						break;
+					case "purple":
+						document.querySelector("body").setAttribute("class", "bg-purple")
+						break;
+					case "green":
+						document.querySelector("body").setAttribute("class", "bg-green")
+						break;
+					default:
+						document.querySelector("body").setAttribute("class", "")
+						break;
+				}
 			},
 
 			encounterText: () => {

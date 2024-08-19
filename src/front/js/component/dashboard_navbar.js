@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
-
 import { Link } from "react-router-dom";
 import { IMAGES } from "../../img/all_images";
 
@@ -148,7 +147,7 @@ export const Navbar = ({view, modal}) => {
             {/* encounter button */}
             </div>
             {store.user.encounter > 0
-            ? <Link to="/encounter">
+            ? <Link to="/encounter-map">
             <div className="card col p-2 encounter text-light" data-bs-dismiss="offcanvas">
                 <h5>Watch Out</h5>
             </div>

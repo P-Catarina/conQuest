@@ -9,7 +9,7 @@ export const Scoreboard = () => {
         actions.getScoreboard()
         actions.getUserDataAndAbilities()
         actions.getBestiary()
-        actions.getBackgroundColor("scoreboard")
+        actions.getBackgroundColor("purple")
     },[]);
 
 	return (
@@ -24,7 +24,7 @@ export const Scoreboard = () => {
                 <h5 className="col">{store.bestiary.length} Beasts</h5>
             </div>
             <div className="d-flex flex-md-row gap-4">
-                <div className="card col p-2 bg-black" data-bs-toggle="collapse" href="#TopLevel" role="button" aria-controls="TopLevel">
+                <div className="card col p-2 bg-black" data-bs-toggle="collapse" href="#TopLevel" role="button" aria-controls="TopLevel" aria-expanded="true">
                     <h5>By Level</h5>
                 </div>
                 <div className="card col p-2 bg-black" data-bs-toggle="collapse" href="#TopBeasts" role="button" aria-controls="TopBeasts">
@@ -56,7 +56,7 @@ export const Scoreboard = () => {
                 </div>
                 ))}
             </div>
-            <div id="TopLevel" className="collapse">
+            <div id="TopLevel" className="collapse-show">
                 {/* level labels bar */}
                 <div className="card d-flex flex-md-row p-md-3 bg-red">
                     <h5 className="col">Rank</h5>
@@ -84,7 +84,7 @@ export const Scoreboard = () => {
             {/* close bestiary */}
             <div className="navbar fixed-bottom py-3 d-flex justify-content-center">
                     <Link to="/quests" className="card col-9 p-3 text-center bg-black">
-                        <h5>Back to quests</h5>
+                        <h5>To Questing</h5>
                     </Link>
             </div>            
 		</div>

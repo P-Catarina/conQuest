@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import { IMAGES } from "../../img/all_images";
-import { TEXT } from "../../text/all_messages";
+import { TEXT } from "../../content_text/all_messages";
 
-import { ConfirmationModal } from "./confirmation_modal";
-import { ResponseModal } from "./response_modal";
+import { ConfirmationModal } from "./modal_confirmation";
+import { ResponseModal } from "./modal_response";
 
 export const TakeAction = ({id, view, label, tier, done}) => {
     const { store, actions } = useContext(Context);
@@ -65,7 +65,7 @@ export const TakeAction = ({id, view, label, tier, done}) => {
             id={`attackReward${id}`}
             title="Attack this reward?"
             image={abilityImg}
-            message={`Use ${ability !== undefined? ability.name : null} on`}
+            message={`Use ${ability !== undefined? ability.name : null} to claim`}
             subMessage={label}
             confirmLabel="Use Ability"
             targetModal={`#rewardResponse${id}`}

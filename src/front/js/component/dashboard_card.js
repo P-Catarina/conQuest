@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
-import { TakeAction } from "./action_dashboard";
+
+import { TakeAction } from "./dashboard_action_button";
 
 export const DashCard = ({id, view, label, tier, modal, done}) => {
 

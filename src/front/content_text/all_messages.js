@@ -1,10 +1,53 @@
 export const TEXT = {
+    about: ["Keeping it short and sweet for all you short attention spans out there.",
+    "conQuest is a D&D inspired, gamified To Do List, built in the hopes of entertaining you into doing your chores. That's it folks! Don't think we could make it any simpler."],
+
+    testimonials: ["@ GandalfTheWhite", "Even tough it wasn't meant for that, the reward system helped me control my addiction of calling hobbits “idiot” all the time. Well I also got a well deserved glow up at last.",
+    "@ Kirby", "It got to the dev team of conQuest that this user was just speechless. Thank you :')",
+    "@ Duke Nukem", "It's time to kick ass and chew bubble gum…and I'm all outta gum.",
+    "@ Na'vi", "Hey! Listen! conQuest was so fun to use while assembling the Triforce.",
+    "@ Indiana Jones", "After finding conQuest, nothing shocks me. I'm a scientist.",
+    "@ Neo", "Everyone believes I'm the chosen one. What they don't know is that I use conQuest.",
+    ],
+
+    tutorial: "It's dangerous to go alone, take this tutorial!",
+    tutorialTitles: ["Get a Role", "Off to Questing", "The plot thickens", "For Demaciaaaa", "UwU", "Oh yeah baby", "Darararaaaaaaaam"],
+    tutorialSlides: ["First you'll choose a role based on your personality and game style. Each role gives you a different advantage in the game so choose wisely!",
+    "With that settled your main focus will be your quests board. That is where you'll insert your To Dos, from here on called quests as you predicted correctly, weow!",
+    "When adding a quest you'll find it needs a tier. This tier is the level of difficulty you feel it will take. Why does it matter? Well fine sir, depending on the quest's tier you'll get different stats when you complete it. You're free to make it as hard or easy on yourself as you wish, however, we both know honesty with yourself is the best policy.",
+    "By completing quests you get experience points and energy points. Experience makes you level up. Each time you level up you get to face a D&D creature. You both roll a 6D and upon winning you capture it into your own bestiary. Mind you there are 334 creatures so if you gotta catch them all, it most certainly will keep you busy.",
+    "Energy points are meant to be used in your secondary board which is another list, but this one is destined for rewards. Yes! For some of our neurospicy fellas completing quests may feel like an endless cycle of work and no fun... Where is the dopamine?! We want you to pamper yourself with tangible goals.",
+    "Rewards have a tier too. The higher the tier the more energy you need to unlock it. Your energy bar has a cap so be sure to treat yourself ok? Be creative, get rewards that make you feel giddy or cozy, small and big treats, that thing you wanted so BAD! Maybe having an afternoon to do just nothing sounds nice from time to time.",
+    "Badabim Badabom! These are the basics, we trust you can manage from here on your own. Only you know where the road ahead leads you weary traveler. Follow it or go off the beaten path. Make the best out of it."
+    ],
+
+    devs: [{ name: "P Catarina",
+    title: "Full Stack Developer",
+    intro: "Curious by nature, storytelling and the richness of world building has always ignited a deep fire into Catarina's nerdy heart from a young age. The creation of immersive experiences has become her natural element no matter the medium. At last the Avatar has returned.",
+    github: "https://github.com/P-Catarina",
+    linkedin: "https://www.linkedin.com/in/p-catarina/",
+    },
+    { name:"Elio Aloise",
+    title: "Full Stack Developer",
+    intro: "Mystic developer by day, weaving together the fabrics of code and reality, an ingenious Dungeon Master by nightfall. A true man of his craft, Elio has harnessed quite a set of tools under his belt but ultimately turned into code to pursue his dream of becoming the ultimate villain *cof* sorry, a game developer.",
+    github: "https://github.com/ElioAloise",
+    linkedin: "https://www.linkedin.com/in/elio-aloise-427a042a7/",
+    }],
+
+    geeks: "Special thanks to 4Geeks Academy, our teachers and mentors. Everyone that helped and supported us during our journey, we can't thank you enough.",
+    freepik: "All of our cool images come from amazing artists such as max.icons, catalyststuff, upklyak and vectorpouch over at Freepik.",
+
     forgotPassword: "Let's begin the ritual of summoning thee. You will receive and email if there is an account associated to it. Either that or instant death.",
     
     zeroBeasts: "Your Bestiary is empty. You'll aquire a beast by defeacting it in an encounter. This encounter happens each time you level up. So what are you waiting for?",
-    zeroQuests: "Tasks are the labour of fools and you aint no fool. This board is for your life's side quests. You will get experience and energy by completing them. The more challenging the quest is, the greater your stats will be. Why do these matter? Fret not, you'll understand soon enough.",
+    zeroQuests: "Tasks are the labour of fools and you aint no fool. This board is for your life's side quests. You will get experience and energy by completing them. The more challenging the quest is, the greater your stats will be.",
     zeroRewards: "What is it your heart desires? Ethernal youth is a bit of a stretch... Fill this board with rewards to unlock as you get enough energy to do so. Be aware it is not a boundless resource so be sure to use it until it reaches it's limit.",
     
+    deleteAccTitle: "Delete account? Destroy it?",
+    deleteAccMessage: "The account was made in the flames of Mount Doom. Only there can it be unmade....",
+    deleteAccConfirm: "I will take it",
+    deleteAccCancel: "One does not simply walk into Mordor",
+
     rewardClaimed: "You're too powerful, they never saw it coming. Your hard work is paying off, keep it up.",
     rewardLocked: "The injuries from your last adventure still got you weak. You can't have this battle now, your energy is too low...",
 
@@ -55,5 +98,4 @@ export const TEXT = {
     victory: "As the final blow is struck, your enemy falls to the ground with a resounding thud. As the adrenaline of the battle still rushes through you, there's imense rejoice, you have triumphed!",
     defeatTitle: "Defeat",
     defeat: "As you fall, an eerie silence descends upon the battlefield. You stand up amidst the wreckage, bruised, battered, and barely holding on. The weight of defeat settles heavily on your shoulders.",
-
 }

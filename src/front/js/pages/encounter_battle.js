@@ -2,17 +2,17 @@ import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext"
 import { useNavigate } from "react-router-dom";
 import { IMAGES } from "../../img/all_images";
-import { TEXT } from "../../text/all_messages";
+import { TEXT } from "../../content_text/all_messages";
 
-import { BetweenModal } from "../component/inbetween_modal";
-import { ResponseModal } from "../component/response_modal";
+import { BetweenModal } from "../component/moral_inbetween";
+import { ResponseModal } from "../component/modal_response";
 
-export const Battle = () => {
+export const EncounterBattle = () => {
     const { store, actions } = useContext(Context);
     const navigate = useNavigate();
 
     useEffect(() => {
-		actions.getBackgroundColor("battle")
+		actions.getBackgroundColor("red")
     },[]);
 
     let beastImage = actions.getMonsterImage(store.encounterInfo)

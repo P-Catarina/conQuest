@@ -1,17 +1,18 @@
 import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
-import { TEXT } from "../../text/all_messages";
+import { TEXT } from "../../content_text/all_messages";
 
-import { Navbar } from "../component/navbar_dashboard";
-import { DashCard } from "../component/card_dashboard";
-import { AddEditModal } from "../component/add_edit_modal_dashboard";
+import { Navbar } from "../component/dashboard_navbar";
+import { DashCard } from "../component/dashboard_card";
+import { AddEditModal } from "../component/modal_add_edit_dashboard";
+
 
 export const Quests = () => {
 	const { store, actions } = useContext(Context);
 
 	useEffect(() => {
         actions.getTaskList()
-		actions.getBackgroundColor("quests")
+		actions.getBackgroundColor("yellow")
     },[]);
 
     let view = "tasks"

@@ -3,22 +3,22 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { BackendURL } from "./component/backendURL";
 
 import injectContext from "./store/appContext";
-import { PrivateRoutes } from "./privateRoutes";
+import { PrivateRoutes } from "./private_routes";
 
 import { Home } from "./pages/home";
 import { Login } from "./pages/logIn";
 import { Forgot } from "./pages/forgot_password";
-import { SignUp } from "./pages/signUp";
+import { SignUp } from "./pages/signup";
+import { Tutorial } from "./pages/tutorial";
 import { Role } from "./pages/choose_role";
 import { Quests } from "./pages/quests";
 import { Rewards } from "./pages/rewards";
 import { Bestiary } from "./pages/bestiary"; 
-import { Encounter } from "./pages/encounter";
-import { Battle } from "./pages/battle";
+import { EncounterMap } from "./pages/encounter_map";
+import { EncounterBattle } from "./pages/encounter_battle";
 import { Scoreboard } from "./pages/scoreboard";
 import { ProfileEdit } from "./pages/profile_edit";
 
-import { FirstEncounter } from "./pages/first_encounter";
 
 const Layout = () => {
     const basename = process.env.BASENAME || "";
@@ -34,13 +34,13 @@ const Layout = () => {
                     <Route element={<Forgot />} path="/forgot" />
                     <Route element={<SignUp />} path="/signup" />
                     <Route element={<Quests />} path="/quests" />
-                    <Route element={<Role />} path="/role" />
+                    <Route element={<Tutorial />} path="/tutorial" />
                     <Route element={<PrivateRoutes />}>
+                        <Route element={<Role />} path="/role" />
                         <Route element={<Rewards />} path="/rewards" />
                         <Route element={<Bestiary />} path="/bestiary" />
-                        <Route element={<FirstEncounter />} path="/no" />
-                        <Route element={<Encounter />} path="/encounter" />
-                        <Route element={<Battle />} path="/battle" />
+                        <Route element={<EncounterMap />} path="/encounter-map" />
+                        <Route element={<EncounterBattle />} path="/encounter-battle" />
                         <Route element={<Scoreboard />} path="/scoreboard" />
                         <Route element={<ProfileEdit />} path="/editprofile" />
                     </Route>

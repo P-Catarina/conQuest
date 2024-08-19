@@ -1,16 +1,15 @@
 import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
-
 import { Link, useNavigate } from "react-router-dom";
-import { CreatureModal } from "../component/creatureModal";
-import { TEXT } from "../../text/all_messages";
+import { TEXT } from "../../content_text/all_messages";
 
+import { CreatureModal } from "../component/modal_creature";
 
 export const Bestiary = () =>{
   const { store, actions } = useContext(Context);
 
   useEffect(() => {
-    actions.getBackgroundColor("bestiary")
+    actions.getBackgroundColor("green")
     actions.getBestiary()
     },[]);
   
@@ -49,7 +48,7 @@ export const Bestiary = () =>{
     {/* close bestiary */}
     <div className="navbar fixed-bottom py-3 d-flex justify-content-center">
       <Link to="/quests" className="card col-9 p-3 text-center bg-black">
-        <h5>Back to questing!</h5>
+        <h5>To Questing</h5>
       </Link>
     </div>   
 

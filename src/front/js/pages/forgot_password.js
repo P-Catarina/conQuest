@@ -2,17 +2,18 @@ import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext"
 import { Link } from "react-router-dom";
 import { IMAGES } from "../../img/all_images";
-import { TEXT } from "../../text/all_messages";
+import { TEXT } from "../../content_text/all_messages";
 
 export const Forgot = () => {
 	const { store, actions } = useContext(Context);
 
 	useEffect(() => {
-		actions.getBackgroundColor("forgot")
+		actions.getBackgroundColor("purple")
     },[]);
 
 	return (
 		<>
+		<Link to="/"><img id="menuQ" src={IMAGES.logoQ} /></Link>
 		<form className="col-md-4 mx-auto p-5 gap-4 card">
 			<h1> Forgot password</h1>
             {/* image */}

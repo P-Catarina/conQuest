@@ -8,15 +8,17 @@ export const Role = () => {
 
 	useEffect(() => {
 		actions.getRoles()
-		actions.getBackgroundColor("role")
+		actions.getBackgroundColor("red")
 	},[])
 
 	return (
-    <div className="container-fluid text-center">
+    <>
+	<div className="col-lg-11 mx-auto d-flex flex-column align-items-center gap-5">
 		<h1>Oh I'm definitely a </h1>
+		<div className="d-flex flex-row gap-5">
 		{store.roles.length > 0 && store.roles.map( role => (
-			<div className="col-lg-3 d-lg-inline-flex m-xl-3 my-3 p-4 gap-3 card" key={role.id}>
-				<img className="col-6 align-self-center"
+			<div className="col d-flex flex-column gap-3 p-5 card" key={role.id}>
+				<img className="col-6 mx-auto"
 					src={actions.getRoleImage(role.id)}
 					alt={role.name + " item"}
 				/>
@@ -24,12 +26,14 @@ export const Role = () => {
 					<h3>{role.name}</h3>
 					<p>{role.description}</p>
 				</div>
-					<Link to="/quests" type="button" className="btn bg-black text-light"
+					<Link to="/quests" type="button" className="btn bg-black txt-white"
 						onClick={() => actions.userRole(role.id)}>
-						Yes, let's go!
+						<h5>Yes, let's go!</h5>
 					</Link>
 			</div>
 		))}
-    </div>
+		</div>
+	</div>
+    </>
 	);
 };

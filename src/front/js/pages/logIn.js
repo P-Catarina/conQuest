@@ -7,11 +7,12 @@ export const Login = () => {
 	const { store, actions } = useContext(Context);
 
 	useEffect(() => {
-		actions.getBackgroundColor("login")
+		actions.getBackgroundColor("green")
     },[]);
 
 	return (
 		<>
+		<Link to="/"><img id="menuQ" src={IMAGES.logoQ} /></Link>
 		<form className="col-xl-4 mx-auto p-5 gap-4 card">
 			<h1>Log in</h1>
 			{/* email input */}
@@ -38,13 +39,14 @@ export const Login = () => {
 					<h5>Let's go!</h5>
 				</div>
 			</Link>
-			{/* signup and forgot */}
-			<div className="text-center">
-				<p>Not part of the crew yet?
-					<Link to={'/signUp'} className="txt-purple"> Sign up here!</Link>
-				</p>
-				<Link to={'/forgot'} className="txt-purple">Forgot password?</Link>
-			</div>
+			{/* sign up */}
+			<Link to="/signup" type="reset" className="card p-3 text-center bg-black" onClick={actions.resetInput}>
+                <h5>Not part of the crew yet?</h5>
+            </Link>
+			{/* forgot password */}
+			<Link to="/forgot" type="reset" className="card p-3 text-center bg-purple" onClick={actions.resetInput}>
+                <h5>Forgot password?</h5>
+            </Link>
 		</form>
 		</>
 	);

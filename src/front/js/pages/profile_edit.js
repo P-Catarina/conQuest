@@ -2,18 +2,19 @@ import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext"
 import { Link } from "react-router-dom";
 import { IMAGES } from "../../img/all_images";
+import { TEXT } from "../../content_text/all_messages";
 
 export const ProfileEdit = () => {
 	const { store, actions } = useContext(Context);
 
     useEffect(() => {
         actions.getUserDataAndAbilities()
-		actions.getBackgroundColor("profile")
+		actions.getBackgroundColor("purple")
     },[]);
 
 	return (
 		<>
-		<form className="col-xl-6 mx-auto p-5 gap-4 card">
+		<form className="col-xl-10 mx-auto p-5 gap-4 card">
 			<h1>How may I assist you oh powerful one?</h1>
             {/* username */}
 			<div className="d-inline-flex flex-row justify-content-evenly p-2 card">
@@ -46,7 +47,7 @@ export const ProfileEdit = () => {
             {/* cancel */}
             <Link to="/quests">
 			<div type="reset" className="card p-3 text-center bg-black" onClick={actions.resetInput}>
-				<h5>Back to quests</h5>
+				<h5>To Questing</h5>
 			</div>
             </Link>
 			{/* delete account */}
@@ -98,23 +99,23 @@ export const ProfileEdit = () => {
             <div className="modal-dialog modal-dialog-centered">
                 <div className="card modal-content p-4">
                     {/* title */}
-                    <h1>Delete account? <br></br>Destroy it?</h1>                 
+                    <h1>{TEXT.deleteAccTitle}</h1>                 
                     <div className="modal-body d-flex flex-column gap-4">
 						{/* image */} 
                         <img className="col-6 align-self-center" src={IMAGES.volcano} alt="mount doom" />
 						{/* message */} 
 						<div>
-							<h5>The account was made in the flames of Mount Doom. Only there can it be unmade....</h5>
+							<h5>{TEXT.deleteAccMessage}</h5>
 						</div>                    
                         {/* delete */}
 						<Link to="/" >
 							<div type="submit" className="card p-2 text-center bg-yellow" data-bs-dismiss="modal" onClick={actions.deleteUser}>
-								<h5>I will take it</h5>
+								<h5>{TEXT.deleteAccConfirm}</h5>
 							</div>
 						</Link>
                         {/* cancel */}
                         <div type="reset" className="card p-2 text-center bg-black" data-bs-dismiss="modal">
-                            <h5>One does not simply walk into Mordor</h5>
+                            <h5>{TEXT.deleteAccCancel}</h5>
                         </div>
                     </div>
                 </div>

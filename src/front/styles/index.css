@@ -1,37 +1,85 @@
 body {
-    font-family: Montserrat;
+    font-family: Nunito;
+    font-size: larger;
+    /*cursor: url('../img/cursor.png');*/
 }
+
+/* text */
+h1, h2, h3, h4, h5, h6 {font-family: Caprasimo}
+
+p {margin: 0px}
+
+i {scale: 140%; width: 17px; height: 17px;}
+
+a, a:link {text-decoration: none}
+
+.bold {font-weight: bold}
+
+.sizeDown {scale: 100% !important}
 
 /* pages with the navbar */
 .dashboard {margin-top: 100px}
 
-/* colors */
-.bg-green {background: #10E0B8}
-.bg-yellow {background: #FFC444}
-.bg-red {background: #EB1652}
-.bg-purple {background: #9111F2}
-.bg-black {background: #252424; color: #ffffff; box-shadow: none !important;}
-.bg-white {background: #ffffff}
+/* home */
+.home-screen{
+    display: flexbox;
+    padding: 5% 10% !important;
+    text-align: center;
+}
 
+.home-screen > *:not(:last-child) {
+    display: block;
+    margin: auto;
+    margin-bottom: 5%;
+} 
+
+.home-title {align-self: center; font-size: 300%;}
+
+#scrollQ {
+    display: none;
+    z-index: 1;
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+}
+
+#menuQ {
+    z-index: 1;
+    position: fixed;
+    top: 25px;
+    left: 25px;
+}
+
+.home-transition {
+    height: 80px;
+    background-repeat: repeat-x;
+
+    &.one {background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F6682642%2Fpexels-photo-6682642.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26h%3D750%26w%3D1260&f=1&nofb=1&ipt=5fe69f1716c58f2ad372abdb1a5cfd63360b0234aaaab29e232321feab7d2c17&ipo=images);}
+    &.two {background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F6682642%2Fpexels-photo-6682642.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26h%3D750%26w%3D1260&f=1&nofb=1&ipt=5fe69f1716c58f2ad372abdb1a5cfd63360b0234aaaab29e232321feab7d2c17&ipo=images);}
+    &.three {background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F6682642%2Fpexels-photo-6682642.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26h%3D750%26w%3D1260&f=1&nofb=1&ipt=5fe69f1716c58f2ad372abdb1a5cfd63360b0234aaaab29e232321feab7d2c17&ipo=images);}
+    &.four {background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F6682642%2Fpexels-photo-6682642.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26h%3D750%26w%3D1260&f=1&nofb=1&ipt=5fe69f1716c58f2ad372abdb1a5cfd63360b0234aaaab29e232321feab7d2c17&ipo=images);}
+}
+
+/* colors */
+.txt-white {color: #ffffff}
+.txt-black {color: #252424}
 .txt-green {color: #10E0B8}
 .txt-yellow {color: #FFC444}
 .txt-red {color: #EB1652}
 .txt-purple {color: #9111F2}
 
-.bg-active {
-    background: #10E0B8;
-    border-radius: 100px !important;
-}
+.bg-green {background: #10E0B8; padding: 5%}
+.bg-yellow {background: #FFC444; padding: 5%}
+.bg-red {background: #EB1652; padding: 5%}
+.bg-purple {background: #9111F2; padding: 5%}
+.bg-black {background: #252424 !important; color: #ffffff; padding: 5%}
+.bg-white {background: #ffffff; padding: 5%}
+.bg-off {background: rgba(124, 124, 124, 0.1); color: #ffffff; padding: 4%}
 
-.bg-experience {
-    background: #10E0B8;
-    border-radius: 100px !important;
-}
+.bg-active { background: #10E0B8; border-radius: 100px !important;}
 
-.bg-energy {
-    background: #FFC444;
-    border-radius: 100px !important;
-}
+.bg-experience {background: #10E0B8; border-radius: 100px !important;}
+.bg-energy {background: #FFC444; border-radius: 100px !important;}
 
 /* cards borders and shadows */
 .card {
@@ -50,14 +98,21 @@ body {
     }
 }
 
-/* text */
-h1, h2, h3, h4, h5, h6, .bold {font-weight: 800}
+.menu {
+    border: 3px solid #252424;
+    border-radius: 10px;
+    box-shadow: 4px 4px #252424;
+    text-align: center;
+    background: #ffffff;
+    color: #252424;
+    padding: 2%;
+}
 
-i {scale: 140%; width: 17px; height: 17px;}
-
-.sizeDown {scale: 100% !important}
-
-a {text-decoration: none}
+.menu:hover {
+    background: #252424;
+    color: #ffffff;
+    scale: 115%;
+  }
 
 /* form inputs */
 input {
@@ -69,43 +124,45 @@ input {
     border-bottom: 3px solid #252424;
 }
 
-/* encounter button animation */
+/* animations */
 .encounter {
-    animation: on 1s;
-    -webkit-animation: on 1s;
-    animation-iteration-count:infinite;
-    -webkit-animation-iteration-count:infinite;
+    animation: encounter-on 1s infinite;
+    -webkit-animation: encounter-on 1s infinite;
 }
 
-@keyframes on  {
+@keyframes encounter-on  {
     0%   {background-color:#5c0b9b;}
     50%  {background-color:#9111F2;}
     100% {background-color:#5c0b9b;}
 }
 
-@-webkit-keyframes on {
+@-webkit-keyframes encounter-on {
     0%   {background-color:#5c0b9b;}
     50%  {background-color:#9111F2;}
     100% {background-color:#5c0b9b;}
 }
 
-.container-1{
-    /* Background pattern from Toptal Subtle Patterns */
-    background-image: url("https://miro.medium.com/v2/resize:fit:1199/1*AtkkTkSLk6Jd0nwVqifzeQ.jpeg");
-    height: 500px;
-    width: 100%;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
-    background-attachment: fixed;
- }
+#testimonials {
+    max-width: 100%;
+    overflow: hidden;
+  }
+  
+.t-scroll {
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+    animation: infinite-scroll 60s linear infinite;
+    -webkit-animation: infinite-scroll 60s linear infinite;
+}
+  
+.t-scroll p {display: inline-block;}
+  
+@keyframes infinite-scroll {
+    0% {transform: translate3d(0, 0, 0);}
+    100% {transform: translate3d(-50%, 0, 0);}
+}
 
- .homeImg{
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 80%;
-    height: 80%;
- }
-
- 
+@-webkit-keyframes infinite-scroll {
+    0% {transform: translate3d(0, 0, 0);}
+    100% {transform: translate3d(-50%, 0, 0);}
+}

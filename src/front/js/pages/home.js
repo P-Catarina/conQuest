@@ -1,54 +1,85 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext"
 import { IMAGES } from "../../img/all_images";
+import { TEXT } from "../../content_text/all_messages";
 
-import { NavbarHome } from "../component/navbarHome";
-import { Footer } from "../component/footer";
-
+import { ScrollTop } from "../component/scroll_top";
+import { TutorialSlides } from "../component/tutorial_slides";
 
 
 export const Home = () => {
-	const { store, actions } = useContext(Context);
-	
-
-	return (
+    const { store, actions } = useContext(Context);
+   
+    useEffect(() => {
+        actions.getBackgroundColor("none")
+    },[]);
+    
+    return (
 		<>
-			<div>
-				<NavbarHome />
-				<div className="container-1 card" style={{marginTop:"10px", padding:"10px"}}>
-					<div className="card bg-body-secondary" style={{width: "30%", height: "55%", marginLeft:"30px",marginTop:"20px"}}>
-						<h3 style={{marginTop:"20px"}}>Welcome to te best decision you are going to make today<br/><br/>
-						prepare to adventure trough your tasks, from making the bed to slaying dragons</h3>
-					</div>
-				</div>
-				<div className="container-1 card" style={{marginTop: "50px", padding:"10px"}}>
-					<div>
-						<div className="card bg-body-secondary" style={{width: "30%", height: "35%", marginRight:"30px",marginTop:"20px", float:"right"}}>
-							<h3 style={{marginTop: "20px"}}>Choose one of 
-							our clases to chalenge your daily adventures with your own style</h3>
-						</div>
-						<div>
-							<div className="d-flex" style={{marginTop: "200px"}}>	
-								<div className="card" style={{width: "18%", height: "250px"}}><img className="homeImg" src={IMAGES.barbarian_home} />
-								<p>the Strong Barbarian</p></div>
-								<div className="card" style={{width: "18%", height: "250px", marginLeft:"100px"}}><img className="homeImg" src={IMAGES.wizard_home} />
-								<p>the wise Wizard</p></div>
-								<div  className="card" style={{width: "18%", height: "250px", marginLeft:"100px"}}><img className="homeImg" src={IMAGES.rougue_home} />
-								<p>the cunning Rogue</p></div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div className="container-1 card" style={{marginTop: "50px", padding:"10px"}}>
-					<div className="card" style={{width: "30%", height: "65%", marginLeft:"30px",marginTop:"20px"}}>
-						<h3 style={{ marginTop: "20px"}}>
-							Join TaskSlayer so you can manage all your daily tasks while questing and getting rewards, have fun while doing all 
-							the things you feel need to be done but sometimes get forgoten or are hard to manage.
-						</h3>
-					</div>
-				</div>
-				<Footer/>
+		<ScrollTop />
+		{/* game screen */}
+		<div id="start" className="home-screen bg-purple">
+			<img className="img-fluid" src={IMAGES.logo} />
+			<div className="col-10 col-lg-2 d-flex flex-column gap-3 bold">
+				<a href="/signup" className="menu">Start</a>
+				<a href="/login" className="menu">Continue</a>
+				<a href="#about" className="menu">About</a>
+				<a href="#howto" className="menu">How to Play</a>
+				<a href="#credits" className="menu">Credits</a>
 			</div>
+			<h5 className="txt-white text-center">© 2024 ONLY MAMBO JAMBO LTD. ALL RIGHTS RESERVED.<br/> LICENSED BY DUNGEONS & DRAGUNS YEAH NOT REALLY INC.</h5>
+		</div>
+		<div className="home-transition one"></div>
+		{/* about */}
+		<div id="about" className="home-screen bg-red txt-white">
+			<div className="d-lg-flex justify-content-lg-center gap-5">
+				<img className="img-fluid" src={IMAGES.pc} />
+				<h1 className="home-title">What about<br/>conQuest?</h1>
+			</div>
+			<h1>{TEXT.about[0]}<br/><br/>{TEXT.about[1]}</h1>
+		</div>
+		<div className="home-transition two"></div>
+		{/* testimonials */}
+		<div id="testimonials" className="bg-black p-1">
+			<div className="t-scroll">
+			{TEXT.testimonials.map((item, index) => index % 2 == 0? <p className="pe-3 bold">{item}</p> : <p className="pe-5">{item}</p>)}
+			{TEXT.testimonials.map((item, index) => index % 2 == 0? <p className="pe-3 bold">{item}</p> : <p className="pe-5">{item}</p>)}
+			</div>
+		</div>
+		<div className="home-transition three"></div>
+		{/* how to play */}
+		<div id="howto" className="home-screen bg-yellow">
+			<h1 className="home-title">How to Play</h1>
+			<TutorialSlides />
+		</div>
+		<div className="home-transition one"></div>
+		{/* credits */}
+		<div id="credits" className="home-screen bg-black">
+			<h1 className="home-title">Credits</h1>
+			<div className="d-lg-flex gap-5">
+				{TEXT.devs.map((item, index) => <>
+				<div className="col d-flex flex-column gap-4 text-center card bg-off">
+					<img className="card circle bg-green mx-auto" src={IMAGES.devs[index]} />
+					<div>
+						<h3>{item["name"]}</h3>
+						<p>{item["title"]}</p>
+					</div>					
+					<p>{item["intro"]}</p>
+					<div className="d-flex justify-content-center gap-3">
+						<a href={item["github"]} target="_blank" className="card circle"><i className="fa-brands fa-github"></i></a>
+						<a href={item["linkedin"]} target="_blank" className="card circle"><i className="fa-brands fa-linkedin-in"></i></a>
+					</div>
+				</div></>)}
+			</div>
+			<div className="card bg-off">
+				<a href="https://4geeksacademy.com" target="_blank" className="txt-white"><h3>4Geeks Academy</h3></a>
+				<p>{TEXT.geeks}</p>
+			</div>
+			<div className="card bg-off">
+				<a href="https://www.freepik.com" target="_blank" className="txt-white"><h3>Freepik</h3></a>
+				<p>{TEXT.freepik}</p>
+			</div>
+		</div>
 		</>
 	);
 };
