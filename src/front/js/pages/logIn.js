@@ -3,6 +3,7 @@ import { Context } from "../store/appContext"
 import { Link } from "react-router-dom";
 import { IMAGES } from "../../img/all_images";
 
+
 export const Login = () => {
 	const { store, actions } = useContext(Context);
 
@@ -44,7 +45,7 @@ export const Login = () => {
                 <h5>Not part of the crew yet?</h5>
             </Link>
 			{/* forgot password */}
-			<Link to="/forgot" type="reset" className="card p-3 text-center bg-purple" onClick={actions.resetInput}>
+			<Link to="/forgot" type="reset" className="card p-3 text-center bg-purple txt-white" onClick={actions.resetInput}>
                 <h5>Forgot password?</h5>
             </Link>
 		</form>

@@ -6,7 +6,7 @@ import { IMAGES } from "../../img/all_images";
 export const Navbar = ({view, modal}) => {
 	const { store, actions } = useContext(Context);
 
-    useEffect(() => {
+	useEffect(() => {
         actions.getUserDataAndAbilities()
         actions.encounterInfo()
     },[]);
@@ -56,7 +56,7 @@ export const Navbar = ({view, modal}) => {
                     }
                 </div>
                 {/* log out */}
-                <Link to="/login" >
+                <Link to="/" >
                     <button className="card circle bg-black" onClick={actions.Logout}>
                         <i className="fa-solid fa-power-off"></i>
                     </button>
@@ -64,8 +64,8 @@ export const Navbar = ({view, modal}) => {
         </div>
         {/* views */}
         <div className="card round col-lg-3 mx-auto mt-4 d-flex flex-row justify-content-evenly">
-            <Link className={`nav-link col-6 ${focusQ}`} to="/quests">quests</Link>
-            <Link className={`nav-link col-6 ${focusR}`} to="/rewards">rewards</Link>
+            <Link className={`nav-link col-6 ${focusQ}`} to="/quests"><p>quests</p></Link>
+            <Link className={`nav-link col-6 ${focusR}`} to="/rewards"><p>rewards</p></Link>
         </div>
     </div>
 

@@ -1,13 +1,12 @@
 body {
     font-family: Nunito;
-    font-size: larger;
     /*cursor: url('../img/cursor.png');*/
 }
 
 /* text */
 h1, h2, h3, h4, h5, h6 {font-family: Caprasimo}
 
-p {margin: 0px}
+p {margin: 0px; font-size: larger;}
 
 i {scale: 140%; width: 17px; height: 17px;}
 
@@ -51,13 +50,13 @@ a, a:link {text-decoration: none}
 }
 
 .home-transition {
-    height: 80px;
+    height: 100px;
     background-repeat: repeat-x;
 
-    &.one {background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F6682642%2Fpexels-photo-6682642.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26h%3D750%26w%3D1260&f=1&nofb=1&ipt=5fe69f1716c58f2ad372abdb1a5cfd63360b0234aaaab29e232321feab7d2c17&ipo=images);}
-    &.two {background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F6682642%2Fpexels-photo-6682642.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26h%3D750%26w%3D1260&f=1&nofb=1&ipt=5fe69f1716c58f2ad372abdb1a5cfd63360b0234aaaab29e232321feab7d2c17&ipo=images);}
-    &.three {background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F6682642%2Fpexels-photo-6682642.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26h%3D750%26w%3D1260&f=1&nofb=1&ipt=5fe69f1716c58f2ad372abdb1a5cfd63360b0234aaaab29e232321feab7d2c17&ipo=images);}
-    &.four {background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F6682642%2Fpexels-photo-6682642.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26h%3D750%26w%3D1260&f=1&nofb=1&ipt=5fe69f1716c58f2ad372abdb1a5cfd63360b0234aaaab29e232321feab7d2c17&ipo=images);}
+    &.one {background-image: url(https://github.com/P-Catarina/conQuest/blob/main/src/front/img/home_transition1.png?raw=true);}
+    &.two {background-image: url(https://github.com/P-Catarina/conQuest/blob/main/src/front/img/home_transition2.png?raw=true);}
+    &.three {background-image: url(https://github.com/P-Catarina/conQuest/blob/main/src/front/img/home_transition3.png?raw=true);}
+    &.four {background-image: url(https://github.com/P-Catarina/conQuest/blob/main/src/front/img/home_transition4.png?raw=true);}
 }
 
 /* colors */

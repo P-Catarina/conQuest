@@ -909,7 +909,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const userRoll =Math.floor(Math.random() * 6) + 1;
 
 				setStore({creatureRoll: creatureRoll})
-				if(store.user.role=== "Barbarian"){setStore({userRoll: barbarianRoll})}
+				if(store.user.role === "Barbarian"){setStore({userRoll: barbarianRoll})}
 				else{setStore({userRoll: userRoll})}
 
 				if(store.userRoll > store.creatureRoll) {
@@ -921,7 +921,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				getActions().updateUser()
 			},
 
-			addMosnterOnBestiary: ()=>{
+			addMosnterOnBestiary: () => {
 				const user = localStorage.getItem("user")
 				const monster = getStore().encounterInfo.index
 				const type = getStore().encounterInfo.type
@@ -946,78 +946,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					   console.log(error);
 				   });
 			},
-			/*
-			creatureRoll:()=>{
-				const monsterDice =Math.floor(Math.random() * 2) + 1;
-				setStore({creatureRoll: monsterDice})
-			},
-
-			userRoll:()=>{
-				const store=getStore()
-				const userRoll =Math.floor(Math.random() * 6) + 1;
-				const barbarianRoll=Math.floor(Math.random() * 8) + 1;
-
-				if(store.user.role=== "Barbarian"){setStore({userRoll: barbarianRoll})}
-				else{setStore({userRoll: userRoll})}
-			},
-
-			decideVictory: async (monster,type)=>{
-				const store=getStore()
-				const action=getActions()
-				const user = localStorage.getItem('user')
-				const encounterCount = getStore().user.encounter
-				//setStore({...getStore, inputs:{"encounter" : encounterCount - 1}})
-				action.updateUser()	
-
-				if(store.userRoll > store.creatureRoll){return action.addMosnterOnBestiary(user,monster,type), 
-					setStore({victoryMessage:<div><h2>You are Victorius!!!!!</h2><p>As the final blow is struck, your enemiy falls to the ground with a resounding thud. Silence fills the air, broken only by your labored breathing. 
-					You have done it. You have triumphed against all odds. The battlefield, once a scene of chaos and violence, now lies still.<br/> The remnants of your foe lie scattered, 
-					and the scent of victory hangs in the air. The morning sun begins to rise, casting a golden hue over the land, symbolizing a new dawn and a hard-fought peace.<br/>
-					You gather yourself, bearing wounds and scars, but also a sense of pride and accomplishment. This victory is not just a testament to your strength and skill, 
-					but also to your unwavering resolve.<br/> As you stand, the realization sinks in: your name will be remembered, songs will be sung of your deeds, 
-					and the tales of your bravery will inspire future generations. This is your moment. Savor it, for you have earned it.</p></div>})} 
-					
-				else{return setStore({defeatMessage:<div><h2>You will have to try agin next time</h2><p>The clashing of steel and the roar of battle finally come to a halt. As you fall, an eerie silence descends upon the battlefield.
-					You stand up amidst the wreckage of what you were defending, bruised, battered, and barely holding on. The weight of defeat settles heavily on your shoulders.<br/>
-					The enemies, now victorious, survey the carnage with grim satisfaction. Though you fought valiantly, the odds were insurmountable, and your strength was not enough to turn the tide.<br/> 
-					The bitter taste of failure lingers in the air, mingling with the scent of blood and smoke.As the enemy withdraws, leaving you alone with your thoughts and the bodies of your comrades, 
-					a sense of sorrow and loss fills your heart.<br/> This defeat is a harsh reminder of the perils and unpredictability of the life you have chosen. Yet, within this darkness, 
-					a glimmer of resolve begins to stir.</p></div> })}	
-			},
-
-			getCombatText:async ()=>{
-				const store=getStore()
-				const action=getActions()
-				try{
-					// fetching data from the backend
-					const resp = await fetch(process.env.BACKEND_URL + "api/combat")
-					const data = await resp.json()
-					setStore({ combatText: data})
-					return data;
-				}catch(error){
-					console.log("Error loading message from backend", error)
-				}
-			},
-
-			selectCombatText:(creature)=>{
-				const store=getStore()
-				const action=getActions()
-				
-				if (creature.type == "aberration"){return store.combatText[0].text}
-				if (creature.type == "beast"){return store.combatText[1].text}
-				if (creature.type == "celestial"){return store.combatText[2].text}
-				if (creature.type == "construct"){return store.combatText[3].text}
-				if (creature.type == "dragon"){return store.combatText[4].text}
-				if (creature.type == "elemental"){return store.combatText[5].text}
-				if (creature.type == "fey"){return store.combatText[6].text}
-				if (creature.type == "fiend"){return store.combatText[7].text}
-				if (creature.type == "giant"){return store.combatText[8].text}
-				if (creature.type == "humanoid"){return store.combatText[9].text}
-				if (creature.type == "monstrosity"){return store.combatText[10].text}
-				if (creature.type == "ooze"){return store.combatText[11].text}
-				if (creature.type == "plant"){return store.combatText[12].text}
-				if (creature.type == "undead"){return store.combatText[13].text}				
-			},*/
 		}
 	};
 };

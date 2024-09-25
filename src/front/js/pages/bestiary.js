@@ -1,9 +1,10 @@
 import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { TEXT } from "../../content_text/all_messages";
 
 import { CreatureModal } from "../component/modal_creature";
+
 
 export const Bestiary = () =>{
   const { store, actions } = useContext(Context);
@@ -12,15 +13,6 @@ export const Bestiary = () =>{
     actions.getBackgroundColor("green")
     actions.getBestiary()
     },[]);
-  
-
-  const navigate = useNavigate()
-
-
-  //console.log("creature info", store.creatureInfo);
-  //console.log("bestiary", store.bestiary);
-  //console.log(store.creatureInfo);
-  
 
     return (
     <>

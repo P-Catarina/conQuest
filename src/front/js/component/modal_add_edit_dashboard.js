@@ -27,7 +27,7 @@ export const AddEditModal = ({id, view, label, tier}) => {
                                 name="tier"
                                 value={store.inputs.tier || ""}
                                 onChange={event => actions.getInput(event)}>
-                                    <option value={0} default >How would you rank it?</option>
+                                    <option value={0} default >What rank fits me?</option>
                                     {/* tier options */}
                                     {tier?.filter(item => item !== null).map( item => (
                                         <option value={item.id} key={item.id}>{item.name}</option>

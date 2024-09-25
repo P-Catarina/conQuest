@@ -7,10 +7,10 @@ export const Role = () => {
 	const { store, actions } = useContext(Context);
 
 	useEffect(() => {
-		actions.getRoles()
 		actions.getBackgroundColor("red")
-	},[])
-
+		actions.getRoles()
+    },[]);
+	
 	return (
     <>
 	<div className="col-lg-11 mx-auto d-flex flex-column align-items-center gap-5">

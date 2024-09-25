@@ -28,7 +28,7 @@ export const Quests = () => {
 		<div className="dashboard card col p-4">
 			{/* no rewards message */}
 			{store.tasks?.length === 0
-			?<div className="card col-lg-6 p-3 mx-auto mb-4"><h5>{TEXT.zeroQuests}</h5></div>
+			?<div className="col m-3 p-3"><h5>{TEXT.zeroQuests}</h5></div>
 			: null}
 			{/* list */}
 			<div className="row row-cols-1 row-cols-md-4 g-4">

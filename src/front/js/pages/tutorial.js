@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 import { TutorialSlides } from "../component/tutorial_slides";
 
+
 export const Tutorial = () => {
 	const { store, actions } = useContext(Context);
 

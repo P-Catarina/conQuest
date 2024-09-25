@@ -3,6 +3,7 @@ import { Context } from "../store/appContext"
 import { Link, useNavigate } from "react-router-dom";
 import { IMAGES } from "../../img/all_images";
 
+
 export const SignUp = () => {
 	const { store, actions } = useContext(Context);
 	const navigate = useNavigate()

@@ -10,7 +10,7 @@ import { Login } from "./pages/logIn";
 import { Forgot } from "./pages/forgot_password";
 import { SignUp } from "./pages/signup";
 import { Tutorial } from "./pages/tutorial";
-import { Role } from "./pages/choose_role";
+import { Role } from "./pages/role_select";
 import { Quests } from "./pages/quests";
 import { Rewards } from "./pages/rewards";
 import { Bestiary } from "./pages/bestiary"; 

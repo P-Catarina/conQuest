@@ -8,7 +8,7 @@ import { TutorialSlides } from "../component/tutorial_slides";
 
 
 export const Home = () => {
-    const { store, actions } = useContext(Context);
+    const { actions } = useContext(Context);
    
     useEffect(() => {
         actions.getBackgroundColor("none")
@@ -19,7 +19,7 @@ export const Home = () => {
 		<ScrollTop />
 		{/* game screen */}
 		<div id="start" className="home-screen bg-purple">
-			<img className="img-fluid" src={IMAGES.logo} />
+			<img className="col-10" src={IMAGES.logo} />
 			<div className="col-10 col-lg-2 d-flex flex-column gap-3 bold">
 				<a href="/signup" className="menu">Start</a>
 				<a href="/login" className="menu">Continue</a>
@@ -27,7 +27,7 @@ export const Home = () => {
 				<a href="#howto" className="menu">How to Play</a>
 				<a href="#credits" className="menu">Credits</a>
 			</div>
-			<h5 className="txt-white text-center">© 2024 ONLY MAMBO JAMBO LTD. ALL RIGHTS RESERVED.<br/> LICENSED BY DUNGEONS & DRAGUNS YEAH NOT REALLY INC.</h5>
+			<h5 className="txt-white text-center">© 2024 ONLY MAMBO JAMBO LTD. ALL RIGHTS RESERVED.<br/> LICENSED BY DANGENS & DROGANS YEAH NOT REALLY INC.</h5>
 		</div>
 		<div className="home-transition one"></div>
 		{/* about */}
@@ -40,7 +40,7 @@ export const Home = () => {
 		</div>
 		<div className="home-transition two"></div>
 		{/* testimonials */}
-		<div id="testimonials" className="bg-black p-1">
+		<div id="testimonials" className="bg-black p-2">
 			<div className="t-scroll">
 			{TEXT.testimonials.map((item, index) => index % 2 == 0? <p className="pe-3 bold">{item}</p> : <p className="pe-5">{item}</p>)}
 			{TEXT.testimonials.map((item, index) => index % 2 == 0? <p className="pe-3 bold">{item}</p> : <p className="pe-5">{item}</p>)}
@@ -52,7 +52,7 @@ export const Home = () => {
 			<h1 className="home-title">How to Play</h1>
 			<TutorialSlides />
 		</div>
-		<div className="home-transition one"></div>
+		<div className="home-transition four"></div>
 		{/* credits */}
 		<div id="credits" className="home-screen bg-black">
 			<h1 className="home-title">Credits</h1>

@@ -4,12 +4,13 @@ import { Link } from "react-router-dom";
 import { IMAGES } from "../../img/all_images";
 import { TEXT } from "../../content_text/all_messages";
 
+
 export const ProfileEdit = () => {
 	const { store, actions } = useContext(Context);
 
-    useEffect(() => {
-        actions.getUserDataAndAbilities()
-		actions.getBackgroundColor("purple")
+	useEffect(() => {
+    actions.getUserDataAndAbilities()
+	actions.getBackgroundColor("purple")
     },[]);
 
 	return (

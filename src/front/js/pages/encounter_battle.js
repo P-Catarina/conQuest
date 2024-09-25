@@ -4,8 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { IMAGES } from "../../img/all_images";
 import { TEXT } from "../../content_text/all_messages";
 
-import { BetweenModal } from "../component/moral_inbetween";
+import { BetweenModal } from "../component/modal_inbetween";
 import { ResponseModal } from "../component/modal_response";
+
 
 export const EncounterBattle = () => {
     const { store, actions } = useContext(Context);

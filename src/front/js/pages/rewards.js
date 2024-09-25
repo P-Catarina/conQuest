@@ -10,7 +10,7 @@ import { AddEditModal } from "../component/modal_add_edit_dashboard";
 export const Rewards = () => {
     const { store, actions } = useContext(Context);
    
-    useEffect(() => {
+	useEffect(() => {
         actions.getRewardList()
 		actions.getBackgroundColor("yellow")
     },[]);
@@ -28,7 +28,7 @@ export const Rewards = () => {
 		<div className="dashboard card col p-4">
 			{/* no rewards message */}
 			{store.rewards?.length === 0
-			?<div className="card col-lg-6 p-3 mx-auto mb-4"><h5>{TEXT.zeroRewards}</h5></div>
+			? <div className="col m-3 p-3"><h5>{TEXT.zeroRewards}</h5></div>
 			: null}
 			{/* list */}
 			<div className="row row-cols-1 row-cols-md-4 g-4">
