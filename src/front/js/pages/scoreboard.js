@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext"
-import { Link } from "react-router-dom";
+
+import { ToDashboard } from "../component/button_to_dashboard";
 
 
 export const Scoreboard = () => {
@@ -76,12 +77,7 @@ export const Scoreboard = () => {
                 </div>
                 ))}
             </div>
-            {/* close bestiary */}
-            <div className="navbar fixed-bottom py-3 d-flex justify-content-center">
-                    <Link to="/quests" className="card col-9 p-3 text-center bg-black">
-                        <h5>To Questing</h5>
-                    </Link>
-            </div>            
+            <ToDashboard />           
 		</div>
 		</>
 	);

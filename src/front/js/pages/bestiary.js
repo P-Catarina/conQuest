@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { TEXT } from "../../content_text/all_messages";
 
 import { CreatureModal } from "../component/modal_creature";
+import { ToDashboard } from "../component/button_to_dashboard";
 
 
 export const Bestiary = () =>{
@@ -37,12 +38,7 @@ export const Bestiary = () =>{
           ))}
     </div>
     </div>
-    {/* close bestiary */}
-    <div className="navbar fixed-bottom py-3 d-flex justify-content-center">
-      <Link to="/quests" className="card col-9 p-3 text-center bg-black">
-        <h5>To Questing</h5>
-      </Link>
-    </div>   
+    <ToDashboard /> 
 
     {store.bestiary?.map((item,index)=>(<CreatureModal id="info" key={index}/>))}
     </> 

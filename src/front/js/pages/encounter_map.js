@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext"
 import { Link } from "react-router-dom";
 import { IMAGES } from "../../img/all_images";
+import { ToDashboard } from "../component/button_to_dashboard";
 
 
 export const EncounterMap = () => {
@@ -75,12 +76,7 @@ export const EncounterMap = () => {
             </>
       )}
     </div>
-    {/* go back */}
-    <div className="navbar fixed-bottom py-3 d-flex justify-content-center">
-        <Link to="/quests" className="card col-9 p-3 text-center bg-black">
-            <h5>Go back I'm not ready</h5>
-        </Link>
-    </div>
+    <ToDashboard />
     </>
     )
 }
