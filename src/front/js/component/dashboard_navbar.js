@@ -31,7 +31,7 @@ export const Navbar = ({view, modal}) => {
     
 	return (
     <>
-    <div className="navbar fixed-top d-inline px-5 py-3">
+    <div className="navbar fixed-top d-inline px-4 py-3">
         <div className="d-flex flex-row justify-content-between">
                 <div className="d-flex flex-row gap-3">
                     {/* profile button */}
@@ -55,12 +55,16 @@ export const Navbar = ({view, modal}) => {
                     : null
                     }
                 </div>
-                {/* log out */}
-                <Link to="/" >
-                    <button className="card circle bg-black" onClick={actions.Logout}>
+                <div className="d-flex flex-row gap-3">
+                    {/* tutorial */}
+                    <Link to="/tutorial" className="card circle bg-black">
+                        <i className="fa-solid fa-question"></i>
+                    </Link>
+                    {/* log out */}
+                    <Link to="/" className="card circle bg-black" onClick={actions.Logout}>
                         <i className="fa-solid fa-power-off"></i>
-                    </button>
-                </Link>
+                    </Link>
+                </div>
         </div>
         {/* views */}
         <div className="card round col-lg-3 mx-auto mt-4 d-flex flex-row justify-content-evenly">

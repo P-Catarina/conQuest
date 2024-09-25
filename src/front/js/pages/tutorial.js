@@ -8,9 +8,9 @@ import { ToDashboard } from "../component/button_to_dashboard";
 export const Tutorial = () => {
 	const { store, actions } = useContext(Context);
 
-	useEffect(() => {
+
         actions.getBackgroundColor("green")
-    },[]);
+
 
 	return (
 		<>
