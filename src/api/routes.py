@@ -192,6 +192,25 @@ def update_user(user_id):
 
     return jsonify({"msg": "User is Updated"}), 200
 
+@api.route('/delete/<int:user_id>', methods=['PUT'])
+def delete_user(user_id):
+
+    deleting = request.get_json()
+    user = User.query.get(user_id)
+
+    if user is None:
+        return "No User with id: " + str(user_id), 400
+
+    if 'email' in deleting:
+        user.email = deleting['email']
+
+    if 'password' in deleting:
+        user.password = deleting['password']
+
+    db.session.commit()
+
+    return jsonify({"msg": "User deleted."}), 200
+
 ###################################################################################  TASKS ROUTES
 
 @api.route("/tasks",  methods=['GET'])

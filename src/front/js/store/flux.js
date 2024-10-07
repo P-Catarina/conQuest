@@ -364,9 +364,24 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			deleteUser: async () => {
-				setStore({...getStore, inputs: {"email" : "", "password": ""}})
-				getActions().updateUser()
-				getActions().Logout()
+				const user = localStorage.getItem('user')
+				const deletingUser = {
+					"email": "",
+					"password": ""
+				}
+
+				fetch(process.env.BACKEND_URL + "api/delete/" + user, {
+					method: "PUT",
+					body: JSON.stringify(deletingUser),
+				   	headers: {"Content-Type": "application/json"}
+				   }).then(response => {
+						if(response.ok) return response.json()
+						throw Error(response.status)
+				   }).then(() => {
+					getActions().Logout()
+				   }).catch(error => {
+					   console.log(error);
+				   });
 			},
 
 			updateUser: async () => {
