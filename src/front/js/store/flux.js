@@ -52,9 +52,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			alertPin: () => {
 				if (getStore().user.energy >= 85
 				|| getStore().user.encounter > 0
-				|| getStore().user.role === undefined
-				&& getStore().user.experience === 0
-				&& getStore().user.energy === 0) return "fa-solid fa-circle fa-beat txt-red"
+				|| getStore().user.role === undefined) return "fa-solid fa-circle fa-beat txt-red"
 				else return null
 			},
 			
@@ -299,7 +297,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				   }).then((response) => {
 					if(response.ok) return response.json()
 					}).then(() => {
-						getActions().Login()		
+						getActions().Login()	
 					}).catch(error => {
 					   console.log(error);
 				   });

@@ -34,15 +34,15 @@ const Layout = () => {
                     <Route element={<Forgot />} path="/forgot" />
                     <Route element={<SignUp />} path="/signup" />
                     <Route element={<Quests />} path="/quests" />
-                    <Route element={<Tutorial />} path="/tutorial" />
+                    <Route element={<Role />} path="/role" />
                     <Route element={<PrivateRoutes />}>
-                        <Route element={<Role />} path="/role" />
                         <Route element={<Rewards />} path="/rewards" />
+                        <Route element={<Tutorial />} path="/tutorial" />
                         <Route element={<Bestiary />} path="/bestiary" />
-                        <Route element={<EncounterMap />} path="/encounter-map" />
-                        <Route element={<EncounterBattle />} path="/encounter-battle" />
                         <Route element={<Scoreboard />} path="/scoreboard" />
                         <Route element={<ProfileEdit />} path="/editprofile" />
+                        <Route element={<EncounterMap />} path="/encounter-map" />
+                        <Route element={<EncounterBattle />} path="/encounter-battle" />
                     </Route>
                     <Route element={<h1>Not found!</h1>} path="*" />
                 </Routes>

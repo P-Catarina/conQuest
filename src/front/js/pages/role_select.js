@@ -35,7 +35,9 @@ export const Role = () => {
 			</div>
 		))}
 		</div>
-		<ToDashboard />
+		{store.user.level == 1 && store.user.energy == 0
+		? null
+		: <ToDashboard />}
 	</div>
     </>
 	);

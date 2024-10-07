@@ -110,7 +110,8 @@ def create_user():
         level= 1,
         experience = 0,
         energy = 0,
-        encounter = 0
+        encounter = 0,
+        user_role = 1
     )
 
     db.session.add(new_user)

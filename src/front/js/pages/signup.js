@@ -73,7 +73,7 @@ export const SignUp = () => {
 		</div>
 		{/* submit */}
 		<button type="submit" className="card p-3 bg-yellow" onClick={()=>{actions.singUp()
-			navigate("/tutorial")}} disabled={isButtonDisabled}>
+			navigate("/role")}} disabled={isButtonDisabled}>
 			<h5 style={{margin:"auto"}}>Gotcha!</h5>
 		</button>
 		{/* cancel */}

@@ -85,14 +85,6 @@ export const Navbar = ({view, modal}) => {
         <div className="offcanvas-body text-center">
             {/* image */}
             <img className="col-5 mb-3" src={actions.getRoleImage(store.user.user_role)} alt="user role icon" />
-            {/* choose role button */}
-            {store.user.role === undefined
-            ? <Link to="/role">
-                <div className="card col p-2 encounter text-light" data-bs-dismiss="offcanvas">
-                    <h5>You have to choose a role</h5>
-                </div>
-            </Link>
-            : null }
             {/* name */}
             <div className="card col my-3 p-2">
                 <h5>{store.user.name}</h5>
