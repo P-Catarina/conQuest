@@ -583,7 +583,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const userRole = getStore().user.role
 				let userLevel = getStore().user.level
 				let userEncounter = getStore().user.encounter
-				const passive = getActions().getPassive()
+				const passiveWizard = getActions().getPassive()
 
 				const gainedExperience = getActions().experienceCalculator(tier)
 				const gainedEnergy = getActions().energyCalculator(tier)
@@ -593,7 +593,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				} else {
 					setStore({...getStore, inputs: {"experience" : gainedExperience -100, "level" : ++userLevel}})
 
-					if (userRole === 'Wizard') setStore({...getStore, inputs: {"encounter" : userEncounter + passive, ...getStore().inputs}})
+					if (userRole === 'Wizard') setStore({...getStore, inputs: {"encounter" : userEncounter + passiveWizard, ...getStore().inputs}})
 					else setStore({...getStore, inputs: {"encounter" : ++userEncounter, ...getStore().inputs}})
 				}
 				
@@ -630,7 +630,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				if (userRole === "Rogue") return totalEnergy + passiveRogue
 				return totalEnergy
-
 			},
 
 			cleanDashboard: async () => {
@@ -834,7 +833,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				fetch(`https://www.dnd5eapi.co/api/monsters?challenge_rating=${challengeRating1},${challengeRating2},${challengeRating3},${challengeRating4},${challengeRating5},${challengeRating6},${challengeRating7},${challengeRating8},${challengeRating9},${challengeRating10},${challengeRating11},${challengeRating12},${challengeRating13},${challengeRating14},${challengeRating15},${challengeRating16},${challengeRating17},${challengeRating18},${challengeRating19},${challengeRating20},${challengeRating21},${challengeRating22},${challengeRating23},${challengeRating24},${challengeRating25},${challengeRating26}`, requestOptions)
 				.then((response) => response.json())
 				.then((result) => {setStore({encounterPool: result.results})
-					//console.log(store.encounterPool)
+					console.log(store.encounterPool)
 				})
 				.catch((error) => console.error(error));
 			},
@@ -904,9 +903,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 			battle: () => {
 				const store=getStore()
 
-				const barbarianRoll=Math.floor(Math.random() * 8) + 1;
-				const creatureRoll =Math.floor(Math.random() * 3) + 1;
-				const userRoll =Math.floor(Math.random() * 6) + 1;
+				const passiveBarbarian = getActions().getPassive()
+
+				const barbarianRoll = Math.ceil(Math.random() * passiveBarbarian);
+				const creatureRoll = Math.ceil(Math.random() * 4);
+				const userRoll = Math.ceil(Math.random() * 6);
 
 				setStore({creatureRoll: creatureRoll})
 				if(store.user.role === "Barbarian"){setStore({userRoll: barbarianRoll})}
@@ -916,8 +917,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					getActions().addMosnterOnBestiary()
 				}
 
-				const userEncounter = getStore().user.encounter
-				setStore({...getStore, inputs:{"encounter" : userEncounter - 1}})
+				let userEncounter = getStore().user.encounter
+				setStore({...getStore, inputs:{"encounter" : --userEncounter}})
 				getActions().updateUser()
 			},
 
