@@ -8,7 +8,7 @@ class Role(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), unique=True, nullable=False)
     description = db.Column(db.String(1000))
-    passive = db.Column(db.Numeric(3,1), unique=True, nullable=False)
+    passive = db.Column(db.Integer, unique=True, nullable=False)
     
     def __repr__(self):
         return f'<Role {self.name}>'
@@ -32,8 +32,8 @@ class User(db.Model):
     role = db.relationship(Role)
     encounter = db.Column(db.Integer, unique=False, nullable=False)
     level = db.Column(db.Integer, unique=False, nullable=False)
-    experience = db.Column(db.Numeric(3,1), unique=False, nullable=False)
-    energy = db.Column(db.Numeric(3,1), unique=False, nullable=False)
+    experience = db.Column(db.Integer, unique=False, nullable=False)
+    energy = db.Column(db.Integer, unique=False, nullable=False)
 
 
     def __repr__(self):

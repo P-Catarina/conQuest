@@ -363,6 +363,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 				getActions().updateUser()
 			},
 
+			getPassive: () => {
+				const userRole = getStore().user.user_role				
+				const roles = getStore().roles
+				let passive = 0
+
+				for (let role of roles) {(role.id === userRole) ? passive = role.passive : null }
+
+				return passive
+			},
+
 			deleteUser: async () => {
 				const user = localStorage.getItem('user')
 				const deletingUser = {
@@ -570,80 +580,57 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			doTask: async (tier, taskId) => {
-				const currentLevel = getStore().user.level
-				const currentExperience = parseFloat(getStore().user.experience)
-				const currentEnergy = parseFloat(getStore().user.energy)
+				const userRole = getStore().user.role
+				let userLevel = getStore().user.level
+				let userEncounter = getStore().user.encounter
+				const passive = getActions().getPassive()
 
-				const taskExperience = getStore().difficulties[tier].experience_given
-				const taskEnergy = getStore().difficulties[tier].energy_given
+				const gainedExperience = getActions().experienceCalculator(tier)
+				const gainedEnergy = getActions().energyCalculator(tier)
 
-				const roguePercentage = getStore().roles[2].passive
-				const rogueExtraExp = parseFloat(taskExperience * roguePercentage)
-				const rogueExtraEng = parseFloat(taskEnergy * roguePercentage)
-				const encounterCount = getStore().user.encounter
-				
-				if (getStore().user.role === "Rogue") {
-						if(currentExperience + taskExperience + rogueExtraExp < 100) {
-							setStore({...getStore, inputs: {
-								"experience" : currentExperience + taskExperience + rogueExtraExp
-							}})
-						} else {
-							setStore({...getStore, inputs: {
-								"experience" : currentExperience + taskExperience + rogueExtraExp -100,
-								"level" : currentLevel + 1,
-								"encounter" : encounterCount + 1
-							}})
-						}
-						if(currentEnergy + taskEnergy + rogueExtraEng < 100) {
-							setStore({...getStore, inputs: {
-								...getStore().inputs, "energy" : currentEnergy + taskEnergy + rogueExtraEng}})
-						} else {
-							setStore({...getStore, inputs: {
-								...getStore().inputs, "energy" : 100}})
-						}
-				}else if(getStore().user.role === "Wizard"){
-					if(currentExperience + taskExperience < 100) {
-						setStore({...getStore, inputs: {
-							"experience" : currentExperience + taskExperience,
-						}})
-					} else {
-						setStore({...getStore, inputs: {
-							"experience" : currentExperience + taskExperience - 100,
-							"level" : currentLevel + 1,
-							"encounter" : encounterCount + 2
-						}})
-					}
-					if(currentEnergy + taskEnergy < 100) {
-						setStore({...getStore, inputs: {
-							...getStore().inputs, "energy" : currentEnergy + taskEnergy}})
-					} else {
-						setStore({...getStore, inputs: {
-							...getStore().inputs, "energy" : 100}})
-					}
-				}else {
-						if(currentExperience + taskExperience < 100) {
-							setStore({...getStore, inputs: {
-								"experience" : currentExperience + taskExperience,
-							}})
-						} else {
-							setStore({...getStore, inputs: {
-								"experience" : currentExperience + taskExperience - 100,
-								"level" : currentLevel + 1,
-								"encounter" : encounterCount + 1
-							}})
-						}
-						if(currentEnergy + taskEnergy < 100) {
-							setStore({...getStore, inputs: {
-								...getStore().inputs, "energy" : currentEnergy + taskEnergy}})
-						} else {
-							setStore({...getStore, inputs: {
-								...getStore().inputs, "energy" : 100}})
-						}
+				if (gainedExperience < 100) {
+					setStore({...getStore, inputs: {"experience" : gainedExperience}})
+				} else {
+					setStore({...getStore, inputs: {"experience" : gainedExperience -100, "level" : ++userLevel}})
+
+					if (userRole === 'Wizard') setStore({...getStore, inputs: {"encounter" : userEncounter + passive, ...getStore().inputs}})
+					else setStore({...getStore, inputs: {"encounter" : ++userEncounter, ...getStore().inputs}})
 				}
+				
+				if (gainedEnergy < 100) setStore({...getStore, inputs: {"energy" : gainedEnergy, ...getStore().inputs}})
+				else setStore({...getStore, inputs: {"energy" : 100, ...getStore().inputs}})
+
 				getActions().updateUser()				
 				setStore({...getStore, inputs: {"done": true}})
 				getActions().updateTask(taskId)
 				getActions().randomNPC()
+			},
+
+			experienceCalculator: (tier) => {
+				const currentExperience = getStore().user.experience
+				const taskExperience = getStore().difficulties[tier].experience_given
+				const totalExperience = currentExperience + taskExperience
+
+				const userRole = getStore().user.role
+				const passive = getActions().getPassive()
+				const passiveRogue = Math.round(taskExperience * passive / 100)				
+
+				if (userRole === "Rogue") return totalExperience + passiveRogue
+				return totalExperience
+			},
+
+			energyCalculator: (tier) => {
+				const currentEnergy = getStore().user.energy
+				const taskEnergy = getStore().difficulties[tier].energy_given
+				const totalEnergy = currentEnergy + taskEnergy
+
+				const userRole = getStore().user.role
+				const passive = getActions().getPassive()
+				const passiveRogue = Math.round(taskEnergy * passive / 100)
+
+				if (userRole === "Rogue") return totalEnergy + passiveRogue
+				return totalEnergy
+
 			},
 
 			cleanDashboard: async () => {
@@ -929,8 +916,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					getActions().addMosnterOnBestiary()
 				}
 
-				const encounterCount = getStore().user.encounter
-				setStore({...getStore, inputs:{"encounter" : encounterCount - 1}})
+				const userEncounter = getStore().user.encounter
+				setStore({...getStore, inputs:{"encounter" : userEncounter - 1}})
 				getActions().updateUser()
 			},
 
