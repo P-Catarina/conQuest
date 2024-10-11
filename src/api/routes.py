@@ -359,42 +359,43 @@ def update_reward(reward_id):
 
     return jsonify({"msg": "reward is Updated"}), 200
 
-###################################################################################  MONSTER ROUTES
+###################################################################################  BESTIARY ROUTES
 
 @api.route("/bestiary",  methods=['GET'])
-def get_monsters():
+def get_bestiary():
     bestiary= Bestiary.query.all()
-    all_monsters= list(map(lambda x: x.serialize(), bestiary))
-    return jsonify(all_monsters), 200
+    bestiary_list = list(map(lambda x: x.serialize(), bestiary))
+    return jsonify(bestiary_list), 200
 
 @api.route("/bestiary",  methods=['POST'])
-def new_monster_aquired():
-    new_monster = request.get_json()
+def add_to_bestiary():
+    new_creature = request.get_json()
 
-    if 'monster_name' not in new_monster:
-        return "monster_name should be in New monster Body", 400
-    if 'user_id' not in new_monster:
-        return "user_id should be in New monster Body", 400
+    if 'name' not in new_creature:
+        return "name should be in New creature Body", 400
+    if 'user_id' not in new_creature:
+        return "user_id should be in New creature Body", 400
    
-    new_monster = Bestiary(
-        monster_name = new_monster['monster_name'],
-        type = new_monster['type'],
-        user_id = new_monster['user_id'] 
+    new_creature = Bestiary(
+        name = new_creature['name'],
+        type = new_creature['type'],
+        api = new_creature['api'],
+        user_id = new_creature['user_id'] 
         )
 
-    db.session.add(new_monster)
+    db.session.add(new_creature)
     db.session.commit()
 
-    return jsonify({"msg": "New entry to the bestiary is Created"}), 201
+    return jsonify({"msg": "Added new entry to the bestiary"}), 201
 
 @api.route('/bestiary/<int:the_user_id>', methods=['GET'])
-def get_monster_list(the_user_id):
+def get_user_bestiary(the_user_id):
 
-    monster = Bestiary.query.filter_by(user_id = the_user_id)
-    if monster is None:
-        return "No monster from user: " + str(the_user_id), 400
+    creature = Bestiary.query.filter_by(user_id = the_user_id)
+    if creature is None:
+        return "No creature from user: " + str(the_user_id), 400
     
-    monster_list = list(map(lambda x: x.serialize(), monster))
+    user_bestiary = list(map(lambda x: x.serialize(), creature))
 
-    return jsonify(monster_list), 200
+    return jsonify(user_bestiary), 200
 

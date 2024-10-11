@@ -26,7 +26,7 @@ export const Role = () => {
 				/>
 				<div className="col">
 					<h3>{role.name}</h3>
-					<p>{role.description}</p>
+					<p>{actions.getRoleDescription(role.id)}</p>
 				</div>
 					<Link to="/quests" type="button" className="btn bg-black txt-white"
 						onClick={() => actions.userRole(role.id)}>

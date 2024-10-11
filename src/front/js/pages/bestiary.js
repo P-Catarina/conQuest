@@ -28,10 +28,10 @@ export const Bestiary = () =>{
     <div className="row row-cols-1 row-cols-md-5 gy-4">
           {store.bestiary?.map((item,index)=>(
             <div className="col" key={index}>
-              <div className="card p-3 gap-3" data-bs-toggle="modal" data-bs-target="#info" onClick={()=>actions.getCreatureByIndex(item.monster_name)}>
+              <div className="card p-3 gap-3" data-bs-toggle="modal" data-bs-target="#info" onClick={()=>actions.getCreature(item.api)}>
                 <img src={actions.getCreatureImage(item)} className="col-8 align-self-center"/>
                 <div className="card p-1 text-center bg-yellow">
-                  <h6>{item.monster_name}</h6>
+                  <h6>{item.name}</h6>
                 </div>
               </div>
             </div>

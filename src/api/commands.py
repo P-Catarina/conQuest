@@ -36,7 +36,6 @@ def setup_commands(app):
         print("Creating db roles")
         B = Role()
         B.name = "Barbarian"
-        B.description = "Battle Rage is merciless and extremely powerful. This means a greater chance at defeating your enemies and achieve victory."
         B.passive = 8
         db.session.add(B)
         db.session.commit()
@@ -44,7 +43,6 @@ def setup_commands(app):
 
         W = Role()
         W.name = "Wizard"
-        W.description = "Being a master at conjuring comes with it's own perks. Your Arcana abilities enable you to summon a second encounter."
         W.passive = 2
         db.session.add(W)
         db.session.commit()
@@ -52,7 +50,6 @@ def setup_commands(app):
 
         R = Role()
         R.name = "Rogue"
-        R.description = "Sneaky little bastard ain't we? How come you never get caught stealling extra experience from the master vault?"
         R.passive = 20
         db.session.add(R)
         db.session.commit()

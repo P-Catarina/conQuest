@@ -15,7 +15,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 			abilities: [],
 			scoreboard: [],
 			npc: [],
-			allMonsters : null,
 			encounterPool: [],
 			creatureInfo:[],
 			inputs: {},
@@ -118,7 +117,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			
 			getActionIcon: (view, done) => {
-				let actionIcon="";
+				let actionIcon=""
 
 				if (view === "rewards") actionIcon = "fa-solid fa-crosshairs" 
 				else if(view === "tasks") {
@@ -131,7 +130,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 							break;
 					}
 				} else actionIcon = "fa-solid fa-question"
-		
 				return actionIcon
 			},
 
@@ -144,11 +142,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			getRoleImage: (role) => {
 				let roleImg = ""
-
 				if ( role === 1) roleImg = IMAGES.barbarian
-				else if (role === 2) roleImg = IMAGES.wizard
-				else if (role === 3) roleImg = IMAGES.rogue
+				if (role === 2) roleImg = IMAGES.wizard
+				if (role === 3) roleImg = IMAGES.rogue
 				return roleImg
+			},
+
+			getRoleDescription : (role) => {
+				let description = ""
+				if ( role === 1) description = TEXT.barbarian
+				if (role === 2) description = TEXT.wizard
+				if (role === 3) description = TEXT.rogue
+				return description
 			},
 
 			getAbilityImage: (ability_rarity) => {
@@ -159,11 +164,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 					if (ability_rarity === 1) abilityImg = IMAGES.barbarian1
 					if (ability_rarity === 2) abilityImg = IMAGES.barbarian2
 					if (ability_rarity === 3) abilityImg = IMAGES.barbarian3
-				} else if (role === "Wizard"){
+				}
+				if (role === "Wizard"){
 					if (ability_rarity === 1) abilityImg = IMAGES.wizard1
 					if (ability_rarity === 2) abilityImg = IMAGES.wizard2
 					if (ability_rarity === 3) abilityImg = IMAGES.wizard3
-				} else if (role === "Rogue"){
+				}
+				if (role === "Rogue"){
 					if (ability_rarity === 1) abilityImg = IMAGES.rogue1
 					if (ability_rarity === 2) abilityImg = IMAGES.rogue2
 					if (ability_rarity === 3) abilityImg = IMAGES.rogue3
@@ -195,7 +202,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			encounterText: () => {
-				const creature = getStore().encounterCreature
+				const creature = getStore().creatureInfo
 
 				if (creature.type == "aberration") return TEXT.aberration
 				if (creature.type == "beast") return TEXT.beast
@@ -275,7 +282,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			////////////////////////////////////////////////////////////////////////////////////////// AUTHENTICATION
 
-			singUp:()=>{
+			singUp: () => {
 				const input = getStore().inputs				
 				
 				const newUser ={
@@ -335,8 +342,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 			
 			getUserDataAndAbilities: async () => {
 				const user = localStorage.getItem('user')
-				//console.log("user data auth", localStorage.getItem('jwt-token'))
-				//console.log("user id", localStorage.getItem('user'))
 
 				fetch(process.env.BACKEND_URL + "api/user/" + user, {
 					method: 'GET',
@@ -363,7 +368,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				let passive = 0
 
 				for (let role of roles) {(role.id === userRole) ? passive = role.passive : null }
-
 				return passive
 			},
 
@@ -390,7 +394,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			updateUser: async () => {
 				const user = localStorage.getItem('user')
-
 				const input = getStore().inputs
 
 				const updatedUser = {
@@ -418,9 +421,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				   });
 			},
 
-			changePassword: async () =>{
+			changePassword: async () => {
 				const user = localStorage.getItem('user')
-
 				const input = getStore().inputs
 
 				const passwords = {
@@ -448,7 +450,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			forgotPassword: async () => {
 				const input = getStore().inputs
-
 				const recoveryMail = {
 					"email": input.email
 				}			
@@ -470,7 +471,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			resetUserEncounter: async () => {
 				const user = localStorage.getItem('user')
-
 				const updatedUser = {
 					"encounter": false
 				}
@@ -549,7 +549,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			updateTask: async (taskId) => {
 				const input = getStore().inputs
-
 				const updatedTask ={
 					"label": input.label,
 					"task_difficulty_id": input.tier,
@@ -627,7 +626,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			cleanDashboard: async () => {
 				let offBoard = getStore().tasks.filter(item => item.done === true)
-				
 				for (let task of offBoard){
 					setStore({...getStore, inputs: {"onboard": false}})
 					getActions().updateTask(task.id)
@@ -637,7 +635,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 			////////////////////////////////////////////////////////////////////////////////////////// REWARDS
 
 			getRewardList: async () => {
-
 				const user = localStorage.getItem('user')
 
 				fetch(process.env.BACKEND_URL + "api/rewards/" + user, {
@@ -656,10 +653,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			createReward: async () => {
 				const user = localStorage.getItem('user')
-
 				const input = getStore().inputs
-
-				const reward ={
+				const reward = {
 					"label": input.label,
 					"user_id": user,
 					"rarity_id": input.tier
@@ -681,7 +676,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			updateReward: async (rewardId) => {
 				const input = getStore().inputs
-
 				const updatedReward ={
 					"label": input.label,
 					"rarity_id": input.tier
@@ -741,11 +735,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			////////////////////////////////////////////////////////////////////////////////////////// BESTIARY			
 
-			getBestiary: async ()=>{
+			getBestiary: async () => {
 				const user = localStorage.getItem('user')
-
-				const store=getStore()
-				const action=getActions()
 
 				try{
 					const resp = await fetch(process.env.BACKEND_URL + "api/bestiary/" + user)
@@ -756,23 +747,48 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Error loading message from backend", error)
 				}
 			},
-			getCreatureByIndex: (index)=>{
-				const store=getStore()
+
+			getCreature: (api) => {
 				const myHeaders = new Headers();
 				myHeaders.append("Accept", "application/json");
 				const requestOptions = {
 				method: "GET",
 				headers: myHeaders,
 				redirect: "follow"
-				};
-				fetch("https://www.dnd5eapi.co/api/monsters/"+index, requestOptions)
+				}
+
+				fetch("https://www.dnd5eapi.co" + api, requestOptions)
 				.then((response) => response.json())
 				.then((info) =>{setStore({creatureInfo: info})})
 				.catch((error) => console.error(error));	
 			},
 
+			addToBestiary: () => {				
+				const creature = getStore().creatureInfo.name
+				const type = getStore().creatureInfo.type
+				const api = getStore().creatureInfo.url
+				const user = localStorage.getItem("user")
+
+				const bestiaryEntry = {
+					name : creature,
+					type : type,
+					api : api,
+					user_id: user
+				}
+				
+				fetch(process.env.BACKEND_URL + "api/bestiary", {
+					method: "POST",
+					body: JSON.stringify(bestiaryEntry),
+				   	headers: {"Content-Type": "application/json"}
+				   }).then(resp => resp.json())
+				   .then(data => {
+					   console.log(data)
+				   }).catch(error => {
+					   console.log(error)
+				   });
+			},
 			
-			getCreatureImage:(creature) => {
+			getCreatureImage: (creature) => {
 				if (creature.image){return `https://www.dnd5eapi.co${creature.image}`}
 				if (creature.type == "aberration") return IMAGES.aberration
 				if (creature.type == "beast") return IMAGES.beast
@@ -789,29 +805,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				if (creature.type == "plant") return IMAGES.plant
 				if (creature.type == "undead") return IMAGES.undead
 				else return IMAGES.creature
-			},
-
-			addToBestiary: () => {
-				const user = localStorage.getItem("user")
-				const creature = getStore().encounterCreature.index
-				const type = getStore().encounterCreature.type
-
-				const bestiaryEntry = {
-					monster_name : creature,
-					type : type,
-					user_id: user
-				}
-				
-				fetch(process.env.BACKEND_URL + "api/bestiary", {
-					method: "POST",
-					body: JSON.stringify(bestiaryEntry),
-				   	headers: {"Content-Type": "application/json"}
-				   }).then(resp => resp.json())
-				   .then(data => {
-					   console.log(data)
-				   }).catch(error => {
-					   console.log(error)
-				   });
 			},
 
 			////////////////////////////////////////////////////////////////////////////////////////// BATTLE
@@ -843,44 +836,24 @@ const getState = ({ getStore, getActions, setStore }) => {
 				.catch((error) => console.error(error));
 			},
       
-			opponentCreature: () => {
-				const store = getStore()
-				
+			opponentCreature: async () => {
+				const store = getStore()				
 				getActions().getBestiary()
-				getActions().encounterPoolRange()
+				await getActions().encounterPoolRange()
 
-				setTimeout(() => {
-				const encounterPool = store.encounterPool?.map((item)=>{return item.index})
-				const bestiary = store.bestiary?.map((item)=>{return item.monster_name})
+				const encounterPool = store.encounterPool?.map((item)=>{return item.url})
+				const bestiary = store.bestiary?.map((item)=>{return item.api})
 				const creaturePool = encounterPool.filter(val => !bestiary.includes(val))
 				const opponentCreature = creaturePool[Math.floor(Math.random() * creaturePool.length)]
 				localStorage.setItem("opponentCreature", opponentCreature)
-				  }, "1000");
 			},
 
-			getEncounterCreature: async () => {
-				getActions().opponentCreature()
-				
+			encounterBattle: async () => {
+				await getActions().opponentCreature()
 				const opponentCreature = localStorage.getItem("opponentCreature")
-				
-				const myHeaders = new Headers();
-				myHeaders.append("Accept", "application/json")
-				const requestOptions = {
-				method: "GET",
-				headers: myHeaders,
-				redirect: "follow"
-				}
+				await getActions().getCreature(opponentCreature)
 
-				fetch("https://www.dnd5eapi.co/api/monsters/"+ opponentCreature, requestOptions)
-				.then((response) => response.json())
-				.then((result) =>{setStore({encounterCreature: result})	
-				})
-				.catch((error) => console.error(error));
-			},
-
-			encounterBattle: () => {
 				const store=getStore()
-
 				const passiveBarbarian = getActions().getPassive()
 
 				const barbarianRoll = Math.ceil(Math.random() * passiveBarbarian)
@@ -891,7 +864,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({creatureRoll: creatureRoll})
 				if(store.user.role === "Barbarian"){setStore({userRoll: barbarianRoll})}
 				else{setStore({userRoll: randomRoll})}
+			},
 
+			battleResult: () => {
+				const store = getStore()
 				if(store.userRoll > store.creatureRoll) getActions().addToBestiary()
 
 				let userEncounter = getStore().user.encounter

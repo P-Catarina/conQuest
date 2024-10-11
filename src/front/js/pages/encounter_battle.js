@@ -13,10 +13,11 @@ export const EncounterBattle = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-		actions.getBackgroundColor("red")
+		actions.battleResult()
+        actions.getBackgroundColor("red")
     },[]);
 
-    let creatureImage = actions.getCreatureImage(store.encounterCreature)
+    let creatureImage = actions.getCreatureImage(store.creatureInfo)
     let creatureText = actions.encounterText()
     let creatureDice = store.creatureRoll
     let userDice = store.userRoll
@@ -29,7 +30,7 @@ export const EncounterBattle = () => {
     <h1>Time to Battle</h1>
     {/* creature */}
     <img src={creatureImage} className="col-9 col-md-3 mx-auto" alt="creature" />
-    <h1>{store.encounterCreature?.name} - {store.encounterCreature?.type}</h1>
+    <h1>{store.creatureInfo?.name} - {store.creatureInfo?.type}</h1>
     {/* message */}
     <h5>{creatureText}</h5>
     {/* actions - dance */}

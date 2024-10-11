@@ -7,7 +7,6 @@ class Role(db.Model):
     __tablename__ = "role"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), unique=True, nullable=False)
-    description = db.Column(db.String(1000))
     passive = db.Column(db.Integer, unique=True, nullable=False)
     
     def __repr__(self):
@@ -17,7 +16,6 @@ class Role(db.Model):
         return {
             "id": self.id,
             "name": self.name,
-            "description": self.description,
             "passive": self.passive,         
         }
 
@@ -164,19 +162,21 @@ class Ability(db.Model):
 class Bestiary(db.Model):
     __tablename__ = "bestiary"
     id = db.Column(db.Integer, primary_key=True)
-    monster_name = db.Column(db.String(120), unique=False, nullable=False)
+    name = db.Column(db.String(120), unique=False, nullable=False)
     type = db.Column(db.String(120), unique=False, nullable=False)
-    user_id=db.Column(db.Integer, db.ForeignKey('user.id'))
-    user=db.relationship(User)
+    api = db.Column(db.String(120), unique=False, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user = db.relationship(User)
   
     
     def __repr__(self):
-        return f'<Monster {self.monster_name}>'
+        return f'<Creature {self.name}>'
     
     def serialize(self):
         return {
             "id": self.id,
-            "monster_name": self.monster_name,
+            "name": self.name,
             "type": self.type,
+            "api": self.api,
             "user_id": self.user_id
         }

@@ -41,6 +41,11 @@ export const TEXT = {
 
     // FORGOT PASSWORD PAGE
     forgotPassword: "Let's begin the ritual of summoning thee. You will receive and email if there is an account associated to it. Either that or instant death.",
+
+    // ROLE SELECT PAGE - ROLE DESCRIPTIONS
+    barbarian: "Battle Rage is merciless and powerful. This means a greater chance at defeating your enemies and achieve victory.",
+    wizard: "Being a master at conjuring comes with it's own perks. Your Arcana abilities enable you to summon in double.",
+    rogue: "Sneaky little bastard, ain't we? How come you never get caught stealling from our precious master vault?",
     
     // EMPTY DASHBOARDS - QUESTS / REWARDS / BESTIARY
     zeroCreatures: "Your Bestiary is empty. You'll aquire a beast by defeacting it in an encounter. This encounter happens each time you level up. So what are you waiting for?",

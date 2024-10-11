@@ -8,7 +8,6 @@ export const Navbar = ({view, modal}) => {
 
 	useEffect(() => {
         actions.getUserDataAndAbilities()
-        actions.getEncounterCreature()
     },[]);
 
     //alertPin
