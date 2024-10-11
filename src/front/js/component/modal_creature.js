@@ -8,12 +8,13 @@ export const CreatureModal= ({id}) => {
     
     return (
         <>
-             <div className="modal fade" id={id} tabIndex="-1" aria-hidden="true">
+             <div className="modal fade col-10" id={id} tabIndex="-1" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered">
-                    <div className="card modal-content d-flex gap-3 mx-auto p-5">
+                    <div className="card modal-content d-flex gap-4 mx-auto p-5">
                         {/* title */}
                         <h1>{store.creatureInfo?.name}</h1>
-                        <img className="col-8 mx-auto" src={actions.getCreatureImage(store.creatureInfo)}/>
+                        <img className="mx-auto w-75" src={actions.getCreatureImage(store.creatureInfo)}/>
+                        {/* info */}
                         <div className="d-inline-flex gap-4 mx-auto text-start">
                             <div>
                                 <h5>Type: </h5>
@@ -27,11 +28,11 @@ export const CreatureModal= ({id}) => {
                                 <p>{store.creatureInfo?.xp}</p>
                                 <p>{store.creatureInfo?.alignment}</p>
                             </div>
-                            <h5>{store.creatureInfo?.desc}</h5>
                         </div>
-                        <div type="button" className="card p-3 text-center bg-yellow" data-bs-dismiss="modal" aria-label="Close">
-                            <h5>Go back to the Bestiary</h5>
-                            </div>
+                        <h5>{store.creatureInfo?.desc}</h5>
+                        <div type="button" className="card p-3 text-center bg-black" data-bs-dismiss="modal" aria-label="Close">
+                            <h5>Close</h5>
+                        </div>
                     </div>
                 </div>
             </div>
