@@ -16,9 +16,9 @@ export const EncounterBattle = () => {
 		actions.getBackgroundColor("red")
     },[]);
 
-    let beastImage = actions.getMonsterImage(store.encounterInfo)
-    let beastText = actions.encounterText()
-    let beastDice = store.creatureRoll
+    let creatureImage = actions.getCreatureImage(store.encounterCreature)
+    let creatureText = actions.encounterText()
+    let creatureDice = store.creatureRoll
     let userDice = store.userRoll
     let battleResult = actions.battleResponse()
     
@@ -27,17 +27,17 @@ export const EncounterBattle = () => {
     <div className="col-md-10 mx-auto p-5 gap-4 card">
     {/* title */}
     <h1>Time to Battle</h1>
-    {/* beast */}
-    <img src={beastImage} className="col-9 col-md-3 mx-auto" alt="beast" />
-    <h1>{store.encounterInfo?.name} - {store.encounterInfo?.type}</h1>
+    {/* creature */}
+    <img src={creatureImage} className="col-9 col-md-3 mx-auto" alt="creature" />
+    <h1>{store.encounterCreature?.name} - {store.encounterCreature?.type}</h1>
     {/* message */}
-    <h5>{beastText}</h5>
+    <h5>{creatureText}</h5>
     {/* actions - dance */}
     <div type="button" className="card p-3 text-center bg-green" data-bs-toggle="modal" data-bs-target="#noDancing">
 		<h5>Fawn, maybe a little dance</h5>
 	</div>
     {/* actions - fight */}
-    <div type="button" className="card p-3 text-center bg-yellow" data-bs-toggle="modal" data-bs-target="#beastRoll">
+    <div type="button" className="card p-3 text-center bg-yellow" data-bs-toggle="modal" data-bs-target="#creatureRoll">
 		<h5>Fight, let's do it</h5>
 	</div>
     {/* actions - escape */}
@@ -64,12 +64,12 @@ export const EncounterBattle = () => {
         confirmLabel="Get back in there"
     />
 
-    {/* fight modal - beast roll */}
+    {/* fight modal - creature roll */}
     <BetweenModal 
-        id="beastRoll"
-        title={TEXT.fightBeastTitle}
-        image={store.dice[beastDice]}
-        message={TEXT.fightBeast}
+        id="creatureRoll"
+        title={TEXT.fightCreatureTitle}
+        image={store.dice[creatureDice]}
+        message={TEXT.fightCreature}
         confirmLabel="Attack Roll"
         targetModal="#UserRoll"
     />

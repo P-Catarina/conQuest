@@ -13,7 +13,7 @@ export const CreatureModal= ({id, index}) => {
                     <div className="card modal-content p-5">
                         {/* title */}
                         <h1>{store.creatureInfo?.name}</h1>
-                        <img src={actions.getMonsterImage(store.creatureInfo)}/>
+                        <img src={actions.getCreatureImage(store.creatureInfo)}/>
                         <div>
                             <h6>it has {store.creatureInfo?.hit_points} hit points</h6>
                             <h6>size : {store.creatureInfo?.size}</h6>

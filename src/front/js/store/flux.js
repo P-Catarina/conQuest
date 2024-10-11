@@ -195,7 +195,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			encounterText: () => {
-				const creature = getStore().encounterInfo
+				const creature = getStore().encounterCreature
 
 				if (creature.type == "aberration") return TEXT.aberration
 				if (creature.type == "beast") return TEXT.beast
@@ -215,12 +215,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			dice: () => {
 				setStore({...getStore, dice: [0, IMAGES.dice1, IMAGES.dice2, IMAGES.dice3, IMAGES.dice4, IMAGES.dice5, IMAGES.dice6, IMAGES.dice7, IMAGES.dice8]})
-			},
-
-			battleResponse: () => {
-				const store = getStore()
-				if(store.userRoll > store.creatureRoll) return {title: TEXT.victoryTitle, response: TEXT.victory}
-				else return {title: TEXT.defeatTitle, response: TEXT.defeat}
 			},
 
 			////////////////////////////////////////////////////////////////////////////////////////// DB DATA 
@@ -521,7 +515,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					headers: { "Content-Type": "application/json" },
 				}).then((response) => {
 					if(response.ok) return response.json()
-						console.log(response.json);
 					throw Error(response.status)
 				}).then((tasksData) => {
 					setStore({...getStore, tasks: tasksData})
@@ -755,16 +748,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const action=getActions()
 
 				try{
-					// fetching data from the backend
 					const resp = await fetch(process.env.BACKEND_URL + "api/bestiary/" + user)
 					const data = await resp.json()
 					setStore({ bestiary: data})
-					return data;
+					return data
 				}catch(error){
 					console.log("Error loading message from backend", error)
 				}
 			},
-			getMonsterByIndex: (index)=>{
+			getCreatureByIndex: (index)=>{
 				const store=getStore()
 				const myHeaders = new Headers();
 				myHeaders.append("Accept", "application/json");
@@ -780,7 +772,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			
-			getMonsterImage:(creature) => {
+			getCreatureImage:(creature) => {
 				if (creature.image){return `https://www.dnd5eapi.co${creature.image}`}
 				if (creature.type == "aberration") return IMAGES.aberration
 				if (creature.type == "beast") return IMAGES.beast
@@ -799,136 +791,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 				else return IMAGES.creature
 			},
 
-			////////////////////////////////////////////////////////////////////////////////////////// MONSTERS
-
-			getallMonsters: ()=>{
-				const store=getStore()
-				const myHeaders = new Headers();
-				myHeaders.append("Accept", "application/json");
-				const requestOptions = {
-  					method: "GET",
-  					headers: myHeaders,
-  					redirect: "follow"
-				};
-
-				fetch("https://www.dnd5eapi.co/api/monsters", requestOptions)
-  				.then((response) => response.json())
-  				.then((result) => {setStore({allMonsters: result.results})
-				  console.log(store.allMonsters)})
-  				.catch((error) => console.error(error));
-			},
-
-			getMonsterByCr: (challengeRating1,challengeRating2,challengeRating3,challengeRating4,challengeRating5,challengeRating6,challengeRating7,challengeRating8,challengeRating9,challengeRating10,challengeRating11,challengeRating12,challengeRating13,challengeRating14,challengeRating15,challengeRating16,challengeRating17,challengeRating18,challengeRating19,challengeRating20,challengeRating21,challengeRating22,challengeRating23,challengeRating24,challengeRating25,challengeRating26)=>{
-				//monster challenge ranting goes like this 0.125, 0.250 , 0.500 and then form 1 to 24
-				const store=getStore()
-				const myHeaders = new Headers();
-				myHeaders.append("Accept", "application/json");
-				const requestOptions = {
-				method: "GET",
-				headers: myHeaders,
-				redirect: "follow"
-				};
-
-
-				fetch(`https://www.dnd5eapi.co/api/monsters?challenge_rating=${challengeRating1},${challengeRating2},${challengeRating3},${challengeRating4},${challengeRating5},${challengeRating6},${challengeRating7},${challengeRating8},${challengeRating9},${challengeRating10},${challengeRating11},${challengeRating12},${challengeRating13},${challengeRating14},${challengeRating15},${challengeRating16},${challengeRating17},${challengeRating18},${challengeRating19},${challengeRating20},${challengeRating21},${challengeRating22},${challengeRating23},${challengeRating24},${challengeRating25},${challengeRating26}`, requestOptions)
-				.then((response) => response.json())
-				.then((result) => {setStore({encounterPool: result.results})
-					console.log(store.encounterPool)
-				})
-				.catch((error) => console.error(error));
-			},
-			
-			getEncounter: ()=>{
-				const action=getActions()
-				const userLevel = localStorage.getItem("userLevel")
-				
-				if(userLevel <= 10) {return action.getMonsterByCr(0.125)}
-				if(userLevel <= 20) {return action.getMonsterByCr(0.125,0.250)}
-				if(userLevel <= 30) {return action.getMonsterByCr(0.125,0.250,0.500)}
-				if(userLevel <= 40) {return action.getMonsterByCr(0.125,0.250,0.500,1)}
-				if(userLevel <= 50) {return action.getMonsterByCr(0.125,0.250,0.500,1,2)}
-				if(userLevel <= 60) {return action.getMonsterByCr(0.125,0.250,0.500,1,2,3)}
-				if(userLevel <= 70) {return action.getMonsterByCr(0.125,0.250,0.500,1,2,3,4)}
-				if(userLevel <= 80) {return action.getMonsterByCr(0.125,0.250,0.500,1,2,3,4,5)}
-				if(userLevel <= 90) {return action.getMonsterByCr(0.125,0.250,0.500,1,2,3,4,5,6)}
-				if(userLevel <= 100) {return action.getMonsterByCr(0.125,0.250,0.500,1,2,3,4,5,6,7)}
-				if(userLevel <= 110) {return action.getMonsterByCr(0.125,0.250,0.500,1,2,3,4,5,6,7,8)}
-				if(userLevel <= 120) {return action.getMonsterByCr(0.125,0.250,0.500,1,2,3,4,5,6,7,8,9)}
-				if(userLevel <= 130) {return action.getMonsterByCr(0.125,0.250,0.500,1,2,3,4,5,6,7,8,9,10)}
-				if(userLevel <= 140) {return action.getMonsterByCr(0.125,0.250,0.500,1,2,3,4,5,6,7,8,9,10,11)}
-				if(userLevel <= 150) {return action.getMonsterByCr(0.125,0.250,0.500,1,2,3,4,5,6,7,8,9,10,11,12)}
-				if(userLevel <= 160) {return action.getMonsterByCr(0.125,0.250,0.500,1,2,3,4,5,6,7,8,9,10,11,12,13)}
-				if(userLevel <= 170) {return action.getMonsterByCr(0.125,0.250,0.500,1,2,3,4,5,6,7,8,9,10,11,12,13,14)}
-				if(userLevel <= 180) {return action.getMonsterByCr(0.125,0.250,0.500,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15)}
-				if(userLevel <= 190) {return action.getMonsterByCr(0.125,0.250,0.500,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16)}
-				if(userLevel <= 200) {return action.getMonsterByCr(0.125,0.250,0.500,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24)}
-			},
-      
-			encounterMonster: ()=>{
-				const store=getStore()
-				const action=getActions()
-				
-				action.getBestiary()
-				action.getEncounter()
-				setTimeout(() => {
-				const encounterPool = store.encounterPool?.map((item)=>{return item.index});
-				const bestiary = store.bestiary?.map((item)=>{return item.monster_name});
-				const monsterpool = encounterPool.filter(val => !bestiary.includes(val));
-				const randomMonster = monsterpool[Math.floor(Math.random() * monsterpool.length)]
-				setStore({randomMonster: randomMonster})
-				localStorage.setItem("randomMonster", randomMonster)
-				  }, "1000");
-			},
-
-			encounterInfo: async ()=>{
-				const action=getActions()
-
-				action.encounterMonster()
-				
-				const monster = localStorage.getItem("randomMonster")
-				const myHeaders = new Headers();
-				myHeaders.append("Accept", "application/json");
-				const requestOptions = {
-				method: "GET",
-				headers: myHeaders,
-				redirect: "follow"
-				};
-				fetch("https://www.dnd5eapi.co/api/monsters/"+ monster, requestOptions)
-				.then((response) => response.json())
-				.then((result) =>{setStore({encounterInfo: result})	
-				})
-				.catch((error) => console.error(error));
-			},
-
-			battle: () => {
-				const store=getStore()
-
-				const passiveBarbarian = getActions().getPassive()
-
-				const barbarianRoll = Math.ceil(Math.random() * passiveBarbarian);
-				const creatureRoll = Math.ceil(Math.random() * 4);
-				const userRoll = Math.ceil(Math.random() * 6);
-
-				setStore({creatureRoll: creatureRoll})
-				if(store.user.role === "Barbarian"){setStore({userRoll: barbarianRoll})}
-				else{setStore({userRoll: userRoll})}
-
-				if(store.userRoll > store.creatureRoll) {
-					getActions().addMosnterOnBestiary()
-				}
-
-				let userEncounter = getStore().user.encounter
-				setStore({...getStore, inputs:{"encounter" : --userEncounter}})
-				getActions().updateUser()
-			},
-
-			addMosnterOnBestiary: () => {
+			addToBestiary: () => {
 				const user = localStorage.getItem("user")
-				const monster = getStore().encounterInfo.index
-				const type = getStore().encounterInfo.type
+				const creature = getStore().encounterCreature.index
+				const type = getStore().encounterCreature.type
 
-				const bestiaryEntry={
-					monster_name : monster,
+				const bestiaryEntry = {
+					monster_name : creature,
 					type : type,
 					user_id: user
 				}
@@ -937,15 +806,103 @@ const getState = ({ getStore, getActions, setStore }) => {
 					method: "POST",
 					body: JSON.stringify(bestiaryEntry),
 				   	headers: {"Content-Type": "application/json"}
-				   }).then(resp => {
-					   console.log(resp.ok);
-					   console.log(resp.status);
-					 return resp.json(); 
-				   }).then(data => {
-					   console.log(data); 
+				   }).then(resp => resp.json())
+				   .then(data => {
+					   console.log(data)
 				   }).catch(error => {
-					   console.log(error);
+					   console.log(error)
 				   });
+			},
+
+			////////////////////////////////////////////////////////////////////////////////////////// BATTLE
+
+			encounterPoolRange: () => {
+				const userLevel = localStorage.getItem("userLevel")
+				//challenge rating goes like this 0, 0.125, 0.250, 0.500 and then from 1 to 24 - 18 is empty
+				const challengeRatings = [0,0.125,0.250,0.500,1,2,3,4,5,6,7,8,9,10,[11,12,13,14],[15,16,17,19,20,21,22,23,24]]
+				let count = 1
+
+				for (let i = 25; i <= userLevel; i += 20){++count}			
+				getActions().getEncounterPool(challengeRatings.slice(0, count))
+			},
+			
+			getEncounterPool: async (...values) => {
+				const challengeRatings = values
+
+				const myHeaders = new Headers();
+				myHeaders.append("Accept", "application/json")
+				const requestOptions = {
+				method: "GET",
+				headers: myHeaders,
+				redirect: "follow"
+				};
+
+				fetch(`https://www.dnd5eapi.co/api/monsters?challenge_rating=${challengeRatings}`, requestOptions)
+				.then((response) => response.json())
+				.then((result) => setStore({encounterPool: result.results}))
+				.catch((error) => console.error(error));
+			},
+      
+			opponentCreature: () => {
+				const store = getStore()
+				
+				getActions().getBestiary()
+				getActions().encounterPoolRange()
+
+				setTimeout(() => {
+				const encounterPool = store.encounterPool?.map((item)=>{return item.index})
+				const bestiary = store.bestiary?.map((item)=>{return item.monster_name})
+				const creaturePool = encounterPool.filter(val => !bestiary.includes(val))
+				const opponentCreature = creaturePool[Math.floor(Math.random() * creaturePool.length)]
+				localStorage.setItem("opponentCreature", opponentCreature)
+				  }, "1000");
+			},
+
+			getEncounterCreature: async () => {
+				getActions().opponentCreature()
+				
+				const opponentCreature = localStorage.getItem("opponentCreature")
+				
+				const myHeaders = new Headers();
+				myHeaders.append("Accept", "application/json")
+				const requestOptions = {
+				method: "GET",
+				headers: myHeaders,
+				redirect: "follow"
+				}
+
+				fetch("https://www.dnd5eapi.co/api/monsters/"+ opponentCreature, requestOptions)
+				.then((response) => response.json())
+				.then((result) =>{setStore({encounterCreature: result})	
+				})
+				.catch((error) => console.error(error));
+			},
+
+			encounterBattle: () => {
+				const store=getStore()
+
+				const passiveBarbarian = getActions().getPassive()
+
+				const barbarianRoll = Math.ceil(Math.random() * passiveBarbarian)
+				const creatureRoll = Math.ceil(Math.random() * 4)
+				const randomRoll = Math.ceil(Math.random() * 6)
+				let userRoll = 1				
+
+				setStore({creatureRoll: creatureRoll})
+				if(store.user.role === "Barbarian"){setStore({userRoll: barbarianRoll})}
+				else{setStore({userRoll: randomRoll})}
+
+				if(store.userRoll > store.creatureRoll) getActions().addToBestiary()
+
+				let userEncounter = getStore().user.encounter
+				setStore({...getStore, inputs:{"encounter" : --userEncounter}})
+				getActions().updateUser()
+			},
+
+			battleResponse: () => {
+				const store = getStore()
+				if(store.userRoll > store.creatureRoll) return {title: TEXT.victoryTitle, response: TEXT.victory}
+				else return {title: TEXT.defeatTitle, response: TEXT.defeat}
 			},
 		}
 	};

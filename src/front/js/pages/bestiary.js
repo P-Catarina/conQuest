@@ -22,14 +22,14 @@ export const Bestiary = () =>{
     <h1>Bestiary</h1>
     {/* zero beasts */}
     {store.bestiary.length === 0
-    ? <div className="col m-3 p-3"><h5>{TEXT.zeroBeasts}</h5></div>
+    ? <div className="col m-3 p-3"><h5>{TEXT.zeroCreatures}</h5></div>
     : null}
-    {/* beasts */}
+    {/* creatures */}
     <div className="row row-cols-1 row-cols-md-5 gy-4">
           {store.bestiary?.map((item,index)=>(
             <div className="col" key={index}>
-              <div className="card p-3 gap-3" data-bs-toggle="modal" data-bs-target="#info" onClick={()=>actions.getMonsterByIndex(item.monster_name)}>
-                <img src={actions.getMonsterImage(item)} className="col-8 align-self-center"/>
+              <div className="card p-3 gap-3" data-bs-toggle="modal" data-bs-target="#info" onClick={()=>actions.getCreatureByIndex(item.monster_name)}>
+                <img src={actions.getCreatureImage(item)} className="col-8 align-self-center"/>
                 <div className="card p-1 text-center bg-yellow">
                   <h6>{item.monster_name}</h6>
                 </div>

@@ -8,7 +8,7 @@ export const Navbar = ({view, modal}) => {
 
 	useEffect(() => {
         actions.getUserDataAndAbilities()
-        actions.encounterInfo()
+        actions.getEncounterCreature()
     },[]);
 
     //alertPin
@@ -127,11 +127,11 @@ export const Navbar = ({view, modal}) => {
                 <div className="col">
                     {/* experience and energy numbers */}
                     <div className="card p-2">
-                        <h5>{parseFloat(store.user.experience)} <i className="fa-solid fa-forward sizeDown"></i>    {parseFloat(store.user.energy)} <i className="fa-solid fa-bolt sizeDown"></i></h5>
+                        <h5>{store.user.experience} <i className="fa-solid fa-forward sizeDown"></i> {store.user.energy} <i className="fa-solid fa-bolt sizeDown"></i></h5>
                     </div>
-                    {/* beast count */}
+                    {/* creature count */}
                     <div className="card my-3 p-1">
-                    <h5>{store.bestiary.length}/334 Beasts</h5>
+                    <h5>{store.bestiary.length}/334 <i className="fa-solid fa-book-open sizeDown"></i></h5>
                     </div>
                     {/* scoreboard top10 */}
                     <Link to="/scoreboard">
