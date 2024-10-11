@@ -27,6 +27,10 @@ export const Navbar = ({view, modal}) => {
             focusR = null
             break;
     }
+
+    // buttons - tooltips
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
     
 	return (
     <>
@@ -49,7 +53,7 @@ export const Navbar = ({view, modal}) => {
                     {/* clean dashboard button */}
                     {view === "tasks"
                     ? <button className="card circle" onClick={actions.cleanDashboard}>
-                    <i className="fa-solid fa-arrows-rotate"></i>
+                    <i className="fa-solid fa-arrows-rotate" data-bs-toggle="tooltip" data-bs-title="Clean done quests"></i>
                     </button>
                     : null
                     }
