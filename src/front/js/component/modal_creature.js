@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 
-export const CreatureModal= ({id, index}) => {
+export const CreatureModal= ({id}) => {
     const { store, actions } = useContext(Context);
 
     
@@ -10,15 +10,24 @@ export const CreatureModal= ({id, index}) => {
         <>
              <div className="modal fade" id={id} tabIndex="-1" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered">
-                    <div className="card modal-content p-5">
+                    <div className="card modal-content d-flex gap-3 mx-auto p-5">
                         {/* title */}
                         <h1>{store.creatureInfo?.name}</h1>
-                        <img src={actions.getCreatureImage(store.creatureInfo)}/>
-                        <div>
-                            <h6>it has {store.creatureInfo?.hit_points} hit points</h6>
-                            <h6>size : {store.creatureInfo?.size}</h6>
-                            <h6>alignment: {store.creatureInfo?.alignment}</h6>
-                            <p>{store.creatureInfo?.desc}</p>
+                        <img className="col-8 mx-auto" src={actions.getCreatureImage(store.creatureInfo)}/>
+                        <div className="d-inline-flex gap-4 mx-auto text-start">
+                            <div>
+                                <h5>Type: </h5>
+                                <h5>Size: </h5>
+                                <h5>XP: </h5>
+                                <h5>Alignment: </h5>
+                            </div>
+                            <div>
+                                <p>{store.creatureInfo?.type}</p>
+                                <p>{store.creatureInfo?.size}</p>
+                                <p>{store.creatureInfo?.xp}</p>
+                                <p>{store.creatureInfo?.alignment}</p>
+                            </div>
+                            <h5>{store.creatureInfo?.desc}</h5>
                         </div>
                         <div type="button" className="card p-3 text-center bg-yellow" data-bs-dismiss="modal" aria-label="Close">
                             <h5>Go back to the Bestiary</h5>

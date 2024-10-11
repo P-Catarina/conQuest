@@ -9,7 +9,7 @@ import { ResponseModal } from "./modal_response";
 export const TakeAction = ({id, view, label, tier, done}) => {
     const { store, actions } = useContext(Context);
 
-    // component icon icon
+    // component icon
     let actionIcon = actions.getActionIcon(view, done)
 
     // tasks data
@@ -49,9 +49,9 @@ export const TakeAction = ({id, view, label, tier, done}) => {
             message={store.npc[randomIndex].response}
             subMessage={<> <p className="d-flex flex-row gap-3">
                         <i className="fa-solid fa-angles-up fa-bounce txt-green"></i>
-                        {difficulty !== undefined? difficulty.experience_given : null} experience
+                        {difficulty?.experience_given} experience
                         <i className="fa-solid fa-angles-up fa-bounce txt-yellow"></i>
-                        {difficulty !== undefined? difficulty.energy_given : null} energy</p> 
+                        {difficulty?.energy_given} energy</p> 
                         {store.user.role === "Rogue"? <p className="d-inline-flex gap-3">
                         <i className="fa-solid fa-plus fa-bounce txt-purple"></i> some you stole!</p> : null}
                         </>}

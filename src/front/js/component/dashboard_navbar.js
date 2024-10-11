@@ -86,16 +86,16 @@ export const Navbar = ({view, modal}) => {
             <img className="col-5 mb-3" src={actions.getRoleImage(store.user.user_role)} alt="user role icon" />
             {/* name */}
             <div className="card col my-3 p-2">
-                <h5>{store.user.name}</h5>
+                <h5>{store.user?.name}</h5>
             </div>
             <div className="d-flex flex-row gap-3 my-3">
                 {/* level */}
                 <div className="card col p-2">
-                    <h5>LVL {store.user.level}</h5>
+                    <h5>LVL {store.user?.level}</h5>
                 </div>
                 {/* role */}
                 <div className="card col p-2">
-                    <h5>{store.user.role}</h5>
+                    <h5>{store.user?.role}</h5>
                 </div>
             </div>
             {/* experience + energy */}
@@ -103,15 +103,15 @@ export const Navbar = ({view, modal}) => {
                 <div className="d-inline-flex flex-row justify-content-between">
                     <i className="fa-solid fa-forward"></i>
                     <div className="card round col-11">
-                        <div className="bg-experience" style={{height:"15px",width: store.user.experience + "%"}}></div>
+                        <div className="bg-experience" style={{height:"15px",width: store.user?.experience + "%"}}></div>
                     </div>
                 </div>
                 <div className="d-inline-flex flex-row justify-content-between">
-                    {store.user.energy >= 85                   
+                    {store.user?.energy >= 85                   
                     ? <i className="fa-solid fa-bolt fa-fade"></i>
                     : <i className="fa-solid fa-bolt"></i>}
                     <div className="card round col-11">
-                        <div className="bg-energy" style={{height:"15px",width: store.user.energy + "%"}}></div>
+                        <div className="bg-energy" style={{height:"15px",width: store.user?.energy + "%"}}></div>
                     </div>
                 </div>
             </div>
@@ -126,7 +126,7 @@ export const Navbar = ({view, modal}) => {
                 <div className="col">
                     {/* experience and energy numbers */}
                     <div className="card p-2">
-                        <h5>{store.user.experience} <i className="fa-solid fa-forward sizeDown"></i> {store.user.energy} <i className="fa-solid fa-bolt sizeDown"></i></h5>
+                        <h5>{store.user?.experience} <i className="fa-solid fa-forward sizeDown"></i> {store.user?.energy} <i className="fa-solid fa-bolt sizeDown"></i></h5>
                     </div>
                     {/* creature count */}
                     <div className="card my-3 p-1">
@@ -141,7 +141,7 @@ export const Navbar = ({view, modal}) => {
                 </div>
             {/* encounter button */}
             </div>
-            {store.user.encounter > 0
+            {store.user?.encounter > 0
             ? <Link to="/encounter-map">
             <div className="card col p-2 encounter text-light" data-bs-dismiss="offcanvas">
                 <h5>Watch Out</h5>

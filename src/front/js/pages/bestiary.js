@@ -20,13 +20,13 @@ export const Bestiary = () =>{
     <div className="col-md-10 mx-auto p-5 card">
     {/* title */}
     <h1>Bestiary</h1>
-    {/* zero beasts */}
+    {/* empty message */}
     {store.bestiary.length === 0
     ? <div className="col m-3 p-3"><h5>{TEXT.zeroCreatures}</h5></div>
     : null}
     {/* creatures */}
     <div className="row row-cols-1 row-cols-md-5 gy-4">
-          {store.bestiary?.map((item,index)=>(
+          {store.bestiary?.map((item,index) => (
             <div className="col" key={index}>
               <div className="card p-3 gap-3" data-bs-toggle="modal" data-bs-target="#info" onClick={()=>actions.getCreature(item.api)}>
                 <img src={actions.getCreatureImage(item)} className="col-8 align-self-center"/>
@@ -38,8 +38,9 @@ export const Bestiary = () =>{
           ))}
     </div>
     </div>
-    <ToDashboard /> 
+    <ToDashboard />
 
+    {/* creature info modal */}
     {store.bestiary?.map((item,index)=>(<CreatureModal id="info" key={index}/>))}
     </> 
 )
