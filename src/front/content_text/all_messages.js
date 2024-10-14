@@ -48,7 +48,7 @@ export const TEXT = {
     rogue: "Sneaky little bastard, ain't we? How come you never get caught stealling from our precious master vault?",
     
     // EMPTY DASHBOARDS - QUESTS / REWARDS / BESTIARY
-    zeroCreatures: "Your Bestiary is empty. You'll aquire a beast by defeacting it in an encounter. This encounter happens each time you level up. So what are you waiting for?",
+    zeroCreatures: "Your Bestiary is empty. You'll aquire a creature by defeacting it in battle. Such encounter happens each time you level up. So what are you waiting for?",
     zeroQuests: "Welcome, this board is for your life's side quests. You will get experience and energy by completing them. The more challenging the quest is, the greater it's loot. Well don't just stand there, c'mon, let's get some coin.",
     zeroRewards: "What is it your heart desires? Ethernal youth might be a bit of a stretch... Fill this board with rewards to claim, take this opportunity to celebrate your achievements. Make sure to treat yourself before your energy bar reaches it's limit.",
     

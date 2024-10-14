@@ -6,7 +6,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			user: [],
-			tasks: [],
+			quests: [],
 			rewards: [],
      		bestiary: [],
  			roles: [],
@@ -62,7 +62,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			tierColor: (view, tier, done) => {
 				let tierColor="";
 
-				if (view === "rewards" || view === "tasks" && done === true) {
+				if (view === "rewards" || view === "quests" && done === true) {
 					switch(tier){
 						case 1:
 							tierColor = "bg-yellow"
@@ -85,7 +85,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			tierIcon: (view, tier) => {
 				let tierIcon="";
 				
-				if (view === "tasks") {
+				if (view === "quests") {
 					switch(tier){
 						case 1:
 							tierIcon = "fa-regular fa-circle"
@@ -124,7 +124,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				let actionIcon=""
 
 				if (view === "rewards") actionIcon = "fa-solid fa-crosshairs" 
-				else if(view === "tasks") {
+				else if(view === "quests") {
 					switch(done){
 						case true:
 							actionIcon = "fa-solid fa-check"
@@ -138,8 +138,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			getDashboardModalAction: (view, modalId) => {
-				if (view === "tasks" && typeof modalId === "number") getActions().updateTask(modalId)
-				if (view === "tasks" && typeof modalId === "string") getActions().createTask()
+				if (view === "quests" && typeof modalId === "number") getActions().updateQuest(modalId)
+				if (view === "quests" && typeof modalId === "string") getActions().createQuest()
 				if (view === "rewards" && typeof modalId === "number") getActions().updateReward(modalId)
 				if (view === "rewards" && typeof modalId === "string") getActions().createReward()					
 			},
@@ -327,7 +327,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					localStorage.setItem('user', loginData.user_id)
 					localStorage.setItem('userLevel', loginData.level)
 					getActions().getUserDataAndAbilities()
-					getActions().getTaskList()
+					getActions().getQuestList()
 					getActions().getRewardList()
 				}).catch((err) => {
 					console.error('Something Wrong when calling API', err)
@@ -338,7 +338,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				localStorage.removeItem('jwt-token')
 				localStorage.removeItem('user')
 				getActions().resetInput()
-				setStore({...getStore, user:[], tasks:[], rewards:[], bestiary:[], abilities:[]})
+				setStore({...getStore, user:[], quests:[], rewards:[], bestiary:[], abilities:[]})
 			},
 			
 			////////////////////////////////////////////////////////////////////////////////////////// USER 
@@ -510,18 +510,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			////////////////////////////////////////////////////////////////////////////////////////// QUESTS 
 
-			getTaskList: async () => {
+			getQuestList: async () => {
 				const user = localStorage.getItem('user')
 
-				fetch(process.env.BACKEND_URL + "api/tasks/" + user, {
+				fetch(process.env.BACKEND_URL + "api/quests/" + user, {
 					method: 'GET',
 					headers: { "Content-Type": "application/json" },
 				}).then((response) => {
 					if(response.ok) return response.json()
 					throw Error(response.status)
-				}).then((tasksData) => {
-					setStore({...getStore, tasks: tasksData})
-					tasksData.length === 0
+				}).then((questList) => {
+					setStore({...getStore, quests: questList})
+					questList.length === 0
 					? setStore({loadingQuests: TEXT.zeroQuests})
 					: setStore({loadingQuests: false})
 				}).catch((err) => {
@@ -529,55 +529,55 @@ const getState = ({ getStore, getActions, setStore }) => {
 				})
 			},
 
-			createTask: async () => {
+			createQuest: async () => {
 				const user = localStorage.getItem('user')
 				const input = getStore().inputs
 
-				const task ={
+				const quest ={
 					"label": input.label,
 					"user_id": user,
-					"task_difficulty_id": input.tier
+					"quest_difficulty_id": input.tier
 				}
 
-				fetch(process.env.BACKEND_URL + "api/tasks", {
+				fetch(process.env.BACKEND_URL + "api/quests", {
 					method: "POST",
-					body: JSON.stringify(task),
+					body: JSON.stringify(quest),
 				   	headers: {"Content-Type": "application/json"}
 				   }).then((response) => {
 					if(response.ok) return response.json()
 				   }).then(() => {
-					   getActions().getTaskList()
+					   getActions().getQuestList()
 					   getActions().resetInput()
 				   }).catch(error => {
 					   console.log(error);
 				   });
 			},
 
-			updateTask: async (taskId) => {
+			updateQuest: async (questId) => {
 				const input = getStore().inputs
-				const updatedTask ={
+				const updatedQuest ={
 					"label": input.label,
-					"task_difficulty_id": input.tier,
+					"quest_difficulty_id": input.tier,
 					"done": input.done,
 					"onboard": input.onboard
 				}
 				
-				fetch(process.env.BACKEND_URL + "api/tasks/" + taskId, {
+				fetch(process.env.BACKEND_URL + "api/quests/" + questId, {
 					method: "PUT",
-					body: JSON.stringify(updatedTask),
+					body: JSON.stringify(updatedQuest),
 				   	headers: {"Content-Type": "application/json"}
 				   }).then(response => {
 					   if(response.ok) return response.json()
 						throw Error(response.status)
 				   }).then(() => {
-					getActions().getTaskList()
+					getActions().getQuestList()
 					getActions().resetInput() 
 				   }).catch(error => {
 					   console.log(error);
 				   });
 			},
 
-			doTask: async (tier, taskId) => {
+			doQuest: async (tier, questId) => {
 				const userRole = getStore().user.role
 				let userLevel = getStore().user.level
 				let userEncounter = getStore().user.encounter
@@ -600,18 +600,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				getActions().updateUser()				
 				setStore({...getStore, inputs: {"done": true}})
-				getActions().updateTask(taskId)
+				getActions().updateQuest(questId)
 				getActions().randomNPC()
 			},
 
 			experienceCalculator: (tier) => {
 				const currentExperience = getStore().user.experience
-				const taskExperience = getStore().difficulties[tier].experience_given
-				const totalExperience = currentExperience + taskExperience
+				const questExperience = getStore().difficulties[tier].experience_given
+				const totalExperience = currentExperience + questExperience
 
 				const userRole = getStore().user.role
 				const passive = getActions().getPassive()
-				const passiveRogue = Math.round(taskExperience * passive / 100)				
+				const passiveRogue = Math.round(questExperience * passive / 100)				
 
 				if (userRole === "Rogue") return totalExperience + passiveRogue
 				return totalExperience
@@ -619,22 +619,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			energyCalculator: (tier) => {
 				const currentEnergy = getStore().user.energy
-				const taskEnergy = getStore().difficulties[tier].energy_given
-				const totalEnergy = currentEnergy + taskEnergy
+				const questEnergy = getStore().difficulties[tier].energy_given
+				const totalEnergy = currentEnergy + questEnergy
 
 				const userRole = getStore().user.role
 				const passive = getActions().getPassive()
-				const passiveRogue = Math.round(taskEnergy * passive / 100)
+				const passiveRogue = Math.round(questEnergy * passive / 100)
 
 				if (userRole === "Rogue") return totalEnergy + passiveRogue
 				return totalEnergy
 			},
 
 			cleanDashboard: async () => {
-				let offBoard = getStore().tasks.filter(item => item.done === true)
-				for (let task of offBoard){
+				let offBoard = getStore().quests.filter(item => item.done === true)
+				for (let quest of offBoard){
 					setStore({...getStore, inputs: {"onboard": false}})
-					getActions().updateTask(task.id)
+					getActions().updateQuest(quest.id)
 				}
 			},
 

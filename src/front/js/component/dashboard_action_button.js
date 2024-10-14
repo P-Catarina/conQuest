@@ -12,7 +12,7 @@ export const TakeAction = ({id, view, label, tier, done}) => {
     // component icon
     let actionIcon = actions.getActionIcon(view, done)
 
-    // tasks data
+    // quests data
     let difficulty = store.difficulties[tier]
     let randomIndex = localStorage.getItem('randomNPC')
     
@@ -28,22 +28,22 @@ export const TakeAction = ({id, view, label, tier, done}) => {
             ? <i className={actionIcon} data-bs-toggle="modal" data-bs-target={`#attackReward${id}`}></i>
             : view === "rewards" && energy === false
             ? <i className={actionIcon} data-bs-toggle="modal" data-bs-target={`#sorry${id}`}></i>
-            : view === "tasks" && done === true
+            : view === "quests" && done === true
             ? <i className={actionIcon}></i>
-            : <i className={actionIcon} data-bs-toggle="modal" data-bs-target={`#taskDone?${id}`}></i>}
+            : <i className={actionIcon} data-bs-toggle="modal" data-bs-target={`#questDone?${id}`}></i>}
         </div>
 
 
-        {/* task done modals */}
+        {/* quest done modals */}
 		<ConfirmationModal 
-            id={`taskDone?${id}`}
+            id={`questDone?${id}`}
             title="Is it Done?"
             confirmLabel="Firmly nod once"
-            targetModal={`#taskResponse${id}`}
+            targetModal={`#questResponse${id}`}
             dismissLabel="Retrieve"
         />
         <ResponseModal
-            id={`taskResponse${id}`}
+            id={`questResponse${id}`}
             title={store.npc[randomIndex].title}
             image={store.npc[randomIndex].image}
             message={store.npc[randomIndex].response}
@@ -56,7 +56,7 @@ export const TakeAction = ({id, view, label, tier, done}) => {
                         <i className="fa-solid fa-plus fa-bounce txt-purple"></i> some you stole!</p> : null}
                         </>}
             confirmLabel="Collect prize"
-            action={() => actions.doTask(tier, id)}
+            action={() => actions.doQuest(tier, id)}
         />
 
 

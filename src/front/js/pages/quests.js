@@ -12,12 +12,12 @@ export const Quests = () => {
 	const { store, actions } = useContext(Context)
 
 	useEffect(() => {
-        actions.getTaskList()
+        actions.getQuestList()
 		actions.getBackgroundColor("yellow")
     },[]);
 
-    let view = "tasks"
-	let idCreateModal = "createTask"
+    let view = "quests"
+	let idCreateModal = "createQuest"
 
     return (
 		<>
@@ -28,17 +28,17 @@ export const Quests = () => {
 		/>
 		<div className="dashboard card col p-lg-5 p-3">
 			{/* loading / empty */
-			store.loadingQuests === true && store.tasks.length === 0
+			store.loadingQuests === true && store.quests.length === 0
 			? <LoadingFallback />
 			: <h5>{store.loadingQuests}</h5>
 			/* list */}
 			<div className="row row-cols-1 row-cols-md-4 g-4">
-				{store.tasks?.map((item,index)=>(
+				{store.quests?.map((item,index)=>(
 					<DashCard key={index}
 						id={item.id}
 						view={view}
 						label={item.label}
-						tier={item.task_difficulty_id}
+						tier={item.quest_difficulty_id}
 						modal={`#${item.id}`}
 						done={item.done}
 					/>
@@ -53,7 +53,7 @@ export const Quests = () => {
 			tier={store.difficulties}
 		/>
 		{/* edit quest */}
-		{store.tasks?.map((item,index)=>(
+		{store.quests?.map((item,index)=>(
 		<AddEditModal key={index}
 			id={item.id}
 			view={view}

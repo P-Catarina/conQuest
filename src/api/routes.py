@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Role, Difficulty, Task, Rarity, Reward, Bestiary, Ability
+from api.models import db, User, Role, Difficulty, Quest, Rarity, Reward, Bestiary, Ability
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from random import randint
@@ -45,7 +45,7 @@ def get_all_abilities():
     return jsonify(all_abilities), 200
 
 
-###################################################################################  TASK DIFFICULTY ROUTES
+###################################################################################  QUEST DIFFICULTY ROUTES
 
 @api.route("/difficulty",  methods=['GET'])
 def get_difficulties():
@@ -211,86 +211,86 @@ def delete_user(user_id):
 
     return jsonify({"msg": "User deleted."}), 200
 
-###################################################################################  TASKS ROUTES
+###################################################################################  QUESTS ROUTES
 
-@api.route("/tasks",  methods=['GET'])
-def get_tasks():
-    tasks= Task.query.all()
-    all_tasks= list(map(lambda x: x.serialize(), tasks))
-    return jsonify(all_tasks), 200
+@api.route("/quests",  methods=['GET'])
+def get_quests():
+    quests= Quest.query.all()
+    all_quests= list(map(lambda x: x.serialize(), quests))
+    return jsonify(all_quests), 200
 
-@api.route('/tasksDone', methods=['GET'])
-def get_all_task_done_onboard():
-    tasks = Task.query.filter_by(done = True, onboard = True)
-    task_list = list(map(lambda x: x.serialize(), tasks))
+@api.route('/questsDone', methods=['GET'])
+def get_all_quest_done_onboard():
+    quests = Quest.query.filter_by(done = True, onboard = True)
+    quest_list = list(map(lambda x: x.serialize(), quests))
 
-    return jsonify(task_list), 200
+    return jsonify(quest_list), 200
 
-@api.route("/tasks",  methods=['POST'])
-def create_task():
-    new_task = request.get_json()
+@api.route("/quests",  methods=['POST'])
+def create_quest():
+    new_quest = request.get_json()
 
-    if 'label' not in new_task:
-        return "label should be in New task Body", 400
-    if 'user_id' not in new_task:
-        return "user_id should be in New task Body", 400
-    if 'task_difficulty_id' not in new_task:
-        return "task_difficulty_id should be in New task Body", 400
+    if 'label' not in new_quest:
+        return "label should be in New quest Body", 400
+    if 'user_id' not in new_quest:
+        return "user_id should be in New quest Body", 400
+    if 'quest_difficulty_id' not in new_quest:
+        return "quest_difficulty_id should be in New quest Body", 400
 
-    new_task = Task(
-        label = new_task['label'],
-        user_id = new_task['user_id'],
-        task_difficulty_id = new_task['task_difficulty_id'],
+    new_quest = Quest(
+        label = new_quest['label'],
+        user_id = new_quest['user_id'],
+        quest_difficulty_id = new_quest['quest_difficulty_id'],
         done = False,
         onboard = True
 
         )
 
-    db.session.add(new_task)
+    db.session.add(new_quest)
     db.session.commit()
 
-    return jsonify({"msg": "New Task is Created"}), 201
+    return jsonify({"msg": "New quest is Created"}), 201
 
 
-@api.route('/tasks/<int:the_user_id>', methods=['GET'])
-def get_task_list(the_user_id):
+@api.route('/quests/<int:the_user_id>', methods=['GET'])
+def get_quest_list(the_user_id):
 
-    tasks = Task.query.filter_by(user_id = the_user_id, onboard = True)
-    if tasks is None:
-        return "No tasks from user: " + str(the_user_id), 400
+    quests = Quest.query.filter_by(user_id = the_user_id, onboard = True)
+    if quests is None:
+        return "No quests from user: " + str(the_user_id), 400
     
-    task_list = list(map(lambda x: x.serialize(), tasks))
+    quest_list = list(map(lambda x: x.serialize(), quests))
 
-    return jsonify(task_list), 200
+    return jsonify(quest_list), 200
 
-@api.route('/tasks/<int:task_id>', methods=['PUT'])
-def update_task(task_id):
+@api.route('/quests/<int:quest_id>', methods=['PUT'])
+def update_quest(quest_id):
 
-    new_updated_task = request.get_json()
-    old_task_obj = Task.query.get(task_id)
+    new_updated_quest = request.get_json()
+    old_quest_obj = Quest.query.get(quest_id)
 
-    if old_task_obj is None:
-        return "No task with id: " + str(task_id), 400
+    if old_quest_obj is None:
+        return "No quest with id: " + str(quest_id), 400
 
-    if 'label' in new_updated_task:
-        old_task_obj.label = new_updated_task['label']
+    if 'label' in new_updated_quest:
+        old_quest_obj.label = new_updated_quest['label']
     
-    if 'task_difficulty_id' in new_updated_task:
-        old_task_obj.task_difficulty_id = new_updated_task['task_difficulty_id']
+    if 'quest_difficulty_id' in new_updated_quest:
+        old_quest_obj.quest_difficulty_id = new_updated_quest['quest_difficulty_id']
     
-    if 'done' in new_updated_task:
-        old_task_obj.done = new_updated_task['done']
+    if 'done' in new_updated_quest:
+        old_quest_obj.done = new_updated_quest['done']
 
-    if 'done' in new_updated_task:
-        old_task_obj.done = new_updated_task['done']
+    if 'done' in new_updated_quest:
+        old_quest_obj.done = new_updated_quest['done']
 
-    if 'onboard' in new_updated_task:
-        old_task_obj.onboard = new_updated_task['onboard']
+    if 'onboard' in new_updated_quest:
+        old_quest_obj.onboard = new_updated_quest['onboard']
 
 
     db.session.commit()
 
-    return jsonify({"msg": "task is Updated"}), 200
+    return jsonify({"msg": "quest is Updated"}), 200
 
 ###################################################################################  REWARD ROUTES
 
@@ -306,11 +306,11 @@ def create_reward():
     new_reward = request.get_json()
 
     if 'label' not in new_reward:
-        return "label should be in New task Body", 400
+        return "label should be in New quest Body", 400
     if 'user_id' not in new_reward:
-        return "user_id should be in New task Body", 400
+        return "user_id should be in New quest Body", 400
     if 'rarity_id' not in new_reward:
-        return "rarity_id should be in New task Body", 400
+        return "rarity_id should be in New quest Body", 400
     
   
     new_reward = Reward(

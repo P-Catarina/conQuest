@@ -46,12 +46,12 @@ export const Navbar = ({view, modal}) => {
                         {/* profile icon */}
                         <i className="fa-solid fa-user"></i>
                     </button>
-                    {/* create task/reward button */}
+                    {/* create quest/reward button */}
                     <button className="card circle" data-bs-toggle="modal" data-bs-target={modal}>
                         <i className="fa-solid fa-plus"></i>
                     </button>
                     {/* clean dashboard button */}
-                    {view === "tasks"
+                    {view === "quests"
                     ? <button className="card circle" onClick={actions.cleanDashboard}>
                     <i className="fa-solid fa-arrows-rotate" data-bs-toggle="tooltip" data-bs-title="Clean done quests"></i>
                     </button>

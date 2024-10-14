@@ -1,7 +1,7 @@
   
 import os
 from flask_admin import Admin
-from .models import db, User, Role, Difficulty, Task, Rarity, Reward, Bestiary, Ability
+from .models import db, User, Role, Difficulty, Quest, Rarity, Reward, Bestiary, Ability
 from flask_admin.contrib.sqla import ModelView
 
 def setup_admin(app):
@@ -14,7 +14,7 @@ def setup_admin(app):
     admin.add_view(ModelView(User, db.session))
     admin.add_view(ModelView(Role, db.session))
     admin.add_view(ModelView(Difficulty, db.session))
-    admin.add_view(ModelView(Task, db.session))
+    admin.add_view(ModelView(Quest, db.session))
     admin.add_view(ModelView(Rarity, db.session))
     admin.add_view(ModelView(Reward, db.session))
     admin.add_view(ModelView(Bestiary, db.session))

@@ -5,7 +5,7 @@ import { TakeAction } from "./dashboard_action_button";
 
 export const DashCard = ({id, view, label, tier, modal, done}) => {
 
-    const { store, actions } = useContext(Context);
+    const { actions } = useContext(Context);
 
     let tierColor = actions.tierColor(view, tier, done)
     let tierIcon = actions.tierIcon(view, tier)

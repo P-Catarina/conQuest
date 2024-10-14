@@ -71,19 +71,19 @@ class Difficulty(db.Model):
         }
     
 
-class Task(db.Model):
-    __tablename__ = "task"
+class Quest(db.Model):
+    __tablename__ = "quest"
     id = db.Column(db.Integer, primary_key=True)
     label = db.Column(db.String(120), nullable=False)
     done = db.Column(db.Boolean(), unique=False, nullable=False)
     onboard = db.Column(db.Boolean(), unique=False, nullable=False)
-    task_difficulty_id = db.Column(db.Integer, db.ForeignKey('difficulty.id'))
-    task_difficulty = db.relationship(Difficulty)
+    quest_difficulty_id = db.Column(db.Integer, db.ForeignKey('difficulty.id'))
+    quest_difficulty = db.relationship(Difficulty)
     user_id=db.Column(db.Integer, db.ForeignKey('user.id'))
     user=db.relationship(User)
 
     def __repr__(self):
-        return f'<Task {self.label}>'
+        return f'<Quest {self.label}>'
     
     def serialize(self):
         return {
@@ -92,7 +92,7 @@ class Task(db.Model):
             "done": self.done,
             "onboard": self.onboard,
             "user_id": self.user_id,
-            "task_difficulty_id": self.task_difficulty_id
+            "quest_difficulty_id": self.quest_difficulty_id
            
         }
     
