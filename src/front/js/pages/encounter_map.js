@@ -14,6 +14,7 @@ export const EncounterMap = () => {
     };
 
     useEffect(() => {
+        actions.getEcounter()
         actions.encounterBattle()
 		actions.getBackgroundColor("purple")
         window.addEventListener("resize", updateMedia);

@@ -657,7 +657,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}).catch((err) => {
 					console.log('Couldnt get rewards from API', err)
 				})
-				console.log(getStore());
 			},
 
 			createReward: async () => {
@@ -761,6 +760,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			getCreature: (api) => {
+				console.log('api -> ', api);
+				
 				const myHeaders = new Headers();
 				myHeaders.append("Accept", "application/json");
 				const requestOptions = {
@@ -821,18 +822,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			////////////////////////////////////////////////////////////////////////////////////////// BATTLE
 
-			encounterPoolRange: () => {
+			getEcounter: async () => {
 				const userLevel = localStorage.getItem("userLevel")
 				//challenge rating goes like this 0, 0.125, 0.250, 0.500 and then from 1 to 24 - 18 is empty
 				const challengeRatings = [0,0.125,0.250,0.500,1,2,3,4,5,6,7,8,9,10,[11,12,13,14],[15,16,17,19,20,21,22,23,24]]
+				
 				let count = 1
-
 				for (let i = 25; i <= userLevel; i += 20){++count}			
-				getActions().getEncounterPool(challengeRatings.slice(0, count))
-			},
-			
-			getEncounterPool: async (...values) => {
-				const challengeRatings = values
+				const battleRatings = challengeRatings.slice(0, count)
 
 				const myHeaders = new Headers();
 				myHeaders.append("Accept", "application/json")
@@ -842,28 +839,24 @@ const getState = ({ getStore, getActions, setStore }) => {
 				redirect: "follow"
 				};
 
-				fetch(`https://www.dnd5eapi.co/api/monsters?challenge_rating=${challengeRatings}`, requestOptions)
-				.then((response) => response.json())
-				.then((result) => setStore({encounterPool: result.results}))
-				.catch((error) => console.error(error));
+				fetch(`https://www.dnd5eapi.co/api/monsters?challenge_rating=${battleRatings}`, requestOptions)
+				.then(response => response.json())
+				.then(result => setStore({encounterPool: result.results}))
+				.then(getActions().encounterCreature())
+				.catch((error) => console.error(error))
 			},
       
-			opponentCreature: async () => {
-				const store = getStore()				
-				getActions().getBestiary()
-				await getActions().encounterPoolRange()
-
-				const encounterPool = store.encounterPool?.map((item)=>{return item.url})
-				const bestiary = store.bestiary?.map((item)=>{return item.api})
+			encounterCreature: () => {
+				const encounterPool = getStore().encounterPool?.map((item)=>{return item.url})
+				const bestiary = getStore().bestiary?.map((item)=>{return item.api})
 				const creaturePool = encounterPool.filter(val => !bestiary.includes(val))
 				const opponentCreature = creaturePool[Math.floor(Math.random() * creaturePool.length)]
 				localStorage.setItem("opponentCreature", opponentCreature)
 			},
 
-			encounterBattle: async () => {
-				await getActions().opponentCreature()
+			encounterBattle: () => {
 				const opponentCreature = localStorage.getItem("opponentCreature")
-				await getActions().getCreature(opponentCreature)
+				getActions().getCreature(opponentCreature)
 
 				const store=getStore()
 				const passiveBarbarian = getActions().getPassive()
