@@ -18,6 +18,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 			encounterPool: [],
 			creatureInfo:[],
 			inputs: {},
+			loading: true,
+			loadingQuests: true,
+			loadingRewards: true,
+			loadingBestiary: true,
 
 		},
 		actions: {
@@ -282,7 +286,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			////////////////////////////////////////////////////////////////////////////////////////// AUTHENTICATION
 
-			singUp: () => {
+			singUp: async () => {
 				const input = getStore().inputs				
 				
 				const newUser ={
@@ -304,7 +308,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				   });
 			},
 			
-			Login: () => {
+			Login: async () => {
 				const input = getStore().inputs
 
 				fetch(process.env.BACKEND_URL + "api/login", {
@@ -326,7 +330,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					getActions().getTaskList()
 					getActions().getRewardList()
 				}).catch((err) => {
-					alert("Could not login, email or password is wrong.")
 					console.error('Something Wrong when calling API', err)
 				})
 			},
@@ -505,7 +508,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 
-			////////////////////////////////////////////////////////////////////////////////////////// TASKS 
+			////////////////////////////////////////////////////////////////////////////////////////// QUESTS 
 
 			getTaskList: async () => {
 				const user = localStorage.getItem('user')
@@ -518,6 +521,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					throw Error(response.status)
 				}).then((tasksData) => {
 					setStore({...getStore, tasks: tasksData})
+					tasksData.length === 0
+					? setStore({loadingQuests: TEXT.zeroQuests})
+					: setStore({loadingQuests: false})
 				}).catch((err) => {
 					console.log('Couldnt get classes from API', err)
 				})
@@ -635,7 +641,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			////////////////////////////////////////////////////////////////////////////////////////// REWARDS
 
 			getRewardList: async () => {
-				const user = localStorage.getItem('user')
+				const user = localStorage.getItem('user')		
 
 				fetch(process.env.BACKEND_URL + "api/rewards/" + user, {
 					method: 'GET',
@@ -645,10 +651,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 					throw Error(response.status)
 				}).then((rewardList) => {
 					setStore({rewards: rewardList })
+					rewardList.length === 0
+					? setStore({loadingRewards: TEXT.zeroRewards})
+					: setStore({loadingRewards: false})
 				}).catch((err) => {
 					console.log('Couldnt get rewards from API', err)
 				})
-			
+				console.log(getStore());
 			},
 
 			createReward: async () => {
@@ -742,6 +751,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const resp = await fetch(process.env.BACKEND_URL + "api/bestiary/" + user)
 					const data = await resp.json()
 					setStore({ bestiary: data})
+					data.length === 0
+					? setStore({loadingCreatures: TEXT.zeroCreatures})
+					: setStore({loadingCreatures: false})
 					return data
 				}catch(error){
 					console.log("Error loading message from backend", error)
@@ -759,8 +771,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				fetch("https://www.dnd5eapi.co" + api, requestOptions)
 				.then((response) => response.json())
-				.then((info) =>{setStore({creatureInfo: info})})
-				.catch((error) => console.error(error));	
+				.then((info) =>{setStore({creatureInfo: info},)})
+				.catch((error) => console.error(error));
 			},
 
 			addToBestiary: () => {				

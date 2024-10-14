@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
-import { Link } from "react-router-dom";
-import { TEXT } from "../../content_text/all_messages";
+
+import { LoadingFallback } from "../component/fallback_loading";
 
 import { CreatureModal } from "../component/modal_creature";
 import { ToDashboard } from "../component/button_to_dashboard";
@@ -20,11 +20,11 @@ export const Bestiary = () =>{
     <div className="col-md-10 mx-auto p-5 card">
     {/* title */}
     <h1>Bestiary</h1>
-    {/* empty message */}
-    {store.bestiary.length === 0
-    ? <div className="col m-3 p-3"><h5>{TEXT.zeroCreatures}</h5></div>
-    : null}
-    {/* creatures */}
+    {/* loading / empty */
+		store.loadingBestiary === true && store.bestiary.length === 0
+		? <LoadingFallback />
+		: <h5>{store.loadingBestiary}</h5>
+		/* list */}
     <div className="row row-cols-1 row-cols-md-5 gy-4">
           {store.bestiary?.map((item,index) => (
             <div className="col" key={index}>

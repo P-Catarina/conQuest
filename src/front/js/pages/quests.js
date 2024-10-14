@@ -1,6 +1,7 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
-import { TEXT } from "../../content_text/all_messages";
+
+import { LoadingFallback } from "../component/fallback_loading";
 
 import { Navbar } from "../component/dashboard_navbar";
 import { DashCard } from "../component/dashboard_card";
@@ -8,7 +9,7 @@ import { AddEditModal } from "../component/modal_add_edit_dashboard";
 
 
 export const Quests = () => {
-	const { store, actions } = useContext(Context);
+	const { store, actions } = useContext(Context)
 
 	useEffect(() => {
         actions.getTaskList()
@@ -17,7 +18,7 @@ export const Quests = () => {
 
     let view = "tasks"
 	let idCreateModal = "createTask"
-    
+
     return (
 		<>
 		{/* navigation */}
@@ -25,12 +26,12 @@ export const Quests = () => {
 			view={view}
 			modal={`#${idCreateModal}`}
 		/>
-		<div className="dashboard card col p-4">
-			{/* no rewards message */}
-			{store.tasks?.length === 0
-			?<div className="col m-3 p-3"><h5>{TEXT.zeroQuests}</h5></div>
-			: null}
-			{/* list */}
+		<div className="dashboard card col p-lg-5 p-3">
+			{/* loading / empty */
+			store.loadingQuests === true && store.tasks.length === 0
+			? <LoadingFallback />
+			: <h5>{store.loadingQuests}</h5>
+			/* list */}
 			<div className="row row-cols-1 row-cols-md-4 g-4">
 				{store.tasks?.map((item,index)=>(
 					<DashCard key={index}

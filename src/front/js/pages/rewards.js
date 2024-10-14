@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext"
-import { TEXT } from "../../content_text/all_messages";
+
+import { LoadingFallback } from "../component/fallback_loading";
 
 import { Navbar } from "../component/dashboard_navbar";
 import { DashCard } from "../component/dashboard_card";
@@ -25,12 +26,12 @@ export const Rewards = () => {
 			view={view}
 			modal={`#${idCreateModal}`}
 		/>
-		<div className="dashboard card col p-4">
-			{/* no rewards message */}
-			{store.rewards?.length === 0
-			? <div className="col m-3 p-3"><h5>{TEXT.zeroRewards}</h5></div>
-			: null}
-			{/* list */}
+		<div className="dashboard card col p-lg-5 p-3">
+			{/* loading / empty */
+			store.loadingRewards === true && store.rewards.length === 0
+			? <LoadingFallback />
+			: <h5>{store.loadingRewards}</h5>
+			/* list */}
 			<div className="row row-cols-1 row-cols-md-4 g-4">
 				{store.rewards?.map((item,index)=>(
 					<DashCard key={index}

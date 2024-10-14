@@ -23,7 +23,7 @@ export const Scoreboard = () => {
                 <h5 className="col">{store.user.name}</h5>
                 <h5 className="col">{store.user.role}</h5>
                 <h5 className="col">LVL {store.user.level}</h5>
-                <h5 className="col">{store.bestiary.length} Beasts</h5>
+                <h5 className="col">{store.bestiary.length} Creatures</h5>
             </div>
             <h1>Level Top 10</h1>
             <div>
@@ -51,16 +51,16 @@ export const Scoreboard = () => {
                 </div>
                 ))}
             </div>
-            <h1>Beasts Top 10</h1>
+            <h1>Creatures Top 10</h1>
             <div>
-                {/* beasts labels bar */}
+                {/* creatures labels bar */}
                 <div className="card d-flex flex-md-row p-md-3 bg-black">
                     <h5 className="col">Rank</h5>
                     <h5 className="col">Player</h5>
                     <h5 className="col">Role</h5>
-                    <h5 className="col">Beasts</h5>
+                    <h5 className="col">Creatures</h5>
                 </div>
-                {/* by beasts list */}
+                {/* by creatures list */}
                 {store.scoreboard?.filter(player => player.email !== "").sort((a, b) => b.bestiary - a.bestiary).slice(0, 10).map((item,index)=>(
                 item.id === store.user.id
                 ? <div className="card d-flex flex-md-row my-4 p-md-3 bg-yellow" key={index}>
