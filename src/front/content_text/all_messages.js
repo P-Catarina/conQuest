@@ -26,6 +26,7 @@ export const TEXT = {
 
     geeks: "Special thanks to 4Geeks Academy, our teachers and mentors. Everyone that helped and supported us during our journey, we can't thank you enough.",
     freepik: "All of our cool images come from amazing artists such as max.icons, catalyststuff, upklyak and vectorpouch over at Freepik.",
+    github: "If you want to, you can check conQuest's GitHub repository right here.",
 
     // TUTORIAL SLIDES / PAGE
     tutorial: "It's dangerous to go alone, take this tutorial!",

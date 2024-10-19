@@ -1,81 +1,61 @@
-# WebApp boilerplate with React JS and Flask API
+# conQuest
+conQuest is a gamified To-Do List, role playishly inspired by D&D. Feel free to [check it out](https://www.conquest.website), we hope you enjoy it!
 
-Build web applications using React.js for the front end and python/flask for your backend API.
+## Table of Contents
+1. [Context](#Context)
+2. [Overview](#Overview)
+3. [Technologies](#Technologies)
+4. [Authors](#Authors)
+5. [Roadmap](#Roadmap)
 
-- Documentation can be found here: https://start.4geeksacademy.com/starters/react-flask
-- Here is a video on [how to use this template](https://www.loom.com/share/f37c6838b3f1496c95111e515e83dd9b)
-- Integrated with Pipenv for package managing.
-- Fast deployment to heroku [in just a few steps here](https://start.4geeksacademy.com/backend/deploy-heroku-posgres).
-- Use of .env file.
-- SQLAlchemy integration for database abstraction.
+## Context
+Inspired by all things geek and prompted by a final project to our Full Stack Developer Course, we came across the idea to gamify a not so fun aspect of life such as we had seen happen with the [Walk to Mordor](https://www.cnet.com/culture/this-lord-of-the-rings-app-is-the-only-thing-getting-me-to-exercise/) app and others that followed.
 
-### 1) Installation:
+"Gamification" is proving to be a great tool to help people be consistent and on top of daily life, which can be extra tricky for neurodivergent people, per example someone living with executive dysfunction or a PDA profile. With that said, we are under no circumstances claiming to have any type of research to back up this app or the choices we made through it's development in that regard, even if that is something we wish could be the case.
 
-> If you use Github Codespaces (recommended) or Gitpod this template will already come with Python, Node and the Posgres Database installed. If you are working locally make sure to install Python 3.10, Node 
+[Goblin Tools](https://goblin.tools/) has a great set of small yet more specialized tools for that matter and is highly regarded by the community so definitely check it out if you struggle with it.
 
-It is recomended to install the backend first, make sure you have Python 3.8, Pipenv and a database engine (Posgress recomended)
+## Overview
+Amongst it's modern-retro videogame UI feel, conQuest can be summarized into these key features:
 
-1. Install the python packages: `$ pipenv install`
-2. Create a .env file based on the .env.example: `$ cp .env.example .env`
-3. Install your database engine and create your database, depending on your database you have to create a DATABASE_URL variable with one of the possible values, make sure you replace the valudes with your database information:
+* #### Role Selection
+Think of it as in Pokémon. As soon as you signup into a new account you have to choose one between these three roles (currently) - Barbarian, Wizard or Rogue. Each role comes with a unique advantage over the others in how you play conQuest. If you're curious, you can check each role ability here*
 
-| Engine    | DATABASE_URL                                        |
-| --------- | --------------------------------------------------- |
-| SQLite    | sqlite:////test.db                                  |
-| MySQL     | mysql://username:password@localhost:port/example    |
-| Postgress | postgres://username:password@localhost:5432/example |
+* #### Leveling Up
+By doing a quest(task) the user receives two types of points, the first one being experience points which brings them closer to leveling up. The second type is energy points which will be explained further below. Each quest(task) has a tier of difficulty set by the user ranging from easy, medium or hard. This tier determines how many points the user receives.
 
-4. Migrate the migrations: `$ pipenv run migrate` (skip if you have not made changes to the models on the `./src/api/models.py`)
-5. Run the migrations: `$ pipenv run upgrade`
-6. Run the application: `$ pipenv run start`
+* #### Battle Creatures
+Each time the user levels up it triggers a battle with a creature. This creature is selected randomly from a pool where it's range is based on the user level and it's pulled from an external [D&D API](https://www.dnd5eapi.co/).
 
-> Note: Codespaces users can connect to psql by typing: `psql -h localhost -U gitpod example`
+* #### Creature Collection
+Battling a creature comes up to rolling a 6D. The user needs a higher roll in order to defeat the creature and collect it in their bestiary.
 
-### Undo a migration
+* #### Achieve Rewards
+Parallel and given equal importance as the quest list (task list), there's a reward list. This list is also populated by the users themselves and just like quests, rewards have tiers as well - common, rare or legendary. To claim a reward the user needs to have enough energy points, again, determined by it's tier.
 
-You are also able to undo a migration by running
+* #### Role play features
+conQuest looks like a game but we wanted as much as possible to make it's experience feel like one. Here is a summary of the features that help that vision:
+	
+* role selection
+* completing a quest brings forward a NPC
+* each reward tier is unlocked using a role's attack
+* user chooses the battle's location from a map
+* each creature's type determines a battle scenario message
+* battle with dice rolls
+*  a top 10 scoreboard
 
-```sh
-$ pipenv run downgrade
-```
+## Technologies
+We used React as our frontend framework with JavaScript while the backend was built using a ORM framework Flask SQLAlchemy with Python. As explained above, this project was developed in the context of the Full Stack Developer Course at [4Geeks Academy](https://4geeksacademy.com/us/index) which provided the template here used. You can check it out and it's documentation [here](https://4geeks.com/docs/start/templates-boilerplates-intro).
 
-### Backend Populate Table Users
+## Authors
+Please reach out we'd love to hear your feedback! Here are our LinkedIn.
+* [P Catarina](https://www.linkedin.com/in/p-catarina/)
+* [Elio Aloise](https://www.linkedin.com/in/elio-aloise-427a042a7/)
 
-To insert test users in the database execute the following command:
+## Roadmap
+There won't be any more development of this project in the near future. However there is a lot of room for improvement and additional features. Aside from obvious one's such as more roles to choose from, some could be:
 
-```sh
-$ flask insert-test-users 5
-```
-
-And you will see the following message:
-
-```
-  Creating test users
-  test_user1@test.com created.
-  test_user2@test.com created.
-  test_user3@test.com created.
-  test_user4@test.com created.
-  test_user5@test.com created.
-  Users created successfully!
-```
-
-### **Important note for the database and the data inside it**
-
-Every Github codespace environment will have **its own database**, so if you're working with more people eveyone will have a different database and different records inside it. This data **will be lost**, so don't spend too much time manually creating records for testing, instead, you can automate adding records to your database by editing ```commands.py``` file inside ```/src/api``` folder. Edit line 32 function ```insert_test_data``` to insert the data according to your model (use the function ```insert_test_users``` above as an example). Then, all you need to do is run ```pipenv run insert-test-data```.
-
-### Front-End Manual Installation:
-
--   Make sure you are using node version 14+ and that you have already successfully installed and runned the backend.
-
-1. Install the packages: `$ npm install`
-2. Start coding! start the webpack dev server `$ npm run start`
-
-## Publish your website!
-
-This boilerplate it's 100% read to deploy with Render.com and Heroku in a matter of minutes. Please read the [official documentation about it](https://start.4geeksacademy.com/deploy).
-
-### Contributors
-
-This template was built as part of the 4Geeks Academy [Coding Bootcamp](https://4geeksacademy.com/us/coding-bootcamp) by [Alejandro Sanchez](https://twitter.com/alesanchezr) and many other contributors. Find out more about our [Full Stack Developer Course](https://4geeksacademy.com/us/coding-bootcamps/part-time-full-stack-developer), and [Data Science Bootcamp](https://4geeksacademy.com/us/coding-bootcamps/datascience-machine-learning).
-
-You can find other templates and resources like this at the [school github page](https://github.com/4geeksacademy/).
+* The map would have regions locked according to user level. Ideally, creatures would be assigned to certain regions, having different probability to show up throughout the map.
+* The bestiary with search and filters features.
+* There could be guilds and who knows if you could delegate a quest to someone else. A mercenary of some sort or maybe a trade.
+* A status page complemented with badges from achievements of consistency.

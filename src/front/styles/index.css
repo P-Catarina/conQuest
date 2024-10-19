@@ -49,16 +49,6 @@ a, a:link {text-decoration: none}
     left: 25px;
 }
 
-.home-transition {
-    height: 100px;
-    background-repeat: repeat-x;
-
-    &.one {background-image: url(https://github.com/P-Catarina/conQuest/blob/main/src/front/img/home_transition1.png?raw=true);}
-    &.two {background-image: url(https://github.com/P-Catarina/conQuest/blob/main/src/front/img/home_transition2.png?raw=true);}
-    &.three {background-image: url(https://github.com/P-Catarina/conQuest/blob/main/src/front/img/home_transition3.png?raw=true);}
-    &.four {background-image: url(https://github.com/P-Catarina/conQuest/blob/main/src/front/img/home_transition4.png?raw=true);}
-}
-
 /* colors */
 .txt-white {color: #ffffff}
 .txt-black {color: #252424}
@@ -124,6 +114,19 @@ input {
 }
 
 /* animations */
+.home-gradient {
+    background: linear-gradient(0deg, #eb1652, #eb1652, #9111f2, #9111f2);
+    background-size: 100% 140%;
+
+    animation: AnimationName 10s ease infinite;
+}
+
+@keyframes AnimationName {
+    0%{background-position:7% 0%}
+    50%{background-position:94% 100%}
+    100%{background-position:7% 0%}
+}
+
 .encounter {
     animation: encounter-on 1s infinite;
     -webkit-animation: encounter-on 1s infinite;
