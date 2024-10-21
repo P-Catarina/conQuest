@@ -761,8 +761,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			getCreature: (api) => {
-				console.log('api -> ', api);
-				
 				const myHeaders = new Headers();
 				myHeaders.append("Accept", "application/json");
 				const requestOptions = {
@@ -795,9 +793,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					body: JSON.stringify(bestiaryEntry),
 				   	headers: {"Content-Type": "application/json"}
 				   }).then(resp => resp.json())
-				   .then(data => {
-					   console.log(data)
-				   }).catch(error => {
+				   .catch(error => {
 					   console.log(error)
 				   });
 			},

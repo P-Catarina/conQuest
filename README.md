@@ -7,6 +7,7 @@ conQuest is a gamified To-Do List, role playishly inspired by D&D. Feel free to 
 3. [Technologies](#Technologies)
 4. [Authors](#Authors)
 5. [Roadmap](#Roadmap)
+6. [Roles Abilities](#Abilities)
 
 ## Context
 Inspired by all things geek and prompted by a final project to our Full Stack Developer Course, we came across the idea to gamify a not so fun aspect of life such as we had seen happen with the [Walk to Mordor](https://www.cnet.com/culture/this-lord-of-the-rings-app-is-the-only-thing-getting-me-to-exercise/) app and others that followed.
@@ -19,7 +20,7 @@ Inspired by all things geek and prompted by a final project to our Full Stack De
 Amongst it's modern-retro videogame UI feel, conQuest can be summarized into these key features:
 
 * #### Role Selection
-Think of it as in Pokémon. As soon as you signup into a new account you have to choose one between these three roles (currently) - Barbarian, Wizard or Rogue. Each role comes with a unique advantage over the others in how you play conQuest. If you're curious, you can check each role ability here*
+Think of it as in Pokémon. As soon as you signup into a new account you have to choose one between these three roles - Barbarian, Wizard or Rogue (currently). Each role comes with a unique advantage over the others in how you play conQuest. If you're curious about these, there's a note in the very end of this README.
 
 * #### Leveling Up
 By doing a quest(task) the user receives two types of points, the first one being experience points which brings them closer to leveling up. The second type is energy points which will be explained further below. Each quest(task) has a tier of difficulty set by the user ranging from easy, medium or hard. This tier determines how many points the user receives.
@@ -59,3 +60,10 @@ There won't be any more development of this project in the near future. However 
 * The bestiary with search and filters features.
 * There could be guilds and who knows if you could delegate a quest to someone else. A mercenary of some sort or maybe a trade.
 * A status page complemented with badges from achievements of consistency.
+
+## Abilities
+If you must know, here are the abilities of each role, summarized:
+
+* Barbarian - Has a greater victory probability in battles.
+* Wizard - Summons two battles instead of one.
+* Rogue - Steals extra experience and energy in each quest completion.
