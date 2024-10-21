@@ -178,20 +178,3 @@ def setup_commands(app):
         db.session.commit()
         print("Rogue abilities created.")
         print("All abilities created.")
-
-
-        ##  TEST USER  ##
-        print("Creating test user")
-        user = User()
-        user.name = "user"
-        user.email = "user@test"
-        user.password = "user"
-        user.user_role = 2
-        user.level = 1
-        user.experience = 78
-        user.energy = 23
-        user.encounter = 0
-        db.session.add(user)
-        db.session.commit()
-        print("Test user created.")
-        print("email: user@test   password: user")

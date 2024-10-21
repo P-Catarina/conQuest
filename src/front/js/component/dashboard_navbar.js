@@ -134,7 +134,7 @@ export const Navbar = ({view, modal}) => {
                     </div>
                     {/* creature count */}
                     <div className="card my-3 p-1">
-                    <h5>{store.bestiary.length}/334 <i className="fa-solid fa-book-open sizeDown"></i></h5>
+                    <h5>{store.user.bestiary}/334 <i className="fa-solid fa-book-open sizeDown"></i></h5>
                     </div>
                     {/* scoreboard top10 */}
                     <Link to="/scoreboard">

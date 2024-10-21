@@ -26,12 +26,13 @@ class User(db.Model):
     name = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(80), unique=False, nullable=False)
     email = db.Column(db.String(80), unique=False, nullable=False)
-    user_role= db.Column(db.Integer, db.ForeignKey('role.id'))
+    user_role = db.Column(db.Integer, db.ForeignKey('role.id'))
     role = db.relationship(Role)
     encounter = db.Column(db.Integer, unique=False, nullable=False)
     level = db.Column(db.Integer, unique=False, nullable=False)
     experience = db.Column(db.Integer, unique=False, nullable=False)
     energy = db.Column(db.Integer, unique=False, nullable=False)
+    bestiary = db.Column(db.Integer, unique=False, nullable=False)
 
 
     def __repr__(self):
@@ -47,7 +48,7 @@ class User(db.Model):
             "experience": self.experience,
             "energy": self.energy,
             "encounter": self.encounter,
-            # do not serialize the password, its a security breach
+            "bestiary": self.bestiary,
         }
 
 

@@ -86,9 +86,6 @@ def get_all_users():
     for x in all_users:
         role = Role.query.get(x["user_role"])
         x.update({"role": role.name})
-        beasts = Bestiary.query.filter_by(user_id = x["id"])
-        beasts = list(map(lambda x: x.serialize(), beasts))
-        x.update({"bestiary": int(len(beasts))})
 
     return jsonify(all_users), 200
 
@@ -115,7 +112,8 @@ def create_user():
         experience = 0,
         energy = 0,
         encounter = 0,
-        user_role = 1
+        user_role = 1,
+        bestiary = 0,
     )
 
     db.session.add(new_user)
@@ -197,6 +195,9 @@ def update_user(user_id):
 
     if 'encounter' in new_updated_user:
         old_user_obj.encounter = new_updated_user['encounter']
+
+    if 'bestiary' in new_updated_user:
+        old_user_obj.bestiary = new_updated_user['bestiary']
 
     db.session.commit()
 

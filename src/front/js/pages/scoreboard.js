@@ -23,7 +23,7 @@ export const Scoreboard = () => {
                 <h5 className="col">{store.user.name}</h5>
                 <h5 className="col">{store.user.role}</h5>
                 <h5 className="col">LVL {store.user.level}</h5>
-                <h5 className="col">{store.bestiary.length} Creatures</h5>
+                <h5 className="col">{store.user.bestiary} Creatures</h5>
             </div>
             <h1>Level Top 10</h1>
             <div>

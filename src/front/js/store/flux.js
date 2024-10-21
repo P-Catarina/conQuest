@@ -406,7 +406,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					"level": input.level,
 					"experience": input.experience,
 					"energy": input.energy,
-					"encounter": input.encounter
+					"encounter": input.encounter,
+					"bestiary": input.bestiary
 				}
 				
 				fetch(process.env.BACKEND_URL + "api/user/" + user, {
@@ -873,7 +874,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			battleResult: () => {
 				const store = getStore()
-				if(store.userRoll > store.creatureRoll) getActions().addToBestiary()
+				if(store.userRoll > store.creatureRoll) {
+					getActions().addToBestiary()
+					let userBestiary = getStore().user.bestiary
+					setStore({...getStore, inputs:{"bestiary" : ++userBestiary}})
+					getActions().updateUser()
+				}
 
 				let userEncounter = getStore().user.encounter
 				setStore({...getStore, inputs:{"encounter" : --userEncounter}})
