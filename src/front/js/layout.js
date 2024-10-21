@@ -33,9 +33,9 @@ const Layout = () => {
                     <Route element={<Login />} path="/login" />
                     <Route element={<Forgot />} path="/forgot" />
                     <Route element={<SignUp />} path="/signup" />
-                    <Route element={<Quests />} path="/quests" />
-                    <Route element={<Role />} path="/role" />
-                    {/* <Route element={<PrivateRoutes />}> */}
+                    <Route element={<PrivateRoutes />}>
+                        <Route element={<Role />} path="/role" />
+                        <Route element={<Quests />} path="/quests" />
                         <Route element={<Rewards />} path="/rewards" />
                         <Route element={<Tutorial />} path="/tutorial" />
                         <Route element={<Bestiary />} path="/bestiary" />
@@ -43,8 +43,8 @@ const Layout = () => {
                         <Route element={<ProfileEdit />} path="/editprofile" />
                         <Route element={<EncounterMap />} path="/encounter-map" />
                         <Route element={<EncounterBattle />} path="/encounter-battle" />
-                    {/* </Route> */}
-                    <Route element={<h1>Not found!</h1>} path="*" />
+                    </Route>
+                    <Route element={<Home />} path="*" />
                 </Routes>
             </BrowserRouter>
         </div>

@@ -6,17 +6,13 @@ from api.models import db, User, Role, Difficulty, Quest, Rarity, Reward, Bestia
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from random import randint
-
+import hashlib
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 
 api = Blueprint('api', __name__)
 
 # Allow CORS requests to this API
 CORS(api)
-
-
-# Mail config
-
 
 
 @api.route('/hello', methods=['POST', 'GET'])
@@ -70,6 +66,10 @@ def login_user():
     email = request.json.get("email", None)
     password = request.json.get("password", None)
 
+    h = hashlib.new('SHA256')
+    h.update(password.encode())
+    password = h.hexdigest()
+
     user = User.query.filter_by(email=email, password=password).first()
 
     if user is None:
@@ -102,10 +102,14 @@ def create_user():
         return "password should be in New user Body", 400
     if 'email' not in new_user:
         return "email should be in New user Body", 400
+    
+    h = hashlib.new('SHA256')
+    h.update(new_user['password'].encode())
+    password = h.hexdigest()
 
     new_user = User(
         name = new_user['name'],
-        password = new_user['password'],
+        password = password,
         email = new_user['email'],
         level= 1,
         experience = 0,
@@ -150,11 +154,17 @@ def change_password(user_id):
     if user is None:
         return "No People with id: " + str(user_id), 400
     
-    if passwords['currentPassword'] == user.password :
-        user.password = passwords['newPassword']
+    h = hashlib.new('SHA256')
+    h.update(passwords['currentPassword'].encode())
+    currentPassword = h.hexdigest()
+    h = hashlib.new('SHA256')
+    h.update(passwords['newPassword'].encode())
+    newPassword = h.hexdigest()
+    
+    if currentPassword == user.password :
+        user.password = newPassword
         db.session.commit()
         return jsonify({"msg": "Password is updated"}), 200
-        
     else :
         return jsonify({"msg": "Could not change password"}), 400
 

@@ -1,4 +1,9 @@
 export const TEXT = {
+    //DEMO
+    demoSignUp: "Only want to take a look? We have a dummy account ready at login.",
+    demoLogin: ["Here is a dummy account, please use it with discretion.", "Email: baggins@theshire.middlearth", "Password: I'm going on an adventure :3"],
+    demoAgree: "I'm aware conQuest is just a demo and because of that I consent to the elimination of my account at any point in time without any previous communication of it.",
+    
     // HOME PAGE
     about: ["Keeping it short and sweet for all you short attention spans out there.",
     "conQuest is a D&D inspired, gamified To Do List, built in the hopes of entertaining you into doing your chores. That's it folks! Don't think we could make it any simpler."],

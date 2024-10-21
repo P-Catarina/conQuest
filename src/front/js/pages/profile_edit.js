@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/appContext"
 import { Link } from "react-router-dom";
 import { IMAGES } from "../../img/all_images";
@@ -7,11 +7,14 @@ import { TEXT } from "../../content_text/all_messages";
 
 export const ProfileEdit = () => {
 	const { store, actions } = useContext(Context);
+	const [isButtonDisabled, setIsButtonDisabled] = useState(false)	
 
 	useEffect(() => {
     actions.getUserDataAndAbilities()
 	actions.getBackgroundColor("purple")
-    },[]);
+	const user = localStorage.getItem('user')
+	user == 1? setIsButtonDisabled(true) : null
+    },[]);	
 
 	return (
 		<>
@@ -22,24 +25,28 @@ export const ProfileEdit = () => {
 				<img src={IMAGES.user} alt="user icon" />
 				<input type="text" name="name" placeholder={store.user.name} className="col-9"
                     value={store.inputs.name || ""} 
-                    onChange={event => actions.getInput(event)} />
+                    onChange={event => actions.getInput(event)}
+					disabled={isButtonDisabled} />
 			</div>
 			{/* email */}
 			<div className="d-inline-flex flex-row justify-content-evenly p-2 card">
 				<img src={IMAGES.email} alt="email icon" />
 				<input type="text" name="email" placeholder={store.user.email} className="col-9"
                     value={store.inputs.email || ""} 
-                    onChange={event => actions.getInput(event)} />
+                    onChange={event => actions.getInput(event)}
+					disabled={isButtonDisabled}/>
 			</div>
 			{/* submit */}
-			<div type="button" className="card p-3 text-center bg-yellow" onClick={actions.updateUser}>
+			<button type="button" className="card p-3 text-center bg-yellow" onClick={actions.updateUser}
+			disabled={isButtonDisabled}>
 				<h5>Change</h5>
-			</div>
+			</button>
 			<div className="d-flex flex-row gap-4">
 				{/* password */}
-				<div type="button" className="card col p-3 text-center bg-green" data-bs-toggle="modal" data-bs-target="#changePassword">
+				<button type="button" className="card col p-3 text-center bg-green" data-bs-toggle="modal" data-bs-target="#changePassword"
+				disabled={isButtonDisabled}>
 					<h5>Change Password</h5>
-				</div>
+				</button>
 				{/* role */}
 				<Link to="/role" type="button" className="card col p-3 text-center bg-purple text-light">
 					<h5>Change Role</h5>
@@ -52,9 +59,10 @@ export const ProfileEdit = () => {
 			</div>
             </Link>
 			{/* delete account */}
-			<div type="button" className="card p-3 text-center bg-red text-light" data-bs-toggle="modal" data-bs-target="#accDelete">
+			<button type="button" className="card p-3 text-center bg-red text-light" data-bs-toggle="modal" data-bs-target="#accDelete"
+			disabled={isButtonDisabled}>
 				<h5>Leave campaign</h5>
-			</div>
+			</button>
 		</form>
 
 		{/* change password modal */}

@@ -1,21 +1,55 @@
 import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IMAGES } from "../../img/all_images";
+import { TEXT } from "../../content_text/all_messages";
 
 
 export const Login = () => {
-	const { store, actions } = useContext(Context);
+	const { store, actions } = useContext(Context)
+	const navigate = useNavigate()
 
 	useEffect(() => {
 		actions.getBackgroundColor("green")
     },[]);
 
+	const handleSubmit = async (event) => {
+		event.preventDefault()
+		const user = {
+			"email": store.inputs.email,
+			"password": store.inputs.password
+		}
+		try {
+			const response = await fetch(process.env.BACKEND_URL + "api/login", {
+								method: "POST",
+								body: JSON.stringify(user),
+								headers: {"Content-Type": "application/json"}
+			})		
+			if (!response.ok) {const data = await response.json()}
+			const data = await response.json()
+			const token = data.token
+			const user_id = data.user_id
+			const userLevel = data.level
+			localStorage.setItem('jwt-token', token)
+			localStorage.setItem('user', user_id)
+			localStorage.setItem('userLevel', userLevel)
+			actions.getUserDataAndAbilities()
+			actions.getQuestList()
+			actions.getRewardList()
+			navigate("/quests")
+		} catch { (error) =>
+			console.log(error)
+			alert('Something went wrong :(')
+		}
+	}
+
 	return (
 		<>
 		<Link to="/"><img id="menuQ" src={IMAGES.logoQ} /></Link>
-		<form className="col-xl-4 mx-auto p-5 gap-4 card">
+		<form className="col-xl-6 mx-auto p-5 gap-4 card" onSubmit={handleSubmit}>
 			<h1>Log in</h1>
+			{/* demo message */}
+			{TEXT.demoLogin.map(msg => <><h5>{msg}</h5></>)}
 			{/* email input */}
 			<div className="d-lg-flex flex-row justify-content-evenly p-2 card">
 				<img src={IMAGES.email} alt="email icon" />
@@ -35,11 +69,9 @@ export const Login = () => {
                 <img src={IMAGES.see_password} alt="see password" onClick={actions.seePassword} />
 			</div>
 			{/* submit */}
-			<Link to="/quests">
-				<div type="submit" className="card p-3 text-center bg-yellow" onClick={actions.Login}>
-					<h5>Let's go!</h5>
-				</div>
-			</Link>
+			<button type="submit" className="card p-3 text-center bg-yellow">
+				<h5>Let's go!</h5>
+			</button>
 			{/* sign up */}
 			<Link to="/signup" type="reset" className="card p-3 text-center bg-black" onClick={actions.resetInput}>
                 <h5>Not part of the crew yet?</h5>

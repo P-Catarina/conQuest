@@ -308,7 +308,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				   });
 			},
 			
-			Login: async () => {
+			login: async () => {
 				const input = getStore().inputs
 
 				fetch(process.env.BACKEND_URL + "api/login", {

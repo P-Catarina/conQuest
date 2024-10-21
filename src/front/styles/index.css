@@ -45,8 +45,8 @@ a, a:link {text-decoration: none}
 #menuQ {
     z-index: 1;
     position: fixed;
-    top: 25px;
-    left: 25px;
+    bottom: 25px;
+    right: 25px;
 }
 
 /* colors */
@@ -111,6 +111,10 @@ input {
 
 .card-header {
     border-bottom: 3px solid #252424;
+}
+
+button {
+    align-items: center;
 }
 
 /* animations */
