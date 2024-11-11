@@ -26,7 +26,7 @@ export const Bestiary = () =>{
 		: <h5>{store.loadingBestiary}</h5>
 		/* list */}
     <div className="row row-cols-1 row-cols-md-5 gy-4">
-          {store.bestiary?.map((item,index) => (
+          {store.bestiary?.sort((a,b) => b.id - a.id).map((item,index) => (
             <div className="col" key={index}>
               <div className="card p-3 gap-3" data-bs-toggle="modal" data-bs-target="#info" onClick={()=>actions.getCreature(item.api)}>
                 <img src={actions.getCreatureImage(item)} className="col-8 align-self-center"/>

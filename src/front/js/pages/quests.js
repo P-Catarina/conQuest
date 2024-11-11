@@ -33,7 +33,7 @@ export const Quests = () => {
 			: <h5>{store.loadingQuests}</h5>
 			/* list */}
 			<div className="row row-cols-1 row-cols-md-4 g-4">
-				{store.quests?.map((item,index)=>(
+				{store.quests?.sort((a,b) => a.id - b.id).map((item,index)=>(
 					<DashCard key={index}
 						id={item.id}
 						view={view}
