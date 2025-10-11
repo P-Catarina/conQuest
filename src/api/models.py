@@ -140,7 +140,7 @@ class Reward(db.Model):
 
 
 class Ability(db.Model):
-    __tablename__ = "hability"
+    __tablename__ = "ability"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), unique=True, nullable=False)
     rarity_id = db.Column(db.Integer, db.ForeignKey('rarity.id'))
@@ -149,7 +149,7 @@ class Ability(db.Model):
     role = db.relationship(Role)
     
     def __repr__(self):
-        return f'<Hability {self.name}>'
+        return f'<Ability {self.name}>'
     
     def serialize(self):
         return {
