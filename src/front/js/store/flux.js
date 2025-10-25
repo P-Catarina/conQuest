@@ -286,6 +286,26 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			////////////////////////////////////////////////////////////////////////////////////////// AUTHENTICATION
 
+			Demo: async () => {
+				fetch(process.env.BACKEND_URL + "api/demo", {
+					method: 'GET',
+					headers: { "Content-Type": "application/json" },
+				}).then((response) => {
+					getActions().resetInput();
+					if(response.ok) return response.json();
+					throw Error(response.status)
+				}).then((loginData) => {
+					localStorage.setItem('jwt-token', loginData.token)
+					localStorage.setItem('user', loginData.user_id)
+					localStorage.setItem('userLevel', loginData.level)
+					getActions().getUserDataAndAbilities()
+					getActions().getQuestList()
+					getActions().getRewardList()
+				}).catch((err) => {
+					console.error('Something Wrong when calling API', err)
+				})
+			},
+			
 			singUp: async () => {
 				const input = getStore().inputs				
 				
@@ -307,8 +327,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					   console.log(error);
 				   });
 			},
-			
-			login: async () => {
+
+			Login: async () => {
 				const input = getStore().inputs
 
 				fetch(process.env.BACKEND_URL + "api/login", {
@@ -340,7 +360,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				getActions().resetInput()
 				setStore({...getStore, user:[], quests:[], rewards:[], bestiary:[], abilities:[]})
 			},
-			
+
 			////////////////////////////////////////////////////////////////////////////////////////// USER 
 			
 			getUserDataAndAbilities: async () => {

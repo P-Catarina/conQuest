@@ -61,12 +61,26 @@ def get_rarities():
 
 ###################################################################################  USER ROUTES
 
+@api.route('/demo', methods=['GET'])
+def login_demo():
+    user = User.query.filter_by(id=1).first()
+
+    if user is None:
+        return jsonify({"msg": "Email or Password is Wrong!"}), 401
+    
+    jwt_token = create_access_token(identity=user.id)
+    return jsonify({ "token": jwt_token, "user_id": user.id, "level": user.level })
+
 @api.route('/login', methods=['POST'])
 def login_user():
     email = request.json.get("email", None)
     password = request.json.get("password", None)
 
     h = hashlib.new('SHA256')
+
+    h.update(email.encode())
+    email = h.hexdigest()
+
     h.update(password.encode())
     password = h.hexdigest()
 
@@ -101,13 +115,17 @@ def create_user():
         return "email should be in New user Body", 400
     
     h = hashlib.new('SHA256')
+
+    h.update(new_user['email'].encode())
+    email = h.hexdigest()
+    
     h.update(new_user['password'].encode())
     password = h.hexdigest()
 
     new_user = User(
         name = new_user['name'],
         password = password,
-        email = new_user['email'],
+        email = email,
         level= 1,
         experience = 0,
         energy = 0,

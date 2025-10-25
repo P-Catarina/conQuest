@@ -54,13 +54,6 @@ export const SignUp = () => {
 		<h1> Sign Up</h1>
 		{/* demo message */}
         <h5>{TEXT.demoSignUp}</h5>
-		{/* demo agree */}
-		<div className="d-inline-flex flex-row gap-4">
-			<input className="col-1" type="checkbox" value="" id="demoAgree" required />
-			<label className="" for="demoAgree">
-				<h5 className="text-start txt-red">{TEXT.demoAgree}</h5>
-			</label>
-		</div>
 		{/* username input */}
 		<div className="d-lg-flex flex-row justify-content-evenly p-2 card">
 			<img src={IMAGES.user} alt="user icon" />
