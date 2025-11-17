@@ -64,7 +64,7 @@ export const Navbar = ({view, modal}) => {
                         <i className="fa-solid fa-question"></i>
                     </Link>
                     {/* log out */}
-                    <Link to="/" className="card circle bg-black" onClick={actions.logout}>
+                    <Link to="/" className="card circle bg-black" onClick={actions.Logout}>
                         <i className="fa-solid fa-power-off"></i>
                     </Link>
                 </div>

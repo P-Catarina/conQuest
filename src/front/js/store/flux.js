@@ -321,6 +321,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				   	headers: {"Content-Type": "application/json"}
 				   }).then((response) => {
 					if(response.ok) return response.json()
+					}).then(() => {
+						getActions().login()	
 					}).catch(error => {
 					   console.log(error);
 				   });

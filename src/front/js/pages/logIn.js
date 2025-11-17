@@ -15,17 +15,51 @@ export const Login = () => {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault()
+		const user = {
+			"email": store.inputs.email,
+			"password": store.inputs.password
+		}
 		try {
-			await actions.login()
+			const response = await fetch(process.env.BACKEND_URL + "api/login", {
+								method: "POST",
+								body: JSON.stringify(user),
+								headers: {"Content-Type": "application/json"}
+			})		
+			if (!response.ok) {const data = await response.json()}
+			const data = await response.json()
+			const token = data.token
+			const user_id = data.user_id
+			const userLevel = data.level
+			localStorage.setItem('jwt-token', token)
+			localStorage.setItem('user', user_id)
+			localStorage.setItem('userLevel', userLevel)
+			await actions.getUserDataAndAbilities()
+			await actions.getQuestList()
+			await actions.getRewardList()
 			navigate("/quests")
 		} catch { (error) =>
 			console.log(error)
-		}		
+		}
 	}
 
 	const demoLogin = async () => {
 		try {
-			await actions.demo()
+			const response = await fetch(process.env.BACKEND_URL + "api/demo", {
+								method: "GET",
+								headers: {"Content-Type": "application/json"}
+			})		
+			if (!response.ok) {const data = await response.json()}
+			const data = await response.json()
+			const token = data.token
+			const user_id = data.user_id
+			const userLevel = data.level
+			localStorage.setItem('jwt-token', token)
+			localStorage.setItem('user', user_id)
+			localStorage.setItem('userLevel', userLevel)
+			await actions.getUserDataAndAbilities()
+			await actions.getQuestList()
+			await actions.getRewardList()
+			await actions.resetInput()
 			navigate("/quests")
 		} catch { (error) =>
 			console.log(error)

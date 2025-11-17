@@ -20,8 +20,23 @@ export const SignUp = () => {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault()
+		const newUser = {
+			"name": store.inputs.name,
+			"email": store.inputs.email,
+			"password": store.inputs.password
+		}
 		try {
-			await actions.signUp()
+			const response = await fetch(process.env.BACKEND_URL + "api/users", {
+								method: "POST",
+								body: JSON.stringify(newUser),
+								headers: {"Content-Type": "application/json"}
+			})		
+			if (!response.ok) {const data = await response.json()}
+			const data = await response.json()
+			const token = data.token
+			const user_id = data.user_id
+			localStorage.setItem('jwt-token', token)
+			localStorage.setItem('user', user_id)
 			await actions.login()
 			navigate("/role")
 		} catch { (error) =>
