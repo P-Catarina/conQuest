@@ -322,7 +322,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				   }).then((response) => {
 					if(response.ok) return response.json()
 					}).then(() => {
-						getActions().Login()	
+						getActions().login()	
 					}).catch(error => {
 					   console.log(error);
 				   });
@@ -349,6 +349,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					getActions().getUserDataAndAbilities()
 					getActions().getQuestList()
 					getActions().getRewardList()
+					getActions().resetInput()
 				}).catch((err) => {
 					console.error('Something Wrong when calling API', err)
 				})
