@@ -23,7 +23,7 @@ export const SignUp = () => {
 		try {
 			await actions.signUp()
 			await actions.login()
-			navigate("/roole")
+			navigate("/role")
 		} catch { (error) =>
 			console.log(error)
 		}
