@@ -15,13 +15,21 @@ export const Login = () => {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault()
-		await actions.login()
-		navigate("/quests")
+		try {
+			await actions.login()
+			navigate("/quests")
+		} catch { (error) =>
+			console.log(error)
+		}		
 	}
 
 	const demoLogin = async () => {
-		await actions.demo()
-		navigate("/quests")
+		try {
+			await actions.demo()
+			navigate("/quests")
+		} catch { (error) =>
+			console.log(error)
+		}
 	}
 
 	return (

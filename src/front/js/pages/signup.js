@@ -20,8 +20,13 @@ export const SignUp = () => {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault()
-		await actions.singUp()
-		navigate("/role")
+		try {
+			await actions.signUp()
+			await actions.login()
+			navigate("/roole")
+		} catch { (error) =>
+			console.log(error)
+		}
 	}
 
 
