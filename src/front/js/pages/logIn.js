@@ -15,19 +15,62 @@ export const Login = () => {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault()
-		const login = await actions.Login()
-		if (!login.ok) alert('Strange. Could not login.')
-		else navigate("/quests")
+		const user = {
+			"email": store.inputs.email,
+			"password": store.inputs.password
+		}
+		try {
+			const response = await fetch(process.env.BACKEND_URL + "api/login", {
+								method: "POST",
+								body: JSON.stringify(user),
+								headers: {"Content-Type": "application/json"}
+			})		
+			if (!response.ok) {const data = await response.json()}
+			const data = await response.json()
+			const token = data.token
+			const user_id = data.user_id
+			const userLevel = data.level
+			localStorage.setItem('jwt-token', token)
+			localStorage.setItem('user', user_id)
+			localStorage.setItem('userLevel', userLevel)
+			actions.getUserDataAndAbilities()
+			actions.getQuestList()
+			actions.getRewardList()
+			navigate("/quests")
+		} catch { (error) =>
+			console.log(error)
+			alert('Something went wrong :(')
+		}
 	}
 
 	const demoLogin = async () => {
-		const demo = await actions.Demo()
-		if (!demo.ok) alert('Sorry, backdoor is closed.')
-		else navigate("/quests")
+		try {
+			const response = await fetch(process.env.BACKEND_URL + "api/demo", {
+								method: "GET",
+								headers: {"Content-Type": "application/json"}
+			})		
+			if (!response.ok) {const data = await response.json()}
+			const data = await response.json()
+			const token = data.token
+			const user_id = data.user_id
+			const userLevel = data.level
+			localStorage.setItem('jwt-token', token)
+			localStorage.setItem('user', user_id)
+			localStorage.setItem('userLevel', userLevel)
+			actions.getUserDataAndAbilities()
+			actions.getQuestList()
+			actions.getRewardList()
+			actions.resetInput()
+			navigate("/quests")
+		} catch { (error) =>
+			console.log(error)
+			alert('Something went wrong :(')
+		}
 	}
 
 	return (
 		<>
+		<Link to="/"><img id="menuQ" src={IMAGES.logoQ} /></Link>
 		<form className="col-xl-6 mx-auto p-5 gap-4 card" onSubmit={handleSubmit}>
 			<h1>Log in</h1>
 			{/* demo */}
