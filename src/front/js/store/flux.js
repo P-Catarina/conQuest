@@ -287,71 +287,79 @@ const getState = ({ getStore, getActions, setStore }) => {
 			////////////////////////////////////////////////////////////////////////////////////////// AUTHENTICATION
 
 			Demo: async () => {
-				fetch(process.env.BACKEND_URL + "api/demo", {
-					method: 'GET',
-					headers: { "Content-Type": "application/json" },
-				}).then((response) => {
-					getActions().resetInput();
-					if(response.ok) return response.json();
-					throw Error(response.status)
-				}).then((loginData) => {
-					localStorage.setItem('jwt-token', loginData.token)
-					localStorage.setItem('user', loginData.user_id)
-					localStorage.setItem('userLevel', loginData.level)
+				try {
+					const response = await fetch(process.env.BACKEND_URL + "api/demo", {
+										method: "GET",
+										headers: {"Content-Type": "application/json"}
+					})		
+					if (!response.ok) {const data = await response.json()}
+					const data = await response.json()
+					const token = data.token
+					const user_id = data.user_id
+					const userLevel = data.level
+					localStorage.setItem('jwt-token', token)
+					localStorage.setItem('user', user_id)
+					localStorage.setItem('userLevel', userLevel)
 					getActions().getUserDataAndAbilities()
 					getActions().getQuestList()
 					getActions().getRewardList()
-				}).catch((err) => {
-					console.error('Something Wrong when calling API', err)
-				})
+					getActions().resetInput()
+				} catch { (error) =>
+					console.log(error)
+				}
 			},
 			
 			singUp: async () => {
-				const input = getStore().inputs				
-				
 				const newUser ={
-					"name": input.name,
-					"email": input.email,
-					"password": input.password
+					"name": getStore().inputs.name,
+					"email": getStore().inputs.email,
+					"password": getStore().inputs.password
 				}
 
-				fetch(process.env.BACKEND_URL + "api/users", {
-					method: "POST",
-					body: JSON.stringify(newUser),
-				   	headers: {"Content-Type": "application/json"}
-				   }).then((response) => {
-					if(response.ok) return response.json()
-					}).then(() => {
-						getActions().Login()	
-					}).catch(error => {
-					   console.log(error);
-				   });
+				try {
+					const response = await fetch(process.env.BACKEND_URL + "api/users", {
+										method: "POST",
+										body: JSON.stringify(newUser),
+										headers: {"Content-Type": "application/json"}
+					})		
+					if (!response.ok) {const data = await response.json()}
+					const data = await response.json()
+					const token = data.token
+					const user_id = data.user_id
+					localStorage.setItem('jwt-token', token)
+					localStorage.setItem('user', user_id)
+					getActions().login()
+				} catch { (error) =>
+					console.log(error)
+				}
 			},
 
 			Login: async () => {
-				const input = getStore().inputs
-
-				fetch(process.env.BACKEND_URL + "api/login", {
-					method: 'POST',
-					body: JSON.stringify({
-						'email': input.email,
-						'password': input.password
-					}),
-					headers: { "Content-Type": "application/json" },
-				}).then((response) => {
-					getActions().resetInput();
-					if(response.ok) return response.json();
-					throw Error(response.status)
-				}).then((loginData) => {
-					localStorage.setItem('jwt-token', loginData.token)
-					localStorage.setItem('user', loginData.user_id)
-					localStorage.setItem('userLevel', loginData.level)
+				const user = {
+					"email": getStore().inputs.email,
+					"password": getStore().inputs.password
+				}
+				
+				try {
+					const response = await fetch(process.env.BACKEND_URL + "api/login", {
+										method: "POST",
+										body: JSON.stringify(user),
+										headers: {"Content-Type": "application/json"}
+					})		
+					if (!response.ok) {const data = await response.json()}
+					const data = await response.json()
+					const token = data.token
+					const user_id = data.user_id
+					const userLevel = data.level
+					localStorage.setItem('jwt-token', token)
+					localStorage.setItem('user', user_id)
+					localStorage.setItem('userLevel', userLevel)
 					getActions().getUserDataAndAbilities()
 					getActions().getQuestList()
 					getActions().getRewardList()
-				}).catch((err) => {
-					console.error('Something Wrong when calling API', err)
-				})
+				} catch { (error) =>
+					console.log(error)
+				}
 			},
 
 			Logout: () => {
