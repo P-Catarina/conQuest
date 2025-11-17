@@ -37,11 +37,10 @@ export const SignUp = () => {
 			const user_id = data.user_id
 			localStorage.setItem('jwt-token', token)
 			localStorage.setItem('user', user_id)
-			actions.login()	
+			await actions.login()
+			navigate("/role")
 		} catch { (error) =>
 			console.log(error)
-		} finally {
-			navigate("/role")
 		}
 	}
 

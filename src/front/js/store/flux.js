@@ -286,7 +286,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			////////////////////////////////////////////////////////////////////////////////////////// AUTHENTICATION
 
-			Demo: async () => {
+			demo: async () => {
 				fetch(process.env.BACKEND_URL + "api/demo", {
 					method: 'GET',
 					headers: { "Content-Type": "application/json" },
@@ -328,7 +328,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				   });
 			},
 
-			Login: async () => {
+			login: async () => {
 				const input = getStore().inputs
 
 				fetch(process.env.BACKEND_URL + "api/login", {
@@ -354,7 +354,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				})
 			},
 
-			Logout: () => {
+			logout: () => {
 				localStorage.removeItem('jwt-token')
 				localStorage.removeItem('user')
 				getActions().resetInput()
@@ -409,7 +409,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						if(response.ok) return response.json()
 						throw Error(response.status)
 				   }).then(() => {
-					getActions().Logout()
+					getActions().logout()
 				   }).catch(error => {
 					   console.log(error);
 				   });

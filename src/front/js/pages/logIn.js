@@ -33,13 +33,12 @@ export const Login = () => {
 			localStorage.setItem('jwt-token', token)
 			localStorage.setItem('user', user_id)
 			localStorage.setItem('userLevel', userLevel)
-			actions.getUserDataAndAbilities()
-			actions.getQuestList()
-			actions.getRewardList()
+			await actions.getUserDataAndAbilities()
+			await actions.getQuestList()
+			await actions.getRewardList()
+			navigate("/quests")
 		} catch { (error) =>
 			console.log(error)
-		} finally {
-			navigate("/quests")
 		}
 	}
 
@@ -57,14 +56,13 @@ export const Login = () => {
 			localStorage.setItem('jwt-token', token)
 			localStorage.setItem('user', user_id)
 			localStorage.setItem('userLevel', userLevel)
-			actions.getUserDataAndAbilities()
-			actions.getQuestList()
-			actions.getRewardList()
-			actions.resetInput()
+			await actions.getUserDataAndAbilities()
+			await actions.getQuestList()
+			await actions.getRewardList()
+			await actions.resetInput()
+			navigate("/quests")
 		} catch { (error) =>
 			console.log(error)
-		} finally {
-			navigate("/quests")
 		}
 	}
 
