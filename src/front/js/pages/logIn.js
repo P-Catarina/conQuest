@@ -36,10 +36,10 @@ export const Login = () => {
 			actions.getUserDataAndAbilities()
 			actions.getQuestList()
 			actions.getRewardList()
-			navigate("/quests")
 		} catch { (error) =>
 			console.log(error)
-			alert('Something went wrong :(')
+		} finally {
+			navigate("/quests")
 		}
 	}
 
@@ -61,16 +61,15 @@ export const Login = () => {
 			actions.getQuestList()
 			actions.getRewardList()
 			actions.resetInput()
-			navigate("/quests")
 		} catch { (error) =>
 			console.log(error)
-			alert('Something went wrong :(')
+		} finally {
+			navigate("/quests")
 		}
 	}
 
 	return (
 		<>
-		<Link to="/"><img id="menuQ" src={IMAGES.logoQ} /></Link>
 		<form className="col-xl-6 mx-auto p-5 gap-4 card" onSubmit={handleSubmit}>
 			<h1>Log in</h1>
 			{/* demo */}

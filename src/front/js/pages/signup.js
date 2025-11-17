@@ -38,18 +38,16 @@ export const SignUp = () => {
 			localStorage.setItem('jwt-token', token)
 			localStorage.setItem('user', user_id)
 			actions.login()	
-			navigate("/role")
-
 		} catch { (error) =>
 			console.log(error)
-			alert('Something went wrong :(')
+		} finally {
+			navigate("/role")
 		}
 	}
 
 
   return (
     <>
-	<Link to="/"><img id="menuQ" src={IMAGES.logoQ} /></Link>
 	<form className="col-xl-6 mx-auto p-5 gap-4 card" onSubmit={handleSubmit}>
 		<h1> Sign Up</h1>
 		{/* demo message */}

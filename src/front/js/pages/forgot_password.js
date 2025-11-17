@@ -14,7 +14,6 @@ export const Forgot = () => {
 
 	return (
 		<>
-		<Link to="/"><img id="menuQ" src={IMAGES.logoQ} /></Link>
 		<form className="col-md-4 mx-auto p-5 gap-4 card">
 			<h1> Forgot password</h1>
             {/* image */}
