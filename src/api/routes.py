@@ -66,7 +66,7 @@ def login_demo():
     user = User.query.filter_by(id=1).first()
 
     if user is None:
-        return jsonify({"msg": "Email or Password is Wrong!"}), 401
+        return jsonify({"msg": "something went wrong"}), 401
     
     jwt_token = create_access_token(identity=user.id)
     return jsonify({ "token": jwt_token, "user_id": user.id, "level": user.level })
@@ -114,10 +114,13 @@ def create_user():
     if 'email' not in new_user:
         return "email should be in New user Body", 400
     
-    h = hashlib.new('SHA256')
+    email = new_user['email']
+    cut = slice(2 , email.find('@')-2)
 
-    h.update(new_user['email'].encode())
-    email = h.hexdigest()
+    h = hashlib.new('SHA256')
+    h.update(email[cut].encode())
+
+    email = email.replace(email[cut], h.hexdigest())
     
     h.update(new_user['password'].encode())
     password = h.hexdigest()
@@ -157,8 +160,13 @@ def get_user(user_id):
 
     role_abilities.insert(0, None)
 
+    email = user.email
+    cut = slice(2 , email.find('@')-2)
+    email = email.replace(email[cut], '****')
+
     one_user = user.serialize()
     one_user.update({"role": role.name})
+    one_user.update({"email": email})
 
     return jsonify(one_user, role_abilities), 200
 
@@ -197,7 +205,15 @@ def update_user(user_id):
         old_user_obj.name = new_updated_user['name']
 
     if 'email' in new_updated_user:
-        old_user_obj.email = new_updated_user['email']
+        newEmail = new_updated_user['email']
+        cut = slice(2 , newEmail.find('@')-2)
+        
+        h = hashlib.new('SHA256')
+        h.update(newEmail[cut].encode())
+
+        newEmail = newEmail.replace(newEmail[cut], h.hexdigest())
+
+        old_user_obj.email = newEmail
 
     if 'user_role' in new_updated_user:
         old_user_obj.user_role = new_updated_user['user_role']
