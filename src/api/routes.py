@@ -75,11 +75,14 @@ def login_demo():
 def login_user():
     email = request.json.get("email", None)
     password = request.json.get("password", None)
-
+    
     h = hashlib.new('SHA256')
+    
+    cut = slice(2 , email.find('@')-2)
+    h.update(email[cut].encode())
+    h.hexdigest()
 
-    h.update(email.encode())
-    email = h.hexdigest()
+    email = email.replace(email[cut], h)
 
     h.update(password.encode())
     password = h.hexdigest()
@@ -119,8 +122,9 @@ def create_user():
 
     h = hashlib.new('SHA256')
     h.update(email[cut].encode())
+    h.hexdigest()
 
-    email = email.replace(email[cut], h.hexdigest())
+    email = email.replace(email[cut], h)
     
     h.update(new_user['password'].encode())
     password = h.hexdigest()
@@ -210,8 +214,9 @@ def update_user(user_id):
         
         h = hashlib.new('SHA256')
         h.update(newEmail[cut].encode())
+        h.hexdigest()
 
-        newEmail = newEmail.replace(newEmail[cut], h.hexdigest())
+        newEmail = newEmail.replace(newEmail[cut], h)
 
         old_user_obj.email = newEmail
 
