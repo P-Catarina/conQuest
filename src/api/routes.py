@@ -119,13 +119,10 @@ def create_user():
     
     email = new_user['email']
     cut = slice(2 , email.find('@')-2)
+    email = email.replace(email[cut], '****')
 
     h = hashlib.new('SHA256')
-    h.update(email[cut].encode())
-    h.hexdigest()
 
-    email = email.replace(email[cut], '****')
-    
     h.update(new_user['password'].encode())
     password = h.hexdigest()
 
