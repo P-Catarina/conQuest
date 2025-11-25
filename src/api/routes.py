@@ -75,14 +75,11 @@ def login_demo():
 def login_user():
     email = request.json.get("email", None)
     password = request.json.get("password", None)
-    
-    h = hashlib.new('SHA256')
-    
-    cut = slice(2 , email.find('@')-2)
-    h.update(email[cut].encode())
-    h.hexdigest()
 
-    email = email.replace(email[cut], h)
+    h = hashlib.new('SHA256')
+
+    h.update(email.encode())
+    email = h.hexdigest()
 
     h.update(password.encode())
     password = h.hexdigest()
@@ -117,12 +114,11 @@ def create_user():
     if 'email' not in new_user:
         return "email should be in New user Body", 400
     
-    email = new_user['email']
-    cut = slice(2 , email.find('@')-2)
-    email = email.replace(email[cut], '****')
-
     h = hashlib.new('SHA256')
 
+    h.update(new_user['email'].encode())
+    email = h.hexdigest()
+    
     h.update(new_user['password'].encode())
     password = h.hexdigest()
 
@@ -161,13 +157,9 @@ def get_user(user_id):
 
     role_abilities.insert(0, None)
 
-    email = user.email
-    cut = slice(2 , email.find('@')-2)
-    email = email.replace(email[cut], '****')
-
     one_user = user.serialize()
     one_user.update({"role": role.name})
-    one_user.update({"email": email})
+    one_user.update({"email": '****************'})
 
     return jsonify(one_user, role_abilities), 200
 
@@ -206,14 +198,9 @@ def update_user(user_id):
         old_user_obj.name = new_updated_user['name']
 
     if 'email' in new_updated_user:
-        newEmail = new_updated_user['email']
-        cut = slice(2 , newEmail.find('@')-2)
-        
         h = hashlib.new('SHA256')
-        h.update(newEmail[cut].encode())
-        h.hexdigest()
-
-        newEmail = newEmail.replace(newEmail[cut], h)
+        h.update(new_updated_user['email'].encode())
+        newEmail = h.hexdigest()
 
         old_user_obj.email = newEmail
 
