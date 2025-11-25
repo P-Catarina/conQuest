@@ -124,7 +124,7 @@ def create_user():
     h.update(email[cut].encode())
     h.hexdigest()
 
-    email = email.replace(email[cut], h)
+    email = email.replace(email[cut], '****')
     
     h.update(new_user['password'].encode())
     password = h.hexdigest()
